@@ -1,0 +1,38 @@
+2019-07-25 14:56:12,036 INFO  [i.deployment.InternalGameLauncher] [fabric,config] [] [] : Parsed 319 internal flags at startup
+2019-07-25 14:56:12,124 INFO  [i.deployment.InternalGameLauncher] [fabric] [] [] : Flagz initialized in 0.292s.
+2019-07-25 14:56:12,125 INFO  [i.deployment.InternalGameLauncher] [fabric] [] [] : SpatialOS runtime version: 11-20190724T103728Z-6547040
+2019-07-25 14:56:12,278 INFO  [i.c.c.f.FlagzFieldRegistryUpdater] [fabric,core] [] [] : Initialized Fabric flagz registry with 27 set fields.
+2019-07-25 14:56:12,590 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.discovery.StatusDiscoveryInternalService) on 127.0.0.1:5301.
+2019-07-25 14:56:12,599 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.tunnel.OrderedGrpcTunnelService) on 127.0.0.1:5301.
+2019-07-25 14:56:12,601 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting Fabric node as master (IP: 127.0.0.1).
+2019-07-25 14:56:12,601 INFO  [improbable.module.ModuleNode] [fabric,user] [] [] : Using the new Runtime including new bridge, load balancer, and entity database.
+2019-07-25 14:56:12,602 INFO  [i.c.d.client.CheckpointDiscoveryImpl] [fabric] [] [] : Reached a checkpoint: ALL_NODES_STARTED
+2019-07-25 14:56:12,602 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Node master has started, waiting for other nodes to reach the same checkpoint.
+2019-07-25 14:56:12,602 INFO  [improbable.module.ModuleNode] [fabric] [] [] : All nodes have been started.
+2019-07-25 14:56:12,606 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.ModuleService) on 127.0.0.1:9300.
+2019-07-25 14:56:12,611 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.HealthCheckService) on 127.0.0.1:9301.
+2019-07-25 14:56:12,615 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.perf.PerfInternalService) on 127.0.0.1:9302.
+2019-07-25 14:56:12,619 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.contention.ContentionInternalService) on 127.0.0.1:9303.
+2019-07-25 14:56:12,630 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.FeatureService) on 127.0.0.1:9304.
+2019-07-25 14:56:12,643 INFO  [i.c.config.flagz.WorkerFlagzUpdater] [fabric,core] [] [] : Initialized worker flagz registry with 0 set fields.
+2019-07-25 14:56:12,653 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Loaded world extents: WorldExtents{proto=rectangles {
+  bottom_left {
+    x: -2500.0
+    z: -2500.0
+  }
+  top_right {
+    x: 2500.0
+    z: 2500.0
+  }
+}
+bounding_rectangle {
+  bottom_left {
+    x: -2500.0
+    z: -2500.0
+  }
+  top_right {
+    x: 2500.0
+    z: 2500.0
+  }
+}
+}

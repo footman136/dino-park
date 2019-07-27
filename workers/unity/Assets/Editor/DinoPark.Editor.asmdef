@@ -1,0 +1,22 @@
+{
+    "name": "DinoPark.Editor",
+    "references": [
+        "DinoPark",
+        "Improbable.Gdk.BuildSystem",
+        "Improbable.Gdk.Core",
+        "Improbable.Gdk.Generated",
+        "Unity.Entities",
+        "Improbable.Gdk.Core.Subscriptions.Editor"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

@@ -1,0 +1,3 @@
+package dinopark.core;
+
+type Nothing {}

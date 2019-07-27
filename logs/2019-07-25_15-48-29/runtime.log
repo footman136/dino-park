@@ -1,0 +1,360 @@
+2019-07-25 15:48:37,160 INFO  [i.deployment.InternalGameLauncher] [fabric,config] [] [] : Parsed 319 internal flags at startup
+2019-07-25 15:48:37,250 INFO  [i.deployment.InternalGameLauncher] [fabric] [] [] : Flagz initialized in 0.299s.
+2019-07-25 15:48:37,252 INFO  [i.deployment.InternalGameLauncher] [fabric] [] [] : SpatialOS runtime version: 11-20190724T103728Z-6547040
+2019-07-25 15:48:37,396 INFO  [i.c.c.f.FlagzFieldRegistryUpdater] [fabric,core] [] [] : Initialized Fabric flagz registry with 27 set fields.
+2019-07-25 15:48:37,705 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.discovery.StatusDiscoveryInternalService) on 127.0.0.1:5301.
+2019-07-25 15:48:37,714 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.tunnel.OrderedGrpcTunnelService) on 127.0.0.1:5301.
+2019-07-25 15:48:37,716 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting Fabric node as master (IP: 127.0.0.1).
+2019-07-25 15:48:37,717 INFO  [improbable.module.ModuleNode] [fabric,user] [] [] : Using the new Runtime including new bridge, load balancer, and entity database.
+2019-07-25 15:48:37,717 INFO  [i.c.d.client.CheckpointDiscoveryImpl] [fabric] [] [] : Reached a checkpoint: ALL_NODES_STARTED
+2019-07-25 15:48:37,718 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Node master has started, waiting for other nodes to reach the same checkpoint.
+2019-07-25 15:48:37,718 INFO  [improbable.module.ModuleNode] [fabric] [] [] : All nodes have been started.
+2019-07-25 15:48:37,721 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.ModuleService) on 127.0.0.1:9300.
+2019-07-25 15:48:37,726 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.HealthCheckService) on 127.0.0.1:9301.
+2019-07-25 15:48:37,730 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.perf.PerfInternalService) on 127.0.0.1:9302.
+2019-07-25 15:48:37,734 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.contention.ContentionInternalService) on 127.0.0.1:9303.
+2019-07-25 15:48:37,743 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.FeatureService) on 127.0.0.1:9304.
+2019-07-25 15:48:37,754 INFO  [i.c.config.flagz.WorkerFlagzUpdater] [fabric,core] [] [] : Initialized worker flagz registry with 0 set fields.
+2019-07-25 15:48:37,763 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Loaded world extents: WorldExtents{proto=rectangles {
+  bottom_left {
+    x: -2500.0
+    z: -2500.0
+  }
+  top_right {
+    x: 2500.0
+    z: 2500.0
+  }
+}
+bounding_rectangle {
+  bottom_left {
+    x: -2500.0
+    z: -2500.0
+  }
+  top_right {
+    x: 2500.0
+    z: 2500.0
+  }
+}
+}
+2019-07-25 15:48:38,090 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Using single node configuration loader.
+2019-07-25 15:48:38,110 INFO  [improbable.module.ModuleNode] [fabric,config] [] [] : Loaded node configuration node_name: "master"
+roles: MASTER
+roles: INSPECTION
+roles: REMOTE_INTERACTION
+roles: RECEPTIONIST
+roles: BRIDGE
+roles: ENTITY_DB
+roles: TURF_ENFORCER
+roles: AUTHORITY_ASSIGNER
+bridge_service_configurations {
+  id: "bridge-service"
+  deployment_certificate: "<hidden certificate value>"
+  deployment_private_key: "<hidden private key value>"
+}
+turf_enforcer_service_configurations {
+  service_bounds {
+    min_x: -2500.0
+    min_z: -2500.0
+    max_x: 2500.0
+    max_z: 2500.0
+  }
+  enforcer_bounds {
+    min_x: -2500.0
+    min_z: -2500.0
+    max_x: 2500.0
+    max_z: 2500.0
+  }
+}
+database_configurations {
+}
+authority_assigner_configurations {
+}
+receptionist_service_configuration {
+  deployment_certificate: "<hidden certificate value>"
+}
+
+2019-07-25 15:48:38,228 INFO  [i.e.schema.ParsedFileDescriptorSet] [fabric] [] [] : Parsed file descriptors of 12 proto files.
+2019-07-25 15:48:38,263 INFO  [i.entity.schema.SchemaFactory] [fabric,schema] [] [] : Found components: [improbable.restricted.System, improbable.restricted.Worker, improbable.restricted.PlayerClient, improbable.gdk.player_lifecycle.PlayerHeartbeatClient, improbable.gdk.player_lifecycle.PlayerHeartbeatServer, improbable.gdk.player_lifecycle.PlayerCreator, improbable.gdk.player_lifecycle.OwningWorker, com.infalliblecode.PlayerTransform, improbable.EntityAcl, improbable.Metadata, improbable.Position, improbable.Persistence, improbable.Interest, improbable.gdk.transform_synchronization.TransformInternal, improbable.Delegation]
+2019-07-25 15:48:38,273 INFO  [i.entity.schema.SchemaFactory] [fabric,schema] [] [] : Found components: [improbable.restricted.System, improbable.restricted.Worker, improbable.restricted.PlayerClient, improbable.gdk.player_lifecycle.PlayerHeartbeatClient, improbable.gdk.player_lifecycle.PlayerHeartbeatServer, improbable.gdk.player_lifecycle.PlayerCreator, improbable.gdk.player_lifecycle.OwningWorker, com.infalliblecode.PlayerTransform, improbable.EntityAcl, improbable.Metadata, improbable.Position, improbable.Persistence, improbable.Interest, improbable.gdk.transform_synchronization.TransformInternal, improbable.Delegation, improbable.internal.EntityAuthority, improbable.internal.EntityAuthorityIntent, improbable.internal.LayerAuthority, improbable.internal.LayerAuthorityIntent]
+2019-07-25 15:48:38,276 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Successfully loaded schema for entities
+2019-07-25 15:48:38,280 INFO  [i.l.l.LegacyLoadbalancerConfigParser] [fabric,loadbalancer] [] [] : Parsed 0 worker loadbalancing configuration(s)
+2019-07-25 15:48:38,327 INFO  [i.w.a.WorkerAssemblyProviderFactory] [fabric,user] [] [] : Loaded worker assemblies for these workers types: MobileClient, UnityClient, UnityGameLogic.
+2019-07-25 15:48:38,328 INFO  [improbable.module.ModuleNode] [fabric,config] [] [] : Loaded worker assemblies: [worker_assembly_id {
+  assembly_id {
+    project_id {
+      name: "unity_gdk"
+    }
+    name: "local_assembly"
+  }
+  name {
+    name: "MobileClient"
+  }
+}
+bridge_configuration {
+  worker_attribute_set {
+    attribute {
+      name: "MobileClient"
+    }
+  }
+  entity_interest {
+    range_entity_interest {
+      radius: 100.0
+    }
+  }
+  component_delivery {
+    checkout_all_initially: true
+  }
+}
+, worker_assembly_id {
+  assembly_id {
+    project_id {
+      name: "unity_gdk"
+    }
+    name: "local_assembly"
+  }
+  name {
+    name: "UnityClient"
+  }
+}
+bridge_configuration {
+  worker_attribute_set {
+    attribute {
+      name: "UnityClient"
+    }
+  }
+  entity_interest {
+    range_entity_interest {
+      radius: 500.0
+    }
+  }
+  component_delivery {
+    checkout_all_initially: true
+  }
+}
+, worker_assembly_id {
+  assembly_id {
+    project_id {
+      name: "unity_gdk"
+    }
+    name: "local_assembly"
+  }
+  name {
+    name: "UnityGameLogic"
+  }
+}
+worker_launch_configuration {
+  platform: WINDOWS
+  worker_zip {
+    command: "UnityGameLogic@Windows.exe"
+    argument: "+workerType"
+    argument: "UnityGameLogic"
+    argument: "+workerId"
+    argument: "${IMPROBABLE_WORKER_ID}"
+    argument: "+projectName"
+    argument: "${IMPROBABLE_PROJECT_NAME}"
+    argument: "+receptionistHost"
+    argument: "${IMPROBABLE_RECEPTIONIST_HOST}"
+    argument: "+receptionistPort"
+    argument: "${IMPROBABLE_RECEPTIONIST_PORT}"
+    argument: "+linkProtocol"
+    argument: "RakNet"
+    argument: "-batchmode"
+    argument: "-nographics"
+    argument: "-logfile"
+    argument: "${IMPROBABLE_LOG_FILE}"
+    worker_location {
+      filename: "UnityGameLogic@Windows.zip"
+    }
+  }
+}
+worker_launch_configuration {
+  platform: MACOS
+  worker_zip {
+    command: "UnityGameLogic@Mac.app/Contents/MacOS/UnityGameLogic@Mac"
+    argument: "+workerType"
+    argument: "UnityGameLogic"
+    argument: "+workerId"
+    argument: "${IMPROBABLE_WORKER_ID}"
+    argument: "+projectName"
+    argument: "${IMPROBABLE_PROJECT_NAME}"
+    argument: "+receptionistHost"
+    argument: "${IMPROBABLE_RECEPTIONIST_HOST}"
+    argument: "+receptionistPort"
+    argument: "${IMPROBABLE_RECEPTIONIST_PORT}"
+    argument: "+linkProtocol"
+    argument: "RakNet"
+    argument: "-batchmode"
+    argument: "-nographics"
+    argument: "-logfile"
+    argument: "${IMPROBABLE_LOG_FILE}"
+    worker_location {
+      filename: "UnityGameLogic@Mac.zip"
+    }
+  }
+}
+worker_launch_configuration {
+  platform: LINUX
+  worker_zip {
+    command: "UnityGameLogic@Linux"
+    argument: "+workerType"
+    argument: "UnityGameLogic"
+    argument: "+workerId"
+    argument: "${IMPROBABLE_WORKER_ID}"
+    argument: "+projectName"
+    argument: "${IMPROBABLE_PROJECT_NAME}"
+    argument: "+receptionistHost"
+    argument: "${IMPROBABLE_RECEPTIONIST_HOST}"
+    argument: "+receptionistPort"
+    argument: "${IMPROBABLE_RECEPTIONIST_PORT}"
+    argument: "+linkProtocol"
+    argument: "RakNet"
+    argument: "-batchmode"
+    argument: "-nographics"
+    argument: "-logfile"
+    argument: "${IMPROBABLE_LOG_FILE}"
+    worker_location {
+      filename: "UnityGameLogic@Linux.zip"
+    }
+  }
+}
+bridge_configuration {
+  worker_attribute_set {
+    attribute {
+      name: "UnityGameLogic"
+    }
+  }
+  entity_interest {
+    range_entity_interest {
+      radius: 500.0
+    }
+  }
+  component_delivery {
+    checkout_all_initially: true
+  }
+}
+]
+2019-07-25 15:48:38,330 INFO  [i.w.assembly.WorkerAssemblyProvider] [fabric] [] [] : Worker configuration for 'MobileClient' does not contain a launch configuration for the current platform 'WINDOWS', so Fabric will not start any managed workers of this type
+2019-07-25 15:48:38,331 INFO  [i.w.assembly.WorkerAssemblyProvider] [fabric] [] [] : Worker configuration for 'UnityClient' does not contain a launch configuration for the current platform 'WINDOWS', so Fabric will not start any managed workers of this type
+2019-07-25 15:48:38,331 INFO  [i.w.assembly.WorkerAssemblyProvider] [fabric,user] [] [] : The following worker configurations do not contain valid managed launch configurations for the current platform WINDOWS, and the runtime will be unable to launch managed workers of this type: [MobileClient, UnityClient]. This is expected for worker types you intend to only connect manually.
+2019-07-25 15:48:38,331 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Validating snapshot at startup and determining max entity id
+2019-07-25 15:48:38,334 INFO  [i.p.s.c.ThorSnapshotServiceClient] [fabric,internal] [] [] : Requesting download URL for Snapshot(local@latest) matching []
+2019-07-25 15:48:38,348 INFO  [i.p.s.storage.LegacySnapshotStorage] [fabric,internal] [] [] : Downloading snapshot from http://127.0.0.1:21000/snapshots/20190725154833952
+2019-07-25 15:48:38,375 INFO  [improbable.module.ModuleNode] [fabric,user] [] [] : Snapshot analysed in 0.04s.
+2019-07-25 15:48:38,375 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Determined the first entity id for the id assigner as 2
+2019-07-25 15:48:38,378 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.entityid.EntityIdInternalService) on 127.0.0.1:9305.
+2019-07-25 15:48:38,381 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.time.TimeSyncInternalService) on 127.0.0.1:9306.
+2019-07-25 15:48:38,385 INFO  [improbable.core.time.TimeSyncClient] [fabric] [] [] : Starting clock synchronizer running every 64701ms
+2019-07-25 15:48:38,387 INFO  [i.l.v2.config.LoadbalancerV2Config] [fabric,loadbalancer] [] [] : Using new loadbalancing strategy config.
+2019-07-25 15:48:38,397 INFO  [i.w.permissions.PermissionsFactory] [fabric,config] [] [] : Created permissions manager with permissions: {UnityGameLogic=Permissions{{/sys/CreateEntity=, /sys/DeleteEntity=, /cmd/SystemEntity=, /sys/EntityQuery={"component":["*"]}}}, UnityClient=Permissions{{/sys/CreateEntity=, /sys/DeleteEntity=, /cmd/SystemEntity=, /sys/EntityQuery={"component":["*"]}}}, MobileClient=Permissions{{/sys/CreateEntity=, /sys/DeleteEntity=, /cmd/SystemEntity=, /sys/EntityQuery={"component":["*"]}}}}
+2019-07-25 15:48:38,412 INFO  [i.worker.nanny.WorkerNannyManager] [fabric] [] [] : Updating available worker nanny clients. Old clients: []. New clients: [WorkerNannyId{name=WorkerNodeOne, serviceAddress=host: "127.0.0.1"
+port: 22000
+, workerNodeId=deployment_id {
+  project_id {
+    name: "unity_gdk"
+  }
+  name: "local"
+}
+name: "WorkerNodeOne"
+}]
+2019-07-25 15:48:38,423 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.worker.oracle.WorkerOracleInternalService) on 127.0.0.1:9307.
+2019-07-25 15:48:38,433 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting BridgeOracle on master
+2019-07-25 15:48:38,447 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.bridge.oracle.BridgeOracleInternalService) on 127.0.0.1:9308.
+2019-07-25 15:48:38,447 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Waiting for the BridgeOracle to have started
+2019-07-25 15:48:38,448 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Received BridgeOracle started
+2019-07-25 15:48:38,454 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.bridge.service.oracle.BridgeServiceOracleInternalService) on 127.0.0.1:9309.
+2019-07-25 15:48:38,454 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Waiting for the bridge service oracle service to have started
+2019-07-25 15:48:38,455 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Received bridge service oracle service started
+2019-07-25 15:48:38,458 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Creating database v2 client for single node deployment.
+2019-07-25 15:48:38,507 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Creating entity lifecycle client.
+2019-07-25 15:48:38,509 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Creating servlet container.
+2019-07-25 15:48:38,602 INFO  [improbable.http.ServletContainer$] [fabric] [] [] : Starting servlet container on port 5006.
+2019-07-25 15:48:38,602 INFO  [org.eclipse.jetty.server.Server] [] [] [] : jetty-8.y.z-SNAPSHOT
+2019-07-25 15:48:38,618 INFO  [o.e.jetty.server.AbstractConnector] [] [] [] : Started SelectChannelConnector@0.0.0.0:5006
+2019-07-25 15:48:38,618 INFO  [improbable.http.ServletContainer$] [fabric] [] [] : Servlet container started
+2019-07-25 15:48:38,618 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting 1 turf enforcer services
+2019-07-25 15:48:38,619 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting turf enforcer service with configuration service_bounds {
+  min_x: -2500.0
+  min_z: -2500.0
+  max_x: 2500.0
+  max_z: 2500.0
+}
+enforcer_bounds {
+  min_x: -2500.0
+  min_z: -2500.0
+  max_x: 2500.0
+  max_z: 2500.0
+}
+
+2019-07-25 15:48:38,638 INFO  [i.l.v.e.TurfEnforcementInternalServiceImpl] [fabric] [] [] : Turf enforcement service starting 1 turf enforcers
+2019-07-25 15:48:38,642 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.loadbalancing.TurfEnforcementInternalService) on 127.0.0.1:9310.
+2019-07-25 15:48:38,653 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting 1 authority assigners
+2019-07-25 15:48:38,663 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.authorityassigner.AuthorityAssignerInternalService) on 127.0.0.1:9311.
+2019-07-25 15:48:38,669 INFO  [i.c.discovery.common.ServiceFinder] [fabric] [] [] : Discovered all 1 AuthorityAssigner services
+2019-07-25 15:48:38,670 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting 1 bridge services
+2019-07-25 15:48:38,700 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.bridge.BridgeInternalService) on 127.0.0.1:9312.
+2019-07-25 15:48:38,708 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Waiting for all 1 bridge service(s) on all nodes to start.
+2019-07-25 15:48:38,709 INFO  [improbable.module.ModuleNode] [fabric] [] [] : All 1 bridge service(s) have started.
+2019-07-25 15:48:38,713 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.receptionist.ReceptionistInternalService) on 127.0.0.1:9313.
+2019-07-25 15:48:38,735 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.ReceptionistService) on 127.0.0.1:7777.
+2019-07-25 15:48:38,735 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting the Remote Interaction service
+2019-07-25 15:48:38,746 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.RemoteInteractionService) on 127.0.0.1:9314.
+2019-07-25 15:48:38,747 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting inspection service
+2019-07-25 15:48:38,770 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.InspectionService) on 127.0.0.1:9315.
+2019-07-25 15:48:38,775 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.LoadbalancerToolsService) on 127.0.0.1:9316.
+2019-07-25 15:48:38,776 INFO  [i.c.d.client.CheckpointDiscoveryImpl] [fabric] [] [] : Reached a checkpoint: ALL_MODULES_STARTED
+2019-07-25 15:48:38,776 INFO  [improbable.module.ModuleNode] [fabric] [] [] : All modules on this node started, waiting for other nodes to reach the same checkpoint.
+2019-07-25 15:48:38,776 INFO  [improbable.module.ModuleNode] [fabric] [] [] : All modules on all nodes have been started.
+2019-07-25 15:48:38,776 INFO  [improbable.module.ModuleNode] [fabric,user] [] [] : Loading snapshot.
+2019-07-25 15:48:38,776 INFO  [i.p.s.c.ThorSnapshotServiceClient] [fabric,internal] [] [] : Requesting download URL for Snapshot(local@latest) matching []
+2019-07-25 15:48:38,780 INFO  [i.p.s.storage.LegacySnapshotStorage] [fabric,internal] [] [] : Downloading snapshot from http://127.0.0.1:21000/snapshots/20190725154833952
+2019-07-25 15:48:38,787 INFO  [i.p.snapshot.SnapshotLoader] [fabric,user] [] [] : Loaded 1 entities from snapshot, waiting for all of them to be created.
+2019-07-25 15:48:38,799 INFO  [improbable.module.ModuleNode] [fabric,user] [] [] : Snapshot has been successfully loaded in 0.02s.
+2019-07-25 15:48:38,799 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting SnapshotService.
+2019-07-25 15:48:38,803 INFO  [i.core.discovery.server.PublicServer] [fabric] [] [] : Registered Service(improbable.platform.runtime.SnapshotService) on 127.0.0.1:9317.
+2019-07-25 15:48:38,804 INFO  [i.c.d.client.CheckpointDiscoveryImpl] [fabric] [] [] : Reached a checkpoint: LOAD_SNAPSHOT_FINISHED
+2019-07-25 15:48:38,804 INFO  [improbable.module.ModuleNode] [fabric] [] [] : Starting the internal Loadbalancer Service.
+2019-07-25 15:48:38,813 INFO  [i.core.discovery.server.LocalServer] [fabric] [] [] : Registered Service(improbable.fabric.internal.service.loadbalancing.LoadbalancingInternalService) on 127.0.0.1:9318.
+2019-07-25 15:48:38,814 INFO  [improbable.module.ModuleNode] [fabric,user] [] [] : SpatialOS runtime startup completed in 2.181s.
+2019-07-25 15:48:38,819 INFO  [i.loadbalancing.v2.Loadbalancer] [fabric] [] [] : Successfully sent GlobalAssignmentIntent to TurfEnforcers.
+ 
+2019-07-25 15:48:45,075 INFO  [i.receptionist.BridgeAllocator] [fabric,user] [] [] : Handling connection request for worker of type UnityGameLogic trying to log in: UnityGameLogic-0782d062-044d-4c51-8adf-657a432e793c
+2019-07-25 15:48:45,089 INFO  [i.r.UnmanagedLoadbalancedWorkerHandler] [fabric] [] [] : Connecting worker UnityGameLogic-0782d062-044d-4c51-8adf-657a432e793c successfully added to the loadbalancing strategy. Assigned virtual worker: [0].
+2019-07-25 15:48:45,091 INFO  [i.loadbalancing.v2.Loadbalancer] [fabric] [] [] : Successfully sent GlobalAssignmentIntent to TurfEnforcers.
+ turfs {
+  entity_query {
+    constraint {
+      write_acl_constraint {
+        requirement_set {
+          attribute_set {
+            attribute: "UnityGameLogic"
+          }
+        }
+      }
+    }
+    result_type {
+    }
+  }
+  requirement_set_constraint {
+    attribute_set {
+      attribute: "UnityGameLogic"
+    }
+  }
+  intended_worker_id: "UnityGameLogic-0782d062-044d-4c51-8adf-657a432e793c"
+}
+
+2019-07-25 15:48:45,170 INFO  [i.b.o.s.BridgeOracleInternalServiceImpl] [fabric,lifecycle] [] [] : Bridge for worker UnityGameLogic-0782d062-044d-4c51-8adf-657a432e793c started successfully.
+2019-07-25 15:48:45,208 INFO  [i.b.s.l.BridgeLifecycleManager] [fabric,user] [] [] : The worker UnityGameLogic-0782d062-044d-4c51-8adf-657a432e793c connected to SpatialOS successfully.
+2019-07-25 15:48:45,750 INFO  [i.receptionist.BridgeAllocator] [fabric,user] [] [] : Handling connection request for worker of type UnityClient trying to log in: UnityClient-a078fa49-064b-4ac5-984a-c37f94dc32d0
+2019-07-25 15:48:45,761 INFO  [i.b.o.s.BridgeOracleInternalServiceImpl] [fabric,lifecycle] [] [] : Bridge for worker UnityClient-a078fa49-064b-4ac5-984a-c37f94dc32d0 started successfully.
+2019-07-25 15:48:45,858 INFO  [i.b.s.l.BridgeLifecycleManager] [fabric,user] [] [] : The worker UnityClient-a078fa49-064b-4ac5-984a-c37f94dc32d0 connected to SpatialOS successfully.
+2019-07-25 15:48:59,911 INFO  [i.receptionist.BridgeAllocator] [fabric,user] [] [] : Handling connection request for worker of type UnityClient trying to log in: UnityClient-e66db6b3-de7b-41a5-819b-4f9780c4dc27
+2019-07-25 15:48:59,915 INFO  [i.b.o.s.BridgeOracleInternalServiceImpl] [fabric,lifecycle] [] [] : Bridge for worker UnityClient-e66db6b3-de7b-41a5-819b-4f9780c4dc27 started successfully.
+2019-07-25 15:48:59,991 INFO  [i.b.s.l.BridgeLifecycleManager] [fabric,user] [] [] : The worker UnityClient-e66db6b3-de7b-41a5-819b-4f9780c4dc27 connected to SpatialOS successfully.
+2019-07-25 15:49:43,980 INFO  [i.b.s.l.BridgeLifecycleManager] [fabric,user] [] [] : The worker UnityClient-e66db6b3-de7b-41a5-819b-4f9780c4dc27 disconnected from SpatialOS with cause CONNECTION_CLOSED: LOCAL_SHUTDOWN: transport was shut down locally
+2019-07-25 15:49:43,981 INFO  [i.b.o.s.BridgeOracleInternalServiceImpl] [fabric,lifecycle] [] [] : Bridge(UnityClient-e66db6b3-de7b-41a5-819b-4f9780c4dc27) stopped.
+2019-07-25 15:49:47,413 INFO  [i.b.s.l.BridgeLifecycleManager] [fabric,user] [] [] : The worker UnityClient-a078fa49-064b-4ac5-984a-c37f94dc32d0 disconnected from SpatialOS with cause CONNECTION_CLOSED: REMOTE_SHUTDOWN: transport remote peer closed the connection
+2019-07-25 15:49:47,413 INFO  [i.b.o.s.BridgeOracleInternalServiceImpl] [fabric,lifecycle] [] [] : Bridge(UnityClient-a078fa49-064b-4ac5-984a-c37f94dc32d0) stopped.
+2019-07-25 15:49:47,425 INFO  [i.b.s.l.BridgeLifecycleManager] [fabric,user] [] [] : The worker UnityGameLogic-0782d062-044d-4c51-8adf-657a432e793c disconnected from SpatialOS with cause CONNECTION_CLOSED: REMOTE_SHUTDOWN: transport remote peer closed the connection
+2019-07-25 15:49:47,426 INFO  [i.b.o.s.BridgeOracleInternalServiceImpl] [fabric,lifecycle] [] [] : Bridge(UnityGameLogic-0782d062-044d-4c51-8adf-657a432e793c) stopped.
+2019-07-25 15:49:48,418 INFO  [i.loadbalancing.v2.Loadbalancer] [fabric] [] [] : Successfully sent GlobalAssignmentIntent to TurfEnforcers.
+ 

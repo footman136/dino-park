@@ -1,0 +1,13 @@
+package dinopark.core;
+
+import "improbable/standard_library.schema";
+
+type TeleportEvent {
+  improbable.Coordinates target_position = 1;
+}
+
+component TransformComponent {
+  id = 1002;
+  uint32 rotation = 1;
+  event TeleportEvent teleport_event;
+}
