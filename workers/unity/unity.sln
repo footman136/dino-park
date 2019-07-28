@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Improbable.Gdk.Generated", "Improbable.Gdk.Generated.csproj", "{FB151F4A-85D6-5BA8-A93E-BF08B4235F12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinoPark", "DinoPark.csproj", "{6500427F-E132-7CD5-87EC-E8868E6213B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinoPark.Editor", "DinoPark.Editor.csproj", "{D7BC8F14-D30A-766A-BA03-986DC3D2CF3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Improbable.Gdk.Generated.BuildSystem", "Improbable.Gdk.Generated.BuildSystem.csproj", "{476E7246-FFAF-53A3-B5AF-CE7F96AAAE41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB151F4A-85D6-5BA8-A93E-BF08B4235F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB151F4A-85D6-5BA8-A93E-BF08B4235F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB151F4A-85D6-5BA8-A93E-BF08B4235F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB151F4A-85D6-5BA8-A93E-BF08B4235F12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6500427F-E132-7CD5-87EC-E8868E6213B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6500427F-E132-7CD5-87EC-E8868E6213B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6500427F-E132-7CD5-87EC-E8868E6213B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6500427F-E132-7CD5-87EC-E8868E6213B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7BC8F14-D30A-766A-BA03-986DC3D2CF3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7BC8F14-D30A-766A-BA03-986DC3D2CF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7BC8F14-D30A-766A-BA03-986DC3D2CF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7BC8F14-D30A-766A-BA03-986DC3D2CF3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{476E7246-FFAF-53A3-B5AF-CE7F96AAAE41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{476E7246-FFAF-53A3-B5AF-CE7F96AAAE41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{476E7246-FFAF-53A3-B5AF-CE7F96AAAE41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{476E7246-FFAF-53A3-B5AF-CE7F96AAAE41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
