@@ -1,12 +1,16 @@
-using UnityEngine;
-using DinoPark; // WorkerUtils
-using GameLogic.Utils; // Quaternion, MathUtils, TimeUtils
-using GameLogic.Core; // SimulationSettings
 using Dinopark.Core;
 using Dinopark.Fire;
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
+using DinoPark;
+using Improbable.Gdk.Subscriptions;
+using UnityEngine;
+using Assets.Gamelogic.Utils;
+// WorkerUtils
+// Quaternion, MathUtils, TimeUtils
+// SimulationSettings
 
-namespace Gamelogic.Core
+// Require, WorkerType
+
+namespace Assets.Gamelogic.Core
 {
     [WorkerType(WorkerUtils.UnityClient)]
     public class TransformReceiverClientControllableAuthoritative : MonoBehaviour

@@ -1,12 +1,12 @@
+using Assets.Gamelogic.Utils;
 using UnityEngine; // Vector3
 using Improbable; // Position PositionWriter Coords
 using DinoPark; // WorkerUtils
-using GameLogic.Core; // SimulationSettings
-using GameLogic.Utils; // Quaternion, MathUtils, TimeUtils
+// Quaternion, MathUtils, TimeUtils
 using Dinopark.Core; // TransformComponentWriter
 using Improbable.Gdk.Subscriptions; // Require, WorkerType
 
-namespace Gamelogic.Core
+namespace Assets.Gamelogic.Core
 {
     [WorkerType(WorkerUtils.UnityGameLogic)]
     public class TransformSender : MonoBehaviour

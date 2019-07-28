@@ -1,15 +1,19 @@
-using GameLogic.Core; // SimulationSettings
-using Dinopark.Core; // Nothing
-using Dinopark.Fire; // flammable
+using Assets.Gamelogic.Utils;
+using Assets.Gamelogic.Core;
+using Dinopark.Fire;
+using DinoPark;
+using Improbable.Gdk.Subscriptions;
+using UnityEngine;
+// SimulationSettings
+// Nothing
+// flammable
 //using Improbable.Entity.Component;
 //using Improbable.Unity.Visualizer;
-using UnityEngine;
+// Require, WorkerType
 
-using GameLogic.Utils;
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
-using DinoPark; // WorkerUtils
+// WorkerUtils
 
-namespace GameLogic.Fire
+namespace Assets.Gamelogic.Fire
 {
     [WorkerType(WorkerUtils.UnityGameLogic)]
     public class FlammableBehaviour : MonoBehaviour

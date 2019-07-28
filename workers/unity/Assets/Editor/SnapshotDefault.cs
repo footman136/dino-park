@@ -1,6 +1,4 @@
-//using Assets.Gamelogic.Core;
-
-using GameLogic.Core;
+using Assets.Gamelogic.Core;
 using UnityEditor;
 using UnityEngine;
 using Snapshot = Improbable.Gdk.Core.Snapshot;
@@ -18,7 +16,7 @@ namespace Editor
             //SnapshotUtil.AddHQs(snapshot, SimulationSettings.TeamHQLocations);
             //SnapshotUtil.AddNPCsAroundHQs(snapshot, SimulationSettings.TeamHQLocations);
             SnapshotUtil.AddTrees(snapshot, texture, 0.35f, SimulationSettings.AttemptedTreeCount, SimulationSettings.SpawningWorldEdgeLength, SimulationSettings.TreeJitter);
-			//SnapshotUtil.AddPlayerSpawner(snapshot);
+			SnapshotUtil.AddPlayerSpawner(snapshot);
         }
     }
 }

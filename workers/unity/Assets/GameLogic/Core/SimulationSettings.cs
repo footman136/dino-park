@@ -1,4 +1,4 @@
-namespace GameLogic.Core
+namespace Assets.Gamelogic.Core
 {
     public static class SimulationSettings
     {
@@ -29,13 +29,13 @@ namespace GameLogic.Core
         public static float TreeCutDownTimeBuffer = 1f;
         
         // World
-        public static float SpawningWorldEdgeLength = 1000;
+            public static float SpawningWorldEdgeLength = 100; //1000;
         //public static Coordinates WorldRootPosition = new Coordinates(-SpawningWorldEdgeLength / 2d, 0d, -SpawningWorldEdgeLength / 2d);
         public static float SimulationTickInterval = 1f;
         //public static Vector3 InvalidPosition = Vector3.one * -9999;
         
         // Entity counts
-        public static int AttemptedTreeCount = 20000;
+            public static int AttemptedTreeCount = 2000; //20000;
         public static float TreeJitter = 9.0f;
         
         // Component Updates

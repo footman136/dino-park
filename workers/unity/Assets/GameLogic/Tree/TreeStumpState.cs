@@ -1,12 +1,13 @@
-using UnityEngine; // Coroutine
-using GameLogic.Core;
-using GameLogic.Fire;
-using GameLogic.FSM;
-using GameLogic.Utils;
-using Dinopark.Fire; // flammable
+using Assets.Gamelogic.Utils;
+using Assets.Gamelogic.Core;
+using Assets.Gamelogic.FSM;
+using Dinopark.Fire;
 using Dinopark.Plants;
+using UnityEngine;
+// Coroutine
+// flammable
 
-namespace GameLogic.Tree
+namespace Assets.Gamelogic.Tree
 {
     public class TreeStumpState : FsmBaseState<TreeStateMachine, TreeFSMState>
     {

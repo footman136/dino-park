@@ -1,10 +1,14 @@
-using UnityEngine;
-using GameLogic.Core; // SimulationSettings
-using Dinopark.Life; // Health
+using Assets.Gamelogic.Core;
+using Dinopark.Life;
 using Dinopark.Plants;
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
+using Improbable.Gdk.Subscriptions;
+using UnityEngine;
+// SimulationSettings
+// Health
 
-namespace GameLogic.Tree
+// Require, WorkerType
+
+namespace Assets.Gamelogic.Tree
 {
     public class HarvestableBehaviour : MonoBehaviour
     {

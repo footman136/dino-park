@@ -1,13 +1,18 @@
-using UnityEngine;
-using DinoPark; // WorkerUtils
-using GameLogic.Core; // SimulationSettings
-using GameLogic.Fire;
-using Dinopark.Fire; // flammable
+using Assets.Gamelogic.Core;
+using Assets.Gamelogic.Fire;
+using Dinopark.Fire;
 using Dinopark.Life;
 using Dinopark.Plants;
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
+using DinoPark;
+using Improbable.Gdk.Subscriptions;
+using UnityEngine;
+// WorkerUtils
+// SimulationSettings
+// flammable
 
-namespace GameLogic.Tree
+// Require, WorkerType
+
+namespace Assets.Gamelogic.Tree
 {
     [WorkerType(WorkerUtils.UnityGameLogic)]
     public class TreeBehaviour : MonoBehaviour

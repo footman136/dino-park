@@ -1,13 +1,23 @@
-using UnityEngine; // Random
-using Improbable; // Coordinates
-using DinoPark; // WorkerUtils
-using Dinopark.Plants; // treeState, Harvestable
-using Dinopark.Life; // Health
-using Dinopark.Core; // TransformComponent
-using Dinopark.Fire; // Flammable
-using Improbable.Gdk.Core; // EntityTemplate
+using Dinopark.Core;
+using Dinopark.Fire;
+using Dinopark.Life;
+using Dinopark.Plants;
+using DinoPark;
+using Improbable;
+using Improbable.Gdk.Core;
+using UnityEngine;
+// Random
+// Coordinates
+// WorkerUtils
+// SimulationSettings
+// treeState, Harvestable
+// Health
+// TransformComponent
+// Flammable
 
-namespace GameLogic.Core
+// EntityTemplate
+
+namespace Assets.Gamelogic.Core
 {
 	public static class EntityTemplateFactory
     {

@@ -1,4 +1,4 @@
-﻿namespace GameLogic.FSM
+﻿namespace Assets.Gamelogic.FSM
 {
     public interface IFsmState
     {

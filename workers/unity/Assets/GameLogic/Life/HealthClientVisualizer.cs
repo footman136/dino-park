@@ -1,11 +1,15 @@
 //using Assets.Gamelogic.UI;
-using Dinopark.Life;
-//using Improbable.Team;
-using UnityEngine;
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
-using DinoPark; // WorkerUtils
 
-namespace Gamelogic.Life
+using Dinopark.Life;
+using DinoPark;
+using Improbable.Gdk.Subscriptions;
+using UnityEngine;
+//using Improbable.Team;
+// Require, WorkerType
+
+// WorkerUtils
+
+namespace Assets.Gamelogic.Life
 {
     [WorkerType(WorkerUtils.UnityClient)]
     public class HealthClientVisualizer : MonoBehaviour

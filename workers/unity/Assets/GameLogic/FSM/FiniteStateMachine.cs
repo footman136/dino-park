@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameLogic.FSM
+namespace Assets.Gamelogic.FSM
 {
     public abstract class FiniteStateMachine<TStateEnum>
     {

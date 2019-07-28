@@ -29,24 +29,8 @@ namespace Editor.SnapshotGenerator
 
             SnapshotDefault.Build(snapshot);
             
-            AddPlayerSpawner(snapshot);
             return snapshot;
         }
 
-        private static void AddPlayerSpawner(Snapshot snapshot)
-        {
-            var serverAttribute = UnityGameLogicConnector.WorkerType;
-
-            var template = new EntityTemplate();
-            template.AddComponent(new Position.Snapshot(), serverAttribute);
-            template.AddComponent(new Metadata.Snapshot { EntityType = "PlayerCreator" }, serverAttribute);
-            template.AddComponent(new Persistence.Snapshot(), serverAttribute);
-            template.AddComponent(new PlayerCreator.Snapshot(), serverAttribute);
-
-            template.SetReadAccess(UnityClientConnector.WorkerType, UnityGameLogicConnector.WorkerType, MobileClientWorkerConnector.WorkerType);
-            template.SetComponentWriteAccess(EntityAcl.ComponentId, serverAttribute);
-
-            snapshot.AddEntity(template);
-        }
     }
 }

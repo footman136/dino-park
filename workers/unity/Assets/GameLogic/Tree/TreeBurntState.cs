@@ -1,12 +1,14 @@
-using GameLogic.Core; // SimulationSettings
-using GameLogic.Utils;
-using GameLogic.Fire;
-using GameLogic.FSM;
-using Dinopark.Fire; // flammable
+using Assets.Gamelogic.Core;
+using Assets.Gamelogic.Fire;
+using Assets.Gamelogic.FSM;
+using Assets.Gamelogic.Utils;
+using Dinopark.Fire;
 using Dinopark.Plants;
 using UnityEngine;
+// SimulationSettings
+// flammable
 
-namespace GameLogic.Tree
+namespace Assets.Gamelogic.Tree
 {
     public class TreeBurntState : FsmBaseState<TreeStateMachine, TreeFSMState>
     {

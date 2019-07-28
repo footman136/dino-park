@@ -1,8 +1,10 @@
-using UnityEngine;
 using Dinopark.Plants;
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
+using Improbable.Gdk.Subscriptions;
+using UnityEngine;
 
-namespace GameLogic.Tree
+// Require, WorkerType
+
+namespace Assets.Gamelogic.Tree
 {
     public class TreeStateVisualizer : MonoBehaviour
     {

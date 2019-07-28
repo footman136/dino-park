@@ -1,12 +1,13 @@
-using UnityEngine;
 using System.Collections.Generic;
-using GameLogic.Fire;
-using GameLogic.FSM;
-using Dinopark.Fire; // flammable
+using Assets.Gamelogic.Fire;
+using Assets.Gamelogic.FSM;
+using Dinopark.Fire;
 using Dinopark.Life;
 using Dinopark.Plants;
+using UnityEngine;
+// flammable
 
-namespace GameLogic.Tree
+namespace Assets.Gamelogic.Tree
 {
     public class TreeStateMachine : FiniteStateMachine<TreeFSMState>
     {

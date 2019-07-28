@@ -1,13 +1,33 @@
+using Assets.Gamelogic.Core;
 using UnityEngine;
 using Improbable;
-using GameLogic.Core; // EntityTemplateFactory
+using DinoPark; // UnityClientConnector UnityGameLogicConnector
+// EntityTemplateFactory
 using Snapshot = Improbable.Gdk.Core.Snapshot;
+using Improbable.Gdk.Core; // EntityTemplate
+using Improbable.Gdk.PlayerLifecycle; //PlayerCreator
 
 namespace Editor
 {
     public static class SnapshotUtil
     {
         private static readonly System.Random rand = new System.Random();
+
+        public static void AddPlayerSpawner(Snapshot snapshot)
+        {
+            var serverAttribute = UnityGameLogicConnector.WorkerType;
+
+            var template = new EntityTemplate();
+            template.AddComponent(new Position.Snapshot(), serverAttribute);
+            template.AddComponent(new Metadata.Snapshot { EntityType = "PlayerCreator" }, serverAttribute);
+            template.AddComponent(new Persistence.Snapshot(), serverAttribute);
+            template.AddComponent(new PlayerCreator.Snapshot(), serverAttribute);
+
+            template.SetReadAccess(UnityClientConnector.WorkerType, UnityGameLogicConnector.WorkerType, MobileClientWorkerConnector.WorkerType);
+            template.SetComponentWriteAccess(EntityAcl.ComponentId, serverAttribute);
+
+            snapshot.AddEntity(template);
+        }
 
         public static void AddTrees(Snapshot snapshot, Texture2D sampler, float sampleThreshold, int countAproximate, float edgeLength, float placementJitter)
         {
@@ -43,7 +63,7 @@ namespace Editor
             Debug.Log("Snapshot trees generated ! count<"+countTree+">");
         }
 
-        public static void AddTree(Snapshot snapshot, Vector3f position)
+        private static void AddTree(Snapshot snapshot, Vector3f position)
         {
             var spawnRotation = (uint)Mathf.CeilToInt((float)rand.NextDouble() * 360.0f);
             var entity = EntityTemplateFactory.CreateTreeTemplate(position, spawnRotation);

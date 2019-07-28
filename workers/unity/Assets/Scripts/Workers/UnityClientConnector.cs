@@ -52,6 +52,7 @@ namespace DinoPark
             
             var fallbackCreator = new GameObjectCreatorFromMetadata(Worker.WorkerType, Worker.Origin, Worker.LogDispatcher);
             var customCreator = new PlayerGameObjectCreator(fallbackCreator, Worker.World, Worker.WorkerType);
+            Debug.Log("HandleWorkerConnectionEstablished!");
             
             GameObjectCreationHelper.EnableStandardGameObjectCreation(Worker.World, customCreator);
         }

@@ -1,6 +1,8 @@
-using GameLogic.Core; // SimulationSettings
+using Assets.Gamelogic.Core;
 
-namespace GameLogic.Utils
+// SimulationSettings
+
+namespace Assets.Gamelogic.Utils
 {
     public static class QuantizationUtils
     {

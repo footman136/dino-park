@@ -1,4 +1,4 @@
-﻿namespace GameLogic.Fire
+﻿namespace Assets.Gamelogic.Fire
 {
     public interface IFlammable
     {

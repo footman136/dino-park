@@ -1,9 +1,13 @@
+using Dinopark.Fire;
+using DinoPark;
+using Improbable.Gdk.Subscriptions;
 using UnityEngine;
-using DinoPark; // WorkerUtils
-using Dinopark.Fire; // flammable
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
+// WorkerUtils
+// flammable
 
-namespace GameLogic.Fire
+// Require, WorkerType
+
+namespace Assets.Gamelogic.Fire
 {
     [WorkerType(WorkerUtils.UnityGameLogic)]
     public class FlammableDataVisualizer : MonoBehaviour

@@ -1,13 +1,21 @@
-using UnityEngine; // MonoBehaviour
-using DinoPark; // WorkerUtils
-using GameLogic.Core; // SimulationSettings
-using GameLogic.Utils; // Quaternion, MathUtils, TimeUtils
-using Dinopark.Fire; // flammable
-using Dinopark.Life; // Health
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
+using Assets.Gamelogic.Core;
+using Assets.Gamelogic.Utils;
+using Dinopark.Fire;
+using Dinopark.Life;
+using DinoPark;
+using Improbable.Gdk.Subscriptions;
+using UnityEngine;
+// MonoBehaviour
+// WorkerUtils
+// SimulationSettings
+// Quaternion, MathUtils, TimeUtils
+// flammable
+// Health
+
+// Require, WorkerType
 
 
-namespace GameLogic.Fire
+namespace Assets.Gamelogic.Fire
 {
     [WorkerType(WorkerUtils.UnityGameLogic)]
     class FireHealthInteractionBehaviour : MonoBehaviour

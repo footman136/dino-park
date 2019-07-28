@@ -35,6 +35,7 @@ namespace DinoPark
                 var prefab = Resources.Load(pathPrefab);
                 var playerGameObject = UnityEngine.Object.Instantiate(prefab);
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)playerGameObject);
+                Debug.Log("PlayerGameObjectCreator OnEntityCreated!");
             }
             else
             {

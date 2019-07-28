@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameLogic.Core
+namespace Assets.Gamelogic.Core
 {
     public static class GameObjectComponentCaching
     {

@@ -1,7 +1,10 @@
-using Improbable; // Coordinates
-using UnityEngine; // Vector3
+using Improbable;
+using UnityEngine;
+// Coordinates
 
-namespace GameLogic.Utils
+// Vector3
+
+namespace Assets.Gamelogic.Utils
 {
     public static class MathUtils
     {

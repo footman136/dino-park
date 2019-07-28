@@ -1,4 +1,4 @@
-namespace GameLogic.FSM
+namespace Assets.Gamelogic.FSM
 {
     public abstract class FsmBaseState<TOwner, TStateEnum> : IFsmState where TOwner : FiniteStateMachine<TStateEnum>
     {

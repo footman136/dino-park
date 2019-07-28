@@ -1,8 +1,12 @@
-using System; // Action
-using System.Collections; // IEnumerator
-using UnityEngine; // WaitForSeconds
+using System;
+using System.Collections;
+using UnityEngine;
+// Action
+// IEnumerator
 
-namespace GameLogic.Utils
+// WaitForSeconds
+
+namespace Assets.Gamelogic.Utils
 {
     public static class TimerUtils
     {

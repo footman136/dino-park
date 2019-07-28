@@ -1,13 +1,19 @@
-using UnityEngine;
+using Assets.Gamelogic.Utils;
+using Dinopark.Core;
+using DinoPark;
 using Improbable;
-using DinoPark; // WorkerUtils
-using GameLogic.Core; // GetComponentIfUnassigned
-using GameLogic.Utils; // Quaternion, MathUtils, TimeUtils
-using Dinopark.Core; // TransformComponentReader
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
-using Improbable.Worker.CInterop; // Authority.NotAuthoritative
+using Improbable.Gdk.Subscriptions;
+using Improbable.Worker.CInterop;
+using UnityEngine;
+// WorkerUtils
+// GetComponentIfUnassigned
+// Quaternion, MathUtils, TimeUtils
+// TransformComponentReader
+// Require, WorkerType
 
-namespace Gamelogic.Core
+// Authority.NotAuthoritative
+
+namespace Assets.Gamelogic.Core
 {
     [WorkerType(WorkerUtils.UnityGameLogic)]
     public class TransformReceiverUnityWorker : MonoBehaviour

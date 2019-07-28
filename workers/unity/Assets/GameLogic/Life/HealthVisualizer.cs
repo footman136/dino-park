@@ -1,8 +1,10 @@
 using Dinopark.Life;
+using Improbable.Gdk.Subscriptions;
 using UnityEngine;
-using Improbable.Gdk.Subscriptions; // Require
 
-namespace Gamelogic.Life
+// Require
+
+namespace Assets.Gamelogic.Life
 {
     public class HealthVisualizer : MonoBehaviour
     {

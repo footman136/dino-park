@@ -1,11 +1,16 @@
-using UnityEngine;
-using DinoPark; // WorkerUtils
-using GameLogic.Core; // SimulationSettings
-using GameLogic.Utils; // Quaternion, MathUtils, TimeUtils
+using Assets.Gamelogic.Utils;
+using Assets.Gamelogic.Core;
 using Dinopark.Plants;
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
+using DinoPark;
+using Improbable.Gdk.Subscriptions;
+using UnityEngine;
+// WorkerUtils
+// SimulationSettings
+// Quaternion, MathUtils, TimeUtils
 
-namespace GameLogic.Tree
+// Require, WorkerType
+
+namespace Assets.Gamelogic.Tree
 {
     [WorkerType(WorkerUtils.UnityClient)]
     public class TreeModelVisualizer : MonoBehaviour

@@ -1,9 +1,10 @@
-using GameLogic.FSM;
-using Dinopark.Fire; // flammable
+using Assets.Gamelogic.FSM;
+using Dinopark.Fire;
 using Dinopark.Life;
 using Dinopark.Plants;
+// flammable
 
-namespace GameLogic.Tree
+namespace Assets.Gamelogic.Tree
 {
     public class TreeBurningState : FsmBaseState<TreeStateMachine, TreeFSMState>
     {

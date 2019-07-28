@@ -1,10 +1,15 @@
+using Dinopark.Fire;
+using DinoPark;
+using Assets.Gamelogic.Core;
+using Improbable.Gdk.Subscriptions;
 using UnityEngine;
-using DinoPark; // WorkerUtils
-using GameLogic.Core; // SimulationSettings, 
-using Dinopark.Fire; // flammable
-using Improbable.Gdk.Subscriptions; // Require, WorkerType
+// WorkerUtils
+// SimulationSettings, 
+// flammable
 
-namespace GameLogic.Fire
+// Require, WorkerType
+
+namespace Assets.Gamelogic.Fire
 {
     [WorkerType(WorkerUtils.UnityClient)]
     public class FlammableAudioTriggers : MonoBehaviour

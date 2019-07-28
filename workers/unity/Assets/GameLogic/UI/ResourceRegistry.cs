@@ -1,7 +1,7 @@
-﻿using GameLogic.Core;
+﻿using Assets.Gamelogic.Core;
 using UnityEngine;
 
-namespace GameLogic.UI
+namespace Assets.Gamelogic.UI
 {
     public static class ResourceRegistry
     {
