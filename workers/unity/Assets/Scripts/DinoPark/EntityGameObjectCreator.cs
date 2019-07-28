@@ -6,16 +6,17 @@ using Improbable.Gdk.PlayerLifecycle;
 using Improbable.Gdk.Subscriptions;
 using Unity.Entities;
 using UnityEngine;
+using Assets.Gamelogic.Core;
 
 namespace DinoPark
 {
-    public class PlayerGameObjectCreator : IEntityGameObjectCreator
+    public class EntityGameObjectCreator : IEntityGameObjectCreator
     {
         private readonly IEntityGameObjectCreator _fallbackCreator;
         private readonly World _world;
         private string _WorkerType;
 
-        public PlayerGameObjectCreator(IEntityGameObjectCreator fallbackCreator, World world, String workerType)
+        public EntityGameObjectCreator(IEntityGameObjectCreator fallbackCreator, World world, String workerType)
         {
             _fallbackCreator = fallbackCreator;
             _world = world;
@@ -27,7 +28,8 @@ namespace DinoPark
             if (!entity.HasComponent<Metadata.Component>()) return;
 
             var metadata = entity.GetComponent<Metadata.Component>();
-            var isPlayer = metadata.EntityType == "Player";
+            var isPlayer = metadata.EntityType == "Player";// 玩家
+            var isTree = metadata.EntityType == SimulationSettings.TreePrefabName;// 树
             var hasAuthority = PlayerLifecycleHelper.IsOwningWorker(entity.SpatialOSEntityId, _world);
             if (isPlayer && hasAuthority)
             {
@@ -35,7 +37,15 @@ namespace DinoPark
                 var prefab = Resources.Load(pathPrefab);
                 var playerGameObject = UnityEngine.Object.Instantiate(prefab);
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)playerGameObject);
-                Debug.Log("PlayerGameObjectCreator OnEntityCreated!");
+                Debug.Log("EntityGameObjectCreator OnEntityCreated - A Player GameObject created!");
+            }
+            else if (isTree)
+            {
+                var pathPrefab = "EntityPrefabs/" + SimulationSettings.TreePrefabName;
+                var prefab = Resources.Load(pathPrefab);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab);
+                linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
+                Debug.Log("PlayerGameObjectCreator OnEntityCreated - A tree GameObject created");
             }
             else
             {

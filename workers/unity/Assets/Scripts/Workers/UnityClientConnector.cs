@@ -3,7 +3,6 @@ using Improbable.Gdk.Core;
 using Improbable.Gdk.GameObjectCreation;
 using Improbable.Gdk.PlayerLifecycle;
 using Improbable.Worker.CInterop;
-using Unity.Entities;
 using UnityEngine;
 
 namespace DinoPark
@@ -50,8 +49,9 @@ namespace DinoPark
         {
             PlayerLifecycleHelper.AddClientSystems(Worker.World);
             
+            // 创建实体的预制件
             var fallbackCreator = new GameObjectCreatorFromMetadata(Worker.WorkerType, Worker.Origin, Worker.LogDispatcher);
-            var customCreator = new PlayerGameObjectCreator(fallbackCreator, Worker.World, Worker.WorkerType);
+            var customCreator = new EntityGameObjectCreator(fallbackCreator, Worker.World, Worker.WorkerType);
             Debug.Log("HandleWorkerConnectionEstablished!");
             
             GameObjectCreationHelper.EnableStandardGameObjectCreation(Worker.World, customCreator);

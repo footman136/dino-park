@@ -44,6 +44,7 @@ namespace DinoPark
         {
             Worker.World.GetOrCreateSystem<MetricSendSystem>();
             PlayerLifecycleHelper.AddServerSystems(Worker.World);
+            // 服务器端，没有特殊的需求，就使用缺省的创建函数来创建普通的Entity
             GameObjectCreationHelper.EnableStandardGameObjectCreation(Worker.World);
         }
 
