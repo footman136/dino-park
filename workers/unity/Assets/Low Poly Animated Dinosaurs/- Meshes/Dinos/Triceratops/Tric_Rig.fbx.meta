@@ -1,0 +1,192 @@
+fileFormatVersion: 2
+guid: 22c3ee9f415d10b45b54dce551220856
+timeCreated: 1528551114
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: backAnkle_L
+    100002: backAnkle_R
+    100004: backHip_L
+    100006: backHip_R
+    100008: backKnee_L
+    100010: backKnee_R
+    100012: backToes1_L
+    100014: backToes1_R
+    100016: backToes2_L
+    100018: backToes2_R
+    100020: backToes3_L
+    100022: backToes3_R
+    100024: backToes4_L
+    100026: backToes4_R
+    100028: Chest_M
+    100030: DeformationSystem
+    100032: frontAnkle_L
+    100034: frontAnkle_R
+    100036: frontHip_L
+    100038: frontHip_R
+    100040: frontKnee_L
+    100042: frontKnee_R
+    100044: frontRump_L
+    100046: frontRump_R
+    100048: frontToes1_L
+    100050: frontToes1_R
+    100052: frontToes2_L
+    100054: frontToes2_R
+    100056: frontToes3_L
+    100058: frontToes3_R
+    100060: frontToes4_L
+    100062: frontToes4_R
+    100064: Geometry
+    100066: Head_M
+    100068: HeadEnd_M
+    100070: Jaw_M
+    100072: JawEnd_M
+    100074: Main
+    100076: Neck1_M
+    100078: Neck2_M
+    100080: Neck3_M
+    100082: Neck4_M
+    100084: Neck_M
+    100086: Root_M
+    100088: RootPart1_M
+    100090: Spine1_M
+    100092: Spine1Part1_M
+    100094: Tail0_M
+    100096: Tail1_M
+    100098: Tail2_M
+    100100: Tail3_M
+    100102: Tail4_M
+    100104: Tail5_M
+    100106: Tail6_M
+    100108: //RootNode
+    100110: Triceratops 1
+    400000: backAnkle_L
+    400002: backAnkle_R
+    400004: backHip_L
+    400006: backHip_R
+    400008: backKnee_L
+    400010: backKnee_R
+    400012: backToes1_L
+    400014: backToes1_R
+    400016: backToes2_L
+    400018: backToes2_R
+    400020: backToes3_L
+    400022: backToes3_R
+    400024: backToes4_L
+    400026: backToes4_R
+    400028: Chest_M
+    400030: DeformationSystem
+    400032: frontAnkle_L
+    400034: frontAnkle_R
+    400036: frontHip_L
+    400038: frontHip_R
+    400040: frontKnee_L
+    400042: frontKnee_R
+    400044: frontRump_L
+    400046: frontRump_R
+    400048: frontToes1_L
+    400050: frontToes1_R
+    400052: frontToes2_L
+    400054: frontToes2_R
+    400056: frontToes3_L
+    400058: frontToes3_R
+    400060: frontToes4_L
+    400062: frontToes4_R
+    400064: Geometry
+    400066: Head_M
+    400068: HeadEnd_M
+    400070: Jaw_M
+    400072: JawEnd_M
+    400074: Main
+    400076: Neck1_M
+    400078: Neck2_M
+    400080: Neck3_M
+    400082: Neck4_M
+    400084: Neck_M
+    400086: Root_M
+    400088: RootPart1_M
+    400090: Spine1_M
+    400092: Spine1Part1_M
+    400094: Tail0_M
+    400096: Tail1_M
+    400098: Tail2_M
+    400100: Tail3_M
+    400102: Tail4_M
+    400104: Tail5_M
+    400106: Tail6_M
+    400108: //RootNode
+    400110: Triceratops 1
+    4300000: Triceratops
+    9500000: //RootNode
+    13700000: Triceratops 1
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

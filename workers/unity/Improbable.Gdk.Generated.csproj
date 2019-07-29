@@ -66,6 +66,16 @@
     <Compile Include="Assets\Generated\Source\com\infalliblecode\PlayerTransformReactiveHandlers.cs" />
     <Compile Include="Assets\Generated\Source\com\infalliblecode\PlayerTransformUpdateSender.cs" />
     <Compile Include="Assets\Generated\Source\com\infalliblecode\PlayerTransformViewStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\Inventory.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\InventoryComponentDiffDeserializer.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\InventoryComponentDiffStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\InventoryComponentReaderWriter.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\InventoryEcsViewManager.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\InventoryProviders.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\InventoryReactiveComponents.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\InventoryReactiveHandlers.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\InventoryUpdateSender.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\core\InventoryViewStorage.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\core\Nothing.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\core\TeleportEvent.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\core\TransformComponent.cs" />
@@ -109,6 +119,32 @@
     <Compile Include="Assets\Generated\Source\dinopark\life\HealthReactiveHandlers.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\life\HealthUpdateSender.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\life\HealthViewStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\LumberjackFSMState.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NavigationFinished.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NavigationState.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjack.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackComponentDiffDeserializer.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackComponentDiffStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackComponentReaderWriter.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackData.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackEcsViewManager.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackProviders.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackReactiveComponents.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackReactiveHandlers.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackUpdateSender.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\NPCLumberjackViewStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigation.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationComponentDiffDeserializer.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationComponentDiffStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationComponentReaderWriter.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationData.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationEcsViewManager.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationEvents.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationProviders.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationReactiveComponents.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationReactiveHandlers.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationUpdateSender.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\TargetNavigationViewStorage.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\plants\Harvestable.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\plants\HarvestableCommandComponents.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\plants\HarvestableCommandDiffDeserializer.cs" />
@@ -310,19 +346,19 @@
     <Compile Include="Assets\Generated\Source\improbable\WorkerRequirementSet.cs" />
     <None Include="Assets\Generated\Improbable.Gdk.Generated.asmdef" />
     <Reference Include="Improbable.Gdk.Core">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Core.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Core.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Collections">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Unity.Collections.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities.Hybrid">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2019.1.6/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -532,28 +568,28 @@
       <HintPath>D:/Unity2019.1.6/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.collections@0.0.9-preview.20/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.collections@0.0.9-preview.20/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Worker.CInterop">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/io.improbable.worker.sdk@13.7.1/Plugins/Improbable/Sdk/Common/Improbable.Worker.CInterop.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/io.improbable.worker.sdk@13.7.1/Plugins/Improbable/Sdk/Common/Improbable.Worker.CInterop.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity2019.1.6/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

@@ -1,0 +1,213 @@
+fileFormatVersion: 2
+guid: 35dcd31d556dd3e4f851d2289eb120eb
+timeCreated: 1510072878
+licenseType: Store
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: backAnkle_L
+    100002: backAnkle_R
+    100004: backHip_L
+    100006: backHip_R
+    100008: backKnee_L
+    100010: backKnee_R
+    100012: backToes1_L
+    100014: backToes1_R
+    100016: backToes2_L
+    100018: backToes2_R
+    100020: backToes3_L
+    100022: backToes3_R
+    100024: backToes4_L
+    100026: backToes4_R
+    100028: Chest_M
+    100030: DeformationSystem
+    100032: Eye_L
+    100034: Eye_R
+    100036: EyeEnd_L
+    100038: EyeEnd_R
+    100040: frontAnkle_L
+    100042: frontAnkle_R
+    100044: frontHip_L
+    100046: frontHip_R
+    100048: frontKnee_L
+    100050: frontKnee_R
+    100052: frontRump_L
+    100054: frontRump_R
+    100056: frontToes1_L
+    100058: frontToes1_R
+    100060: frontToes2_L
+    100062: frontToes2_R
+    100064: frontToes3_L
+    100066: frontToes3_R
+    100068: frontToes4_L
+    100070: frontToes4_R
+    100072: Group
+    100074: Head_M
+    100076: HeadEnd_M
+    100078: Jaw_M
+    100080: JawEnd_M
+    100082: Main
+    100084: Neck1_M
+    100086: Neck2_M
+    100088: Neck3_M
+    100090: Neck4_M
+    100092: Neck_M
+    100094: Root_M
+    100096: RootPart1_M
+    100098: RootPart2_M
+    100100: Spine1_M
+    100102: Spine1Part1_M
+    100104: Spine1Part2_M
+    100106: //RootNode
+    100108: Stegosaurus
+    100110: Tail0_M
+    100112: Tail1_M
+    100114: Tail2_M
+    100116: Tail3_M
+    100118: Tail4_M
+    100120: Tail5_M
+    100122: Tail6_M
+    100124: Tongue_End_M
+    100126: Tongue_M
+    400000: backAnkle_L
+    400002: backAnkle_R
+    400004: backHip_L
+    400006: backHip_R
+    400008: backKnee_L
+    400010: backKnee_R
+    400012: backToes1_L
+    400014: backToes1_R
+    400016: backToes2_L
+    400018: backToes2_R
+    400020: backToes3_L
+    400022: backToes3_R
+    400024: backToes4_L
+    400026: backToes4_R
+    400028: Chest_M
+    400030: DeformationSystem
+    400032: Eye_L
+    400034: Eye_R
+    400036: EyeEnd_L
+    400038: EyeEnd_R
+    400040: frontAnkle_L
+    400042: frontAnkle_R
+    400044: frontHip_L
+    400046: frontHip_R
+    400048: frontKnee_L
+    400050: frontKnee_R
+    400052: frontRump_L
+    400054: frontRump_R
+    400056: frontToes1_L
+    400058: frontToes1_R
+    400060: frontToes2_L
+    400062: frontToes2_R
+    400064: frontToes3_L
+    400066: frontToes3_R
+    400068: frontToes4_L
+    400070: frontToes4_R
+    400072: Group
+    400074: Head_M
+    400076: HeadEnd_M
+    400078: Jaw_M
+    400080: JawEnd_M
+    400082: Main
+    400084: Neck1_M
+    400086: Neck2_M
+    400088: Neck3_M
+    400090: Neck4_M
+    400092: Neck_M
+    400094: Root_M
+    400096: RootPart1_M
+    400098: RootPart2_M
+    400100: Spine1_M
+    400102: Spine1Part1_M
+    400104: Spine1Part2_M
+    400106: //RootNode
+    400108: Stegosaurus
+    400110: Tail0_M
+    400112: Tail1_M
+    400114: Tail2_M
+    400116: Tail3_M
+    400118: Tail4_M
+    400120: Tail5_M
+    400122: Tail6_M
+    400124: Tongue_End_M
+    400126: Tongue_M
+    4300000: Stegosaurus
+    9500000: //RootNode
+    13700000: Stegosaurus
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

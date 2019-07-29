@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Assets.Gamelogic.Core
 {
     public static class SimulationSettings
@@ -18,6 +20,11 @@ namespace Assets.Gamelogic.Core
         public static string SmallFireEffectPrefabPath = "Particles/SmallFire";
         public static string DeathEffectPrefabPath = "Particles/DeathEffect";
             
+        // Unity Layers
+//        public static string TerrainLayerName = "Terrain";
+        public static string TreeLayerName = "Tree";
+        public static string BarrackLayerName = "Barrack";
+            
         // Tree
         public static int TreeMaxHealth = 3;
         public static int HarvestReturnQuantity = 1;
@@ -32,7 +39,7 @@ namespace Assets.Gamelogic.Core
             public static float SpawningWorldEdgeLength = 100; //1000;
         //public static Coordinates WorldRootPosition = new Coordinates(-SpawningWorldEdgeLength / 2d, 0d, -SpawningWorldEdgeLength / 2d);
         public static float SimulationTickInterval = 1f;
-        //public static Vector3 InvalidPosition = Vector3.one * -9999;
+        public static Vector3 InvalidPosition = Vector3.one * -9999;
         
         // Entity counts
             public static int AttemptedTreeCount = 2000; //20000;
@@ -66,5 +73,24 @@ namespace Assets.Gamelogic.Core
             public static float ExtinguishVolume = 0.4f;
 //            public static float SpellChannelVolume = 0.8f;
 //            public static float FootstepVolume = 0.8f;
+        
+        // NPC
+        public static bool NPCDeathActive = true;
+//        public static int LumberjackMaxHealth = 5;
+//        public static int WizardMaxHealth = 5;
+//        public static int NPCSpawningWorldEdgeLength = Mathf.CeilToInt(4 * (float)SpawningWorldEdgeLength / 5);
+        public static float NPCMovementSpeed = 10f;
+        public static float NPCInteractionDelay = 0.2f;
+        public static float NPCChoppingAnimationStartDelay = 0.2f;
+        public static float NPCChoppingAnimationFinishDelay = 2f;
+        public static float NPCStockpilingAnimationStartDelay = 0.2f;
+        public static float NPCStockpilingAnimationFinishdelay = 2f;
+//        public static float NPCWizardSpellCastingSqrDistance = 36f;
+        public static float NPCWanderWaypointDistance = 50f;
+        public static float NPCOnFireWaypointDistance = 10f;
+//        public static float NPCPerceptionRefreshInterval = 0.5f;
+//        public static float NPCSpawnDistanceToHQ = 30f;
+        public static float NPCDefaultInteractionSqrDistance = 9f;
+        public static float NPCViewRadius = 30f;
     }
 }

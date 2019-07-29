@@ -56,14 +56,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Gamelogic\ComponentExtensions\HealthExtensions.cs" />
+    <Compile Include="Assets\Gamelogic\ComponentExtensions\InventoryExtension.cs" />
     <Compile Include="Assets\Gamelogic\Core\DirectTransformVisualizer.cs" />
+    <Compile Include="Assets\Gamelogic\Core\EntityGameObjectCreator.cs" />
     <Compile Include="Assets\Gamelogic\Core\EntityTemplateFactory.cs" />
     <Compile Include="Assets\Gamelogic\Core\GameObjectComponentCaching.cs" />
+    <Compile Include="Assets\Gamelogic\Core\ReadPlayerTransform.cs" />
     <Compile Include="Assets\Gamelogic\Core\SimulationSettings.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformReceiverClient.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformReceiverClientControllableAuthoritative.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformReceiverUnityWorker.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformSender.cs" />
+    <Compile Include="Assets\Gamelogic\Core\WorkerUtils.cs" />
+    <Compile Include="Assets\Gamelogic\Core\WritePlayerTransform.cs" />
     <Compile Include="Assets\Gamelogic\Fire\FireHealthInteractionBehaviour.cs" />
     <Compile Include="Assets\Gamelogic\Fire\FlammableAudioTriggers.cs" />
     <Compile Include="Assets\Gamelogic\Fire\FlammableBehaviour.cs" />
@@ -75,6 +81,29 @@
     <Compile Include="Assets\Gamelogic\FSM\IFsmState.cs" />
     <Compile Include="Assets\Gamelogic\Life\HealthClientVisualizer.cs" />
     <Compile Include="Assets\Gamelogic\Life\HealthVisualizer.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackAnimationController.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackBehaviour.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackHarvestingState.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackIdleState.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackMoveToTargetState.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackOnFireState.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackStateMachine.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackStockpilingState.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\NPCDeathBehaviour.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\NPCUtils.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\TargetNavigationBehaviour.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\Containers\EntityObjectDictionary.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\EntityPipeline\EntityPipelineOps.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IEntityComponents.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IEntityInterestedComponentsInvalidator.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IEntityObject.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IEntityVisualizers.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\ILocalEntities.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IMutableLocalEntities.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IMutableUniverse.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IPipelineEntityComponentOpsReceiver.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IUniverse.cs" />
+    <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\LocalEntities.cs" />
     <Compile Include="Assets\Gamelogic\Tree\HarvestableBehaviour.cs" />
     <Compile Include="Assets\Gamelogic\Tree\TreeBehaviour.cs" />
     <Compile Include="Assets\Gamelogic\Tree\TreeBurningState.cs" />
@@ -88,10 +117,20 @@
     <Compile Include="Assets\Gamelogic\Utils\MathUtils.cs" />
     <Compile Include="Assets\Gamelogic\Utils\QuantizationUtils.cs" />
     <Compile Include="Assets\Gamelogic\Utils\TimerUtils.cs" />
-    <Compile Include="Assets\Scripts\DinoPark\EntityGameObjectCreator.cs" />
-    <Compile Include="Assets\Scripts\DinoPark\ReadPlayerTransform.cs" />
-    <Compile Include="Assets\Scripts\DinoPark\WorkerUtils.cs" />
-    <Compile Include="Assets\Scripts\DinoPark\WritePlayerTransform.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\AnimationControl.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\DeathButtonControl.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\KillSwitch.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\PanelControll.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\PeriodicShake.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\AnimalManager.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\AnimalState.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\AnimalStats.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\AudioManager.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\Editor\AnimalManagerEditor.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\IdleState.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\MovementState.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\SurfaceRotation.cs" />
+    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\WanderScript.cs" />
     <Compile Include="Assets\Scripts\MetricSendSystem.cs" />
     <Compile Include="Assets\Scripts\Workers\MobileClientWorkerConnector.cs" />
     <Compile Include="Assets\Scripts\Workers\UnityClientConnector.cs" />
@@ -156,28 +195,28 @@
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <Reference Include="Improbable.Gdk.Core">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Core.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Core.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Gdk.Mobile">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Mobile.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Mobile.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Gdk.TransformSynchronization">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.TransformSynchronization.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.TransformSynchronization.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Gdk.PlayerLifecycle">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.PlayerLifecycle.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.PlayerLifecycle.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities.Hybrid">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Gdk.GameObjectCreation">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.GameObjectCreation.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.GameObjectCreation.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2019.1.6/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -387,28 +426,28 @@
       <HintPath>D:/Unity2019.1.6/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.collections@0.0.9-preview.20/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.collections@0.0.9-preview.20/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Worker.CInterop">
-      <HintPath>D:/work/gdk-for-unity-dino-park/workers/unity/Library/PackageCache/io.improbable.worker.sdk@13.7.1/Plugins/Improbable/Sdk/Common/Improbable.Worker.CInterop.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/io.improbable.worker.sdk@13.7.1/Plugins/Improbable/Sdk/Common/Improbable.Worker.CInterop.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity2019.1.6/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

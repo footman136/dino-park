@@ -1,5 +1,5 @@
 using Dinopark.Fire;
-using DinoPark;
+using Assets.Gamelogic.Core;
 using Improbable.Gdk.Subscriptions;
 using UnityEngine;
 // WorkerUtils

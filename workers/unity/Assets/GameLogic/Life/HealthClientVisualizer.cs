@@ -1,7 +1,7 @@
 //using Assets.Gamelogic.UI;
 
 using Dinopark.Life;
-using DinoPark;
+using Assets.Gamelogic.Core;
 using Improbable.Gdk.Subscriptions;
 using UnityEngine;
 //using Improbable.Team;

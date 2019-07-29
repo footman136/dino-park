@@ -1,0 +1,207 @@
+fileFormatVersion: 2
+guid: abf72a4265305f1458da175b24d86c96
+timeCreated: 1515367375
+licenseType: Store
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Ankle1_L
+    100002: Ankle1_R
+    100004: Chest_M
+    100006: DeformationSystem
+    100008: Group
+    100010: Head_M
+    100012: HeadEnd_M
+    100014: Hip1_L
+    100016: Hip1_R
+    100018: Jaw_M
+    100020: JawEnd_M
+    100022: joint51_L
+    100024: joint51_R
+    100026: joint52_L
+    100028: joint52_R
+    100030: joint53_2_L
+    100032: joint53_2_R
+    100034: joint53_L
+    100036: joint53_R
+    100038: joint54_L
+    100040: joint54_R
+    100042: joint73_L
+    100044: joint73_R
+    100046: joint74_L
+    100048: joint74_R
+    100050: joint77_L
+    100052: joint77_R
+    100054: joint78_L
+    100056: joint78_R
+    100058: joint79_L
+    100060: joint79_R
+    100062: joint80_L
+    100064: joint80_R
+    100066: joint81_L
+    100068: joint81_R
+    100070: joint82_L
+    100072: joint82_R
+    100074: joint83_M
+    100076: joint84_M
+    100078: joint85_M
+    100080: joint86_M
+    100082: joint9_M
+    100084: Knee1_L
+    100086: Knee1_R
+    100088: Main
+    100090: Neck_M
+    100092: Pteranodon
+    100094: //RootNode
+    100096: Root_M
+    100098: Rump_L
+    100100: Rump_R
+    100102: Spine1_M
+    100104: Tail1_M
+    100106: Toes1_L
+    100108: Toes1_R
+    100110: ToesEnd1_L
+    100112: ToesEnd1_R
+    100114: Wing_Spine_1_L
+    100116: Wing_Spine_1_R
+    100118: Wing_Spine_L
+    100120: Wing_Spine_R
+    400000: Ankle1_L
+    400002: Ankle1_R
+    400004: Chest_M
+    400006: DeformationSystem
+    400008: Group
+    400010: Head_M
+    400012: HeadEnd_M
+    400014: Hip1_L
+    400016: Hip1_R
+    400018: Jaw_M
+    400020: JawEnd_M
+    400022: joint51_L
+    400024: joint51_R
+    400026: joint52_L
+    400028: joint52_R
+    400030: joint53_2_L
+    400032: joint53_2_R
+    400034: joint53_L
+    400036: joint53_R
+    400038: joint54_L
+    400040: joint54_R
+    400042: joint73_L
+    400044: joint73_R
+    400046: joint74_L
+    400048: joint74_R
+    400050: joint77_L
+    400052: joint77_R
+    400054: joint78_L
+    400056: joint78_R
+    400058: joint79_L
+    400060: joint79_R
+    400062: joint80_L
+    400064: joint80_R
+    400066: joint81_L
+    400068: joint81_R
+    400070: joint82_L
+    400072: joint82_R
+    400074: joint83_M
+    400076: joint84_M
+    400078: joint85_M
+    400080: joint86_M
+    400082: joint9_M
+    400084: Knee1_L
+    400086: Knee1_R
+    400088: Main
+    400090: Neck_M
+    400092: //RootNode
+    400094: Pteranodon
+    400096: Root_M
+    400098: Rump_L
+    400100: Rump_R
+    400102: Spine1_M
+    400104: Tail1_M
+    400106: Toes1_L
+    400108: Toes1_R
+    400110: ToesEnd1_L
+    400112: ToesEnd1_R
+    400114: Wing_Spine_1_L
+    400116: Wing_Spine_1_R
+    400118: Wing_Spine_L
+    400120: Wing_Spine_R
+    4300000: Pteranodon
+    9500000: //RootNode
+    13700000: Pteranodon
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

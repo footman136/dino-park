@@ -3,6 +3,7 @@ using Improbable.Gdk.Core;
 using Improbable.Gdk.GameObjectCreation;
 using Improbable.Gdk.PlayerLifecycle;
 using Improbable.Worker.CInterop;
+using Assets.Gamelogic.Core;
 using UnityEngine;
 
 namespace DinoPark
