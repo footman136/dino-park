@@ -1,11 +1,7 @@
-using Assets.Gamelogic.Core;
 using UnityEngine;
 using Improbable;
-using DinoPark; // UnityClientConnector UnityGameLogicConnector
-// EntityTemplateFactory
+using Assets.Gamelogic.Core;
 using Snapshot = Improbable.Gdk.Core.Snapshot;
-using Improbable.Gdk.Core; // EntityTemplate
-using Improbable.Gdk.PlayerLifecycle; //PlayerCreator
 
 namespace Editor
 {
@@ -15,18 +11,8 @@ namespace Editor
 
         public static void AddPlayerSpawner(Snapshot snapshot)
         {
-            var serverAttribute = UnityGameLogicConnector.WorkerType;
-
-            var template = new EntityTemplate();
-            template.AddComponent(new Position.Snapshot(), serverAttribute);
-            template.AddComponent(new Metadata.Snapshot { EntityType = "PlayerCreator" }, serverAttribute);
-            template.AddComponent(new Persistence.Snapshot(), serverAttribute);
-            template.AddComponent(new PlayerCreator.Snapshot(), serverAttribute);
-
-            template.SetReadAccess(UnityClientConnector.WorkerType, UnityGameLogicConnector.WorkerType, MobileClientWorkerConnector.WorkerType);
-            template.SetComponentWriteAccess(EntityAcl.ComponentId, serverAttribute);
-
-            snapshot.AddEntity(template);
+            var entity = EntityTemplateFactory.CreatePlayerTemplate(snapshot);
+            snapshot.AddEntity(entity);
         }
 
         public static void AddTrees(Snapshot snapshot, Texture2D sampler, float sampleThreshold, int countAproximate, float edgeLength, float placementJitter)
