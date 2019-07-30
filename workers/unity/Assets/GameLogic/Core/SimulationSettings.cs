@@ -1,4 +1,5 @@
 using UnityEngine;
+using Improbable;
 
 namespace Assets.Gamelogic.Core
 {
@@ -6,7 +7,9 @@ namespace Assets.Gamelogic.Core
     {
         // Entity Prefab Names
 //        public static string PlayerPrefabName = "Player";
-//        public static string NPCPrefabName = "NPCLumberjack";
+        public static string NPCPrefabName = "NPCLumberjack";
+        public static string Dino_TRex_PrefabName = "DinoTRex";
+            public static string Dino_Brachio_PrefabName = "DinoBrachio";
 //        public static string NPCWizardPrefabName = "NPCWizard";
 //        public static string HQPrefabName = "HQ";
         public static string TreePrefabName = "Tree";
@@ -64,6 +67,18 @@ namespace Assets.Gamelogic.Core
 //        public static float MaxRaycastDistance = 40f;
 //        public static float PlayerMovementTargetSlowingThreshold = 0.005f;
             
+            // Player Spells
+//            public static float PlayerSpellCastRange = 10f;
+//            public static float PlayerSpellAOEDiameter = 4f;
+//            public static int MaxSpellTargets = 64;
+//            public static float SpellEffectDuration = 2f;
+            public static float DeathEffectDuration = 1f;
+//            public static float SpellCooldown = 10f;
+//            public static float RainCloudSpawnHeight = 7f;
+//            public static float PlayerCastAnimationTime = 0.7f;
+//            public static float PlayerCastAnimationBuffer = 0.5f;
+//            public static float SpellIndicatorRotationSpeed = 80f;
+
             // Audio Volume
 //            public static float NPCChopVolume = 0.6f;
 //            public static float RainVolume = 0.8f;
@@ -76,7 +91,7 @@ namespace Assets.Gamelogic.Core
         
         // NPC
         public static bool NPCDeathActive = true;
-//        public static int LumberjackMaxHealth = 5;
+        public static int LumberjackMaxHealth = 5;
 //        public static int WizardMaxHealth = 5;
 //        public static int NPCSpawningWorldEdgeLength = Mathf.CeilToInt(4 * (float)SpawningWorldEdgeLength / 5);
         public static float NPCMovementSpeed = 10f;
@@ -89,8 +104,50 @@ namespace Assets.Gamelogic.Core
         public static float NPCWanderWaypointDistance = 50f;
         public static float NPCOnFireWaypointDistance = 10f;
 //        public static float NPCPerceptionRefreshInterval = 0.5f;
-//        public static float NPCSpawnDistanceToHQ = 30f;
+        public static float NPCSpawnDistanceToHQ = 30f;
         public static float NPCDefaultInteractionSqrDistance = 9f;
         public static float NPCViewRadius = 30f;
+            
+                // Buildings
+//                public static int HQMaxHealth = 20;
+//                public static int BarracksMaxHealth = 10;
+//                public static float LumberjackSpawningCooldown = 30f;
+//                public static float WizardSpawningCooldown = 15;
+//                public static float SpawnOffsetFactor = 5f;
+//                public static float PlayerSpawnOffsetFactor = 48.0f;
+                public static int HQStartingLumberjacksCount = 8; // 20
+                public static int HQStartingWizardsCount = 0;
+//                public static float DefaultHQBarracksSpawnRadius = 25f;
+//                public static float MaxHQBarracksSpawnRadius = 200f;
+//                public static float HQBarracksSpawnRadiusIncrease = 10f;
+//                public static int HQBarracksSpawnPositionPickingRetries = 10;
+//                public static float HQBarracksSpawnPositionSamplingHeight = 10f;
+//                public static float HQBarracksSpawnPositionSamplingRadius = 10f;
+//                public static float NPCWizardDefensivePriority = 0.8f;
+//                public static float HQBarracksSpawningSeparation = 15f;
+            
+            
+            // Teams
+//            public const int TeamCount = 2;
+//            public const int RedTeamId = 0;
+//            public const int BlueTeamId = 1;
+//            public static Color RedTeamColor = new Color(0.917f, 0.329f, 0.329f);
+//            public static Color BlueTeamColor = new Color(0.102f, 0.455f, 0.859f);
+//            public static Color[] TeamColors = {RedTeamColor, BlueTeamColor};
+
+            public static Coordinates[] TeamHQLocations =
+            {
+                    new Coordinates(0.0, 0.0, 0.0),
+                    //new Coordinates(-300.0, 0.0, -275.0),
+                    //new Coordinates(230.0, 0.0, 170.0)
+            };
+
+//            public static EntityId[] HQEntityIds =
+//            {
+//                    new EntityId(0), new EntityId(1)
+//            };
+
+            // Animation
+            public static float DeathEffectSpawnHeight = 1f;
     }
 }

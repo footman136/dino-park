@@ -58,18 +58,18 @@
   <ItemGroup>
     <Compile Include="Assets\Gamelogic\ComponentExtensions\HealthExtensions.cs" />
     <Compile Include="Assets\Gamelogic\ComponentExtensions\InventoryExtension.cs" />
+    <Compile Include="Assets\Gamelogic\Core\CharacterDeathVisualizer.cs" />
+    <Compile Include="Assets\Gamelogic\Core\CharacterModelVisualizer.cs" />
+    <Compile Include="Assets\Gamelogic\Core\DeathAnimVisualizerPool.cs" />
     <Compile Include="Assets\Gamelogic\Core\DirectTransformVisualizer.cs" />
-    <Compile Include="Assets\Gamelogic\Core\EntityGameObjectCreator.cs" />
-    <Compile Include="Assets\Gamelogic\Core\EntityTemplateFactory.cs" />
     <Compile Include="Assets\Gamelogic\Core\GameObjectComponentCaching.cs" />
-    <Compile Include="Assets\Gamelogic\Core\ReadPlayerTransform.cs" />
+    <Compile Include="Assets\Gamelogic\Core\InitialPositionVisualizer.cs" />
     <Compile Include="Assets\Gamelogic\Core\SimulationSettings.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformReceiverClient.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformReceiverClientControllableAuthoritative.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformReceiverUnityWorker.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformSender.cs" />
     <Compile Include="Assets\Gamelogic\Core\WorkerUtils.cs" />
-    <Compile Include="Assets\Gamelogic\Core\WritePlayerTransform.cs" />
     <Compile Include="Assets\Gamelogic\Fire\FireHealthInteractionBehaviour.cs" />
     <Compile Include="Assets\Gamelogic\Fire\FlammableAudioTriggers.cs" />
     <Compile Include="Assets\Gamelogic\Fire\FlammableBehaviour.cs" />
@@ -81,6 +81,7 @@
     <Compile Include="Assets\Gamelogic\FSM\IFsmState.cs" />
     <Compile Include="Assets\Gamelogic\Life\HealthClientVisualizer.cs" />
     <Compile Include="Assets\Gamelogic\Life\HealthVisualizer.cs" />
+    <Compile Include="Assets\Gamelogic\NPC\Brachio\BrachioBehaviour.cs" />
     <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackAnimationController.cs" />
     <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackBehaviour.cs" />
     <Compile Include="Assets\Gamelogic\NPC\Lumberjack\LumberjackHarvestingState.cs" />
@@ -92,6 +93,8 @@
     <Compile Include="Assets\Gamelogic\NPC\NPCDeathBehaviour.cs" />
     <Compile Include="Assets\Gamelogic\NPC\NPCUtils.cs" />
     <Compile Include="Assets\Gamelogic\NPC\TargetNavigationBehaviour.cs" />
+    <Compile Include="Assets\Gamelogic\Player\ReadPlayerTransform.cs" />
+    <Compile Include="Assets\Gamelogic\Player\WritePlayerTransform.cs" />
     <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\Containers\EntityObjectDictionary.cs" />
     <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\EntityPipeline\EntityPipelineOps.cs" />
     <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IEntityComponents.cs" />
@@ -126,11 +129,12 @@
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\AnimalState.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\AnimalStats.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\AudioManager.cs" />
-    <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\Editor\AnimalManagerEditor.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\IdleState.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\MovementState.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\SurfaceRotation.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\WanderScript.cs" />
+    <Compile Include="Assets\Scripts\DinoPark\EntityGameObjectCreator.cs" />
+    <Compile Include="Assets\Scripts\DinoPark\EntityTemplateFactory.cs" />
     <Compile Include="Assets\Scripts\MetricSendSystem.cs" />
     <Compile Include="Assets\Scripts\Workers\MobileClientWorkerConnector.cs" />
     <Compile Include="Assets\Scripts\Workers\UnityClientConnector.cs" />

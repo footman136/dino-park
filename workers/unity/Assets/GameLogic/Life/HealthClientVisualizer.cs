@@ -30,7 +30,7 @@ namespace Assets.Gamelogic.Life
             {
                 modelCollider = GetComponentInChildren<Collider>();
             }
-            entityInfoCanvasInstance.transform.localPosition = (modelCollider != null) ? Vector3.up * (modelCollider.bounds.size.y + 1.5f) : Vector3.up * 3f;
+            //entityInfoCanvasInstance.transform.localPosition = (modelCollider != null) ? Vector3.up * (modelCollider.bounds.size.y + 1.5f) : Vector3.up * 3f;
             //entityHealthPanelController = entityInfoCanvasInstance.GetComponent<EntityHealthPanelController>();
         }
 

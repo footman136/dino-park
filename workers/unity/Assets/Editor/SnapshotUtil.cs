@@ -1,7 +1,10 @@
 using UnityEngine;
 using Improbable;
 using Assets.Gamelogic.Core;
+using Improbable.Gdk.Core;
 using Snapshot = Improbable.Gdk.Core.Snapshot;
+using Assets.Gamelogic.Utils;
+using DinoPark;
 
 namespace Editor
 {
@@ -56,6 +59,44 @@ namespace Editor
             
             snapshot.AddEntity(entity);
         }
+        
+        public static void AddNPCsAroundHQs(Snapshot snapshot, Coordinates[] locations)
+        {
+            for (uint teamId = 0; teamId < locations.Length; teamId++)
+            {
+                SpawnNpcsAroundPosition(snapshot, locations[teamId], teamId);
+            }
+        }
 
+        public static void SpawnNpcsAroundPosition(Snapshot snapshot, Coordinates position, uint team)
+        {
+            float totalNpcs = SimulationSettings.HQStartingWizardsCount + SimulationSettings.HQStartingLumberjacksCount;
+            float radiusFromHQ = SimulationSettings.NPCSpawnDistanceToHQ;
+
+            for (int i = 0; i < totalNpcs; i++)
+            {
+                float radians = (i / totalNpcs) * 2 * Mathf.PI;
+                Vector3 offset = new Vector3(Mathf.Cos(radians), 0, Mathf.Sin(radians));
+                offset *= radiusFromHQ;
+                Coordinates coordinates = (position.ToVector3() + offset).ToCoordinates();
+
+                EntityTemplate entity = null;
+                if (i < SimulationSettings.HQStartingLumberjacksCount)
+                {
+                    //entity = EntityTemplateFactory.CreateNPCLumberjackTemplate(coordinates, team);
+                    entity = EntityTemplateFactory.CreateDinoBrachioTemplate(coordinates, team);
+                }
+                else
+                {
+                    //entity = EntityTemplateFactory.CreateNPCWizardTemplate(coordinates, team);
+                }
+
+                if (entity != null)
+                {
+                    snapshot.AddEntity(entity);
+                }
+            }
+            Debug.Log("Snapshot Dinosaurs generated ! count<"+totalNpcs+">");
+        }
     }
 }
