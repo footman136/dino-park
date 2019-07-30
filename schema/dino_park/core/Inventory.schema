@@ -1,0 +1,6 @@
+package dinopark.core;
+
+component Inventory {
+  id = 1004;
+  int32 resources = 1;
+}
