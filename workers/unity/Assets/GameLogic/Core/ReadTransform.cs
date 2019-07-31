@@ -1,23 +1,19 @@
 ﻿using Com.Infalliblecode;
 using Improbable.Gdk.Subscriptions; // Require
 using UnityEngine;
-
-namespace Assets.Gamelogic.Player
+using Improbable;
+namespace Assets.Gamelogic.Core
 {
-    public class ReadPlayerTransform : MonoBehaviour
+    public class ReadTransform : MonoBehaviour
     {
         [Require] private PlayerTransformReader _reader;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
+        [Require] private PositionReader spatialPosition;
 
         // Update is called once per frame
         void Update()
         {
-            transform.position = _reader.Data.Position.ToUnityVector();
+            //transform.position = _reader.Data.Position.ToUnityVector();
+            transform.position = spatialPosition.Data.Coords.ToUnityVector();
             transform.rotation = Quaternion.Euler(_reader.Data.Rotation.ToUnityVector());
         }
     }

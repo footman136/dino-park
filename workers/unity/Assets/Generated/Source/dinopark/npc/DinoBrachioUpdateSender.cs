@@ -67,16 +67,6 @@ namespace Dinopark.Npc
                                 update.CurrentState = data.CurrentState;
                             }
 
-                            if (data.IsDataDirty(1))
-                            {
-                                update.TargetEntityId = data.TargetEntityId;
-                            }
-
-                            if (data.IsDataDirty(2))
-                            {
-                                update.TargetPosition = data.TargetPosition;
-                            }
-
                             componentUpdateSystem.SendUpdate(in update, entityIdArray[i].EntityId);
                             data.MarkDataClean();
                             componentArray[i] = data;

@@ -64,12 +64,14 @@
     <Compile Include="Assets\Gamelogic\Core\DirectTransformVisualizer.cs" />
     <Compile Include="Assets\Gamelogic\Core\GameObjectComponentCaching.cs" />
     <Compile Include="Assets\Gamelogic\Core\InitialPositionVisualizer.cs" />
+    <Compile Include="Assets\Gamelogic\Core\ReadTransform.cs" />
     <Compile Include="Assets\Gamelogic\Core\SimulationSettings.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformReceiverClient.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformReceiverClientControllableAuthoritative.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformReceiverUnityWorker.cs" />
     <Compile Include="Assets\Gamelogic\Core\TransformSender.cs" />
     <Compile Include="Assets\Gamelogic\Core\WorkerUtils.cs" />
+    <Compile Include="Assets\Gamelogic\Core\WriteTransform.cs" />
     <Compile Include="Assets\Gamelogic\Fire\FireHealthInteractionBehaviour.cs" />
     <Compile Include="Assets\Gamelogic\Fire\FlammableAudioTriggers.cs" />
     <Compile Include="Assets\Gamelogic\Fire\FlammableBehaviour.cs" />
@@ -93,8 +95,6 @@
     <Compile Include="Assets\Gamelogic\NPC\NPCDeathBehaviour.cs" />
     <Compile Include="Assets\Gamelogic\NPC\NPCUtils.cs" />
     <Compile Include="Assets\Gamelogic\NPC\TargetNavigationBehaviour.cs" />
-    <Compile Include="Assets\Gamelogic\Player\ReadPlayerTransform.cs" />
-    <Compile Include="Assets\Gamelogic\Player\WritePlayerTransform.cs" />
     <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\Containers\EntityObjectDictionary.cs" />
     <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\EntityPipeline\EntityPipelineOps.cs" />
     <Compile Include="Assets\Gamelogic\Sdk\Src\Unity\Entity\IEntityComponents.cs" />

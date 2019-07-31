@@ -51,7 +51,6 @@ namespace DinoPark
             }
             else if (isLumberJack)
             {
-                Debug.Log("Begin Create a LumberJack GameObject!");
                 var pathPrefab = "EntityPrefabs/" + SimulationSettings.NPCPrefabName;
                 var prefab = Resources.Load(pathPrefab);
                 var entityGameObject = UnityEngine.Object.Instantiate(prefab);
@@ -60,10 +59,11 @@ namespace DinoPark
             }
             else if (isDino)
             {
-                Debug.Log("Begin Create a Dinosauer GameObject!");
-                var pathPrefab = "EntityPrefabs/" + SimulationSettings.Dino_Brachio_PrefabName;
+                var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Dino_Brachio_PrefabName;
+                Debug.Log("Begin Create a Dinosauer GameObject! - " + pathPrefab);
                 var prefab = Resources.Load(pathPrefab);
                 var entityGameObject = UnityEngine.Object.Instantiate(prefab);
+                entityGameObject.name = SimulationSettings.Dino_Brachio_PrefabName + "(EntityID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer Brachiosaurus GameObject created");
             }

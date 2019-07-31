@@ -119,8 +119,6 @@
     <Compile Include="Assets\Generated\Source\dinopark\life\HealthReactiveHandlers.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\life\HealthUpdateSender.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\life\HealthViewStorage.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\BrachioData.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\BrachioFSMState.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\DinoBrachio.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\DinoBrachioComponentDiffDeserializer.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\DinoBrachioComponentDiffStorage.cs" />
@@ -131,6 +129,8 @@
     <Compile Include="Assets\Generated\Source\dinopark\npc\DinoBrachioReactiveHandlers.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\DinoBrachioUpdateSender.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\DinoBrachioViewStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\DinoData.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\npc\DinoFSMState.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\DinoTRex.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\DinoTRexComponentDiffDeserializer.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\DinoTRexComponentDiffStorage.cs" />

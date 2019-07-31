@@ -10,17 +10,17 @@ namespace Dinopark.Npc
 {
     
     [global::System.Serializable]
-    public struct BrachioFSMState
+    public struct DinoFSMState
     {
         public static class Serialization
         {
-            public static void Serialize(BrachioFSMState instance, global::Improbable.Worker.CInterop.SchemaObject obj)
+            public static void Serialize(DinoFSMState instance, global::Improbable.Worker.CInterop.SchemaObject obj)
             {
             }
     
-            public static BrachioFSMState Deserialize(global::Improbable.Worker.CInterop.SchemaObject obj)
+            public static DinoFSMState Deserialize(global::Improbable.Worker.CInterop.SchemaObject obj)
             {
-                var instance = new BrachioFSMState();
+                var instance = new DinoFSMState();
                 return instance;
             }
         }
@@ -30,10 +30,11 @@ namespace Dinopark.Npc
         public enum StateEnum : uint
         {
             IDLE = 0,
-            MOVING_TO_TARGET = 1,
-            HARVESTING = 2,
-            STOCKPILING = 3,
-            ON_FIRE = 4,
+            WALK = 1,
+            RUN = 2,
+            ATTACK = 3,
+            DEAD = 4,
+            ON_FIRE = 5,
         }
         
     }

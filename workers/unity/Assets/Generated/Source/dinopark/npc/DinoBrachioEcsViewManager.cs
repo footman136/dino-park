@@ -113,16 +113,6 @@ namespace Dinopark.Npc
                     data.CurrentState = update.Update.CurrentState.Value;
                 }
 
-                if (update.Update.TargetEntityId.HasValue)
-                {
-                    data.TargetEntityId = update.Update.TargetEntityId.Value;
-                }
-
-                if (update.Update.TargetPosition.HasValue)
-                {
-                    data.TargetPosition = update.Update.TargetPosition.Value;
-                }
-
                 data.MarkDataClean();
                 dataFromEntity[entity] = data;
             }

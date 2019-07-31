@@ -1,24 +1,21 @@
 package dinopark.npc;
 
-import "improbable/vector3.schema";
-
-type BrachioFSMState {
+type DinoFSMState {
   enum StateEnum {
     IDLE = 0;
-    MOVING_TO_TARGET = 1;
-    HARVESTING = 2;
-    STOCKPILING = 3;
-    ON_FIRE = 4;
+    WALK = 1;
+    RUN = 2;
+    ATTACK = 3;
+    DEAD = 4;
+    ON_FIRE = 5;
   }
 }
 
-type BrachioData {
-  BrachioFSMState.StateEnum current_state = 1;
-  EntityId target_entity_id = 2;
-  improbable.Vector3f target_position = 3;
+type DinoData {
+  DinoFSMState.StateEnum current_state = 1;
 }
 
 component DinoBrachio {
   id = 1810;
-  data BrachioData;
+  data DinoData;
 }

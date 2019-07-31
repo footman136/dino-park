@@ -43,9 +43,9 @@ namespace Dinopark.Npc
             */
             public bool IsDataDirty(int propertyIndex)
             {
-                if (propertyIndex < 0 || propertyIndex >= 3)
+                if (propertyIndex < 0 || propertyIndex >= 1)
                 {
-                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 2]. " +
+                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 0]. " +
                         "Unless you are using custom component replication code, this is most likely caused by a code generation bug. " +
                         "Please contact SpatialOS support if you encounter this issue.");
                 }
@@ -65,9 +65,9 @@ namespace Dinopark.Npc
             // This method throws an InvalidOperationException in case your component doesn't contain properties.
             public void MarkDataDirty(int propertyIndex)
             {
-                if (propertyIndex < 0 || propertyIndex >= 3)
+                if (propertyIndex < 0 || propertyIndex >= 1)
                 {
-                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 2]. " +
+                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 0]. " +
                         "Unless you are using custom component replication code, this is most likely caused by a code generation bug. " +
                         "Please contact SpatialOS support if you encounter this issue.");
                 }
@@ -99,39 +99,15 @@ namespace Dinopark.Npc
                 return snapshot;
             }
 
-            private global::Dinopark.Npc.BrachioFSMState.StateEnum currentState;
+            private global::Dinopark.Npc.DinoFSMState.StateEnum currentState;
 
-            public global::Dinopark.Npc.BrachioFSMState.StateEnum CurrentState
+            public global::Dinopark.Npc.DinoFSMState.StateEnum CurrentState
             {
                 get => currentState;
                 set
                 {
                     MarkDataDirty(0);
                     this.currentState = value;
-                }
-            }
-
-            private global::Improbable.Gdk.Core.EntityId targetEntityId;
-
-            public global::Improbable.Gdk.Core.EntityId TargetEntityId
-            {
-                get => targetEntityId;
-                set
-                {
-                    MarkDataDirty(1);
-                    this.targetEntityId = value;
-                }
-            }
-
-            private global::Improbable.Vector3f targetPosition;
-
-            public global::Improbable.Vector3f TargetPosition
-            {
-                get => targetPosition;
-                set
-                {
-                    MarkDataDirty(2);
-                    this.targetPosition = value;
                 }
             }
         }
@@ -181,15 +157,11 @@ namespace Dinopark.Npc
         {
             public uint ComponentId => 1810;
 
-            public global::Dinopark.Npc.BrachioFSMState.StateEnum CurrentState;
-            public global::Improbable.Gdk.Core.EntityId TargetEntityId;
-            public global::Improbable.Vector3f TargetPosition;
+            public global::Dinopark.Npc.DinoFSMState.StateEnum CurrentState;
 
-            public Snapshot(global::Dinopark.Npc.BrachioFSMState.StateEnum currentState, global::Improbable.Gdk.Core.EntityId targetEntityId, global::Improbable.Vector3f targetPosition)
+            public Snapshot(global::Dinopark.Npc.DinoFSMState.StateEnum currentState)
             {
                 CurrentState = currentState;
-                TargetEntityId = targetEntityId;
-                TargetPosition = targetPosition;
             }
         }
 
@@ -200,12 +172,6 @@ namespace Dinopark.Npc
                 {
                     obj.AddEnum(1, (uint) component.CurrentState);
                 }
-                {
-                    obj.AddEntityId(2, component.TargetEntityId);
-                }
-                {
-                    global::Improbable.Vector3f.Serialization.Serialize(component.TargetPosition, obj.AddObject(3));
-                }
             }
 
             public static void SerializeUpdate(global::Dinopark.Npc.DinoBrachio.Component component, global::Improbable.Worker.CInterop.SchemaComponentUpdate updateObj)
@@ -215,20 +181,6 @@ namespace Dinopark.Npc
                     if (component.IsDataDirty(0))
                     {
                         obj.AddEnum(1, (uint) component.CurrentState);
-                    }
-
-                }
-                {
-                    if (component.IsDataDirty(1))
-                    {
-                        obj.AddEntityId(2, component.TargetEntityId);
-                    }
-
-                }
-                {
-                    if (component.IsDataDirty(2))
-                    {
-                        global::Improbable.Vector3f.Serialization.Serialize(component.TargetPosition, obj.AddObject(3));
                     }
 
                 }
@@ -244,32 +196,12 @@ namespace Dinopark.Npc
                         obj.AddEnum(1, (uint) field);
                     }
                 }
-                {
-                    if (update.TargetEntityId.HasValue)
-                    {
-                        var field = update.TargetEntityId.Value;
-                        obj.AddEntityId(2, field);
-                    }
-                }
-                {
-                    if (update.TargetPosition.HasValue)
-                    {
-                        var field = update.TargetPosition.Value;
-                        global::Improbable.Vector3f.Serialization.Serialize(field, obj.AddObject(3));
-                    }
-                }
             }
 
             public static void SerializeSnapshot(global::Dinopark.Npc.DinoBrachio.Snapshot snapshot, global::Improbable.Worker.CInterop.SchemaObject obj)
             {
                 {
                     obj.AddEnum(1, (uint) snapshot.CurrentState);
-                }
-                {
-                    obj.AddEntityId(2, snapshot.TargetEntityId);
-                }
-                {
-                    global::Improbable.Vector3f.Serialization.Serialize(snapshot.TargetPosition, obj.AddObject(3));
                 }
             }
 
@@ -278,13 +210,7 @@ namespace Dinopark.Npc
                 var component = new global::Dinopark.Npc.DinoBrachio.Component();
 
                 {
-                    component.CurrentState = (global::Dinopark.Npc.BrachioFSMState.StateEnum) obj.GetEnum(1);
-                }
-                {
-                    component.TargetEntityId = obj.GetEntityIdStruct(2);
-                }
-                {
-                    component.TargetPosition = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(3));
+                    component.CurrentState = (global::Dinopark.Npc.DinoFSMState.StateEnum) obj.GetEnum(1);
                 }
                 return component;
             }
@@ -297,24 +223,8 @@ namespace Dinopark.Npc
                 {
                     if (obj.GetEnumCount(1) == 1)
                     {
-                        var value = (global::Dinopark.Npc.BrachioFSMState.StateEnum) obj.GetEnum(1);
-                        update.CurrentState = new global::Improbable.Gdk.Core.Option<global::Dinopark.Npc.BrachioFSMState.StateEnum>(value);
-                    }
-                    
-                }
-                {
-                    if (obj.GetEntityIdCount(2) == 1)
-                    {
-                        var value = obj.GetEntityIdStruct(2);
-                        update.TargetEntityId = new global::Improbable.Gdk.Core.Option<global::Improbable.Gdk.Core.EntityId>(value);
-                    }
-                    
-                }
-                {
-                    if (obj.GetObjectCount(3) == 1)
-                    {
-                        var value = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(3));
-                        update.TargetPosition = new global::Improbable.Gdk.Core.Option<global::Improbable.Vector3f>(value);
+                        var value = (global::Dinopark.Npc.DinoFSMState.StateEnum) obj.GetEnum(1);
+                        update.CurrentState = new global::Improbable.Gdk.Core.Option<global::Dinopark.Npc.DinoFSMState.StateEnum>(value);
                     }
                     
                 }
@@ -327,18 +237,8 @@ namespace Dinopark.Npc
                 var obj = data.GetFields();
 
                 {
-                    var value = (global::Dinopark.Npc.BrachioFSMState.StateEnum) obj.GetEnum(1);
-                    update.CurrentState = new global::Improbable.Gdk.Core.Option<global::Dinopark.Npc.BrachioFSMState.StateEnum>(value);
-                    
-                }
-                {
-                    var value = obj.GetEntityIdStruct(2);
-                    update.TargetEntityId = new global::Improbable.Gdk.Core.Option<global::Improbable.Gdk.Core.EntityId>(value);
-                    
-                }
-                {
-                    var value = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(3));
-                    update.TargetPosition = new global::Improbable.Gdk.Core.Option<global::Improbable.Vector3f>(value);
+                    var value = (global::Dinopark.Npc.DinoFSMState.StateEnum) obj.GetEnum(1);
+                    update.CurrentState = new global::Improbable.Gdk.Core.Option<global::Dinopark.Npc.DinoFSMState.StateEnum>(value);
                     
                 }
                 return update;
@@ -349,15 +249,7 @@ namespace Dinopark.Npc
                 var component = new global::Dinopark.Npc.DinoBrachio.Snapshot();
 
                 {
-                    component.CurrentState = (global::Dinopark.Npc.BrachioFSMState.StateEnum) obj.GetEnum(1);
-                }
-
-                {
-                    component.TargetEntityId = obj.GetEntityIdStruct(2);
-                }
-
-                {
-                    component.TargetPosition = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(3));
+                    component.CurrentState = (global::Dinopark.Npc.DinoFSMState.StateEnum) obj.GetEnum(1);
                 }
 
                 return component;
@@ -370,24 +262,8 @@ namespace Dinopark.Npc
                 {
                     if (obj.GetEnumCount(1) == 1)
                     {
-                        var value = (global::Dinopark.Npc.BrachioFSMState.StateEnum) obj.GetEnum(1);
+                        var value = (global::Dinopark.Npc.DinoFSMState.StateEnum) obj.GetEnum(1);
                         component.CurrentState = value;
-                    }
-                    
-                }
-                {
-                    if (obj.GetEntityIdCount(2) == 1)
-                    {
-                        var value = obj.GetEntityIdStruct(2);
-                        component.TargetEntityId = value;
-                    }
-                    
-                }
-                {
-                    if (obj.GetObjectCount(3) == 1)
-                    {
-                        var value = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(3));
-                        component.TargetPosition = value;
                     }
                     
                 }
@@ -400,24 +276,8 @@ namespace Dinopark.Npc
                 {
                     if (obj.GetEnumCount(1) == 1)
                     {
-                        var value = (global::Dinopark.Npc.BrachioFSMState.StateEnum) obj.GetEnum(1);
+                        var value = (global::Dinopark.Npc.DinoFSMState.StateEnum) obj.GetEnum(1);
                         snapshot.CurrentState = value;
-                    }
-                    
-                }
-                {
-                    if (obj.GetEntityIdCount(2) == 1)
-                    {
-                        var value = obj.GetEntityIdStruct(2);
-                        snapshot.TargetEntityId = value;
-                    }
-                    
-                }
-                {
-                    if (obj.GetObjectCount(3) == 1)
-                    {
-                        var value = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(3));
-                        snapshot.TargetPosition = value;
                     }
                     
                 }
@@ -428,9 +288,7 @@ namespace Dinopark.Npc
         {
             internal static Stack<List<Update>> Pool = new Stack<List<Update>>();
 
-            public Option<global::Dinopark.Npc.BrachioFSMState.StateEnum> CurrentState;
-            public Option<global::Improbable.Gdk.Core.EntityId> TargetEntityId;
-            public Option<global::Improbable.Vector3f> TargetPosition;
+            public Option<global::Dinopark.Npc.DinoFSMState.StateEnum> CurrentState;
         }
 
 #if !DISABLE_REACTIVE_COMPONENTS
@@ -495,9 +353,7 @@ namespace Dinopark.Npc
             private static Update SnapshotToUpdate(in Snapshot snapshot)
             {
                 var update = new Update();
-                update.CurrentState = new Option<global::Dinopark.Npc.BrachioFSMState.StateEnum>(snapshot.CurrentState);
-                update.TargetEntityId = new Option<global::Improbable.Gdk.Core.EntityId>(snapshot.TargetEntityId);
-                update.TargetPosition = new Option<global::Improbable.Vector3f>(snapshot.TargetPosition);
+                update.CurrentState = new Option<global::Dinopark.Npc.DinoFSMState.StateEnum>(snapshot.CurrentState);
                 return update;
             }
 
