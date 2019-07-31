@@ -14,15 +14,24 @@ namespace Assets.Gamelogic.Core
 
         private Animator animator; // 恐龙的动画，直接修改动画的播放
         private DinoFSMState.StateEnum _lastStatus;
+        
+        void Awake()
+        {
+            animator = GetComponent<Animator>();
+            animator.applyRootMotion = false;
+        }
 
         // Update is called once per frame
         void Update()
         {
-            var update3 = new DinoBrachio.Update()
+            var status = GetStatus();
+            if (status == DinoFSMState.StateEnum.NONE)
+                return;
+            var update = new DinoBrachio.Update()
             {
-                CurrentState = GetStatus()
+                CurrentState =  status
             };
-            dinoWriter.SendUpdate(update3);
+            dinoWriter.SendUpdate(update);
         }
 
         DinoFSMState.StateEnum GetStatus()
