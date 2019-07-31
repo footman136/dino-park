@@ -4,7 +4,7 @@ using UnityEngine;
 using Improbable;
 namespace Assets.Gamelogic.Core
 {
-    public class ReadTransform : MonoBehaviour
+    public class ReadPlayerTransform : MonoBehaviour
     {
         [Require] private PlayerTransformReader _reader;
         [Require] private PositionReader spatialPosition;

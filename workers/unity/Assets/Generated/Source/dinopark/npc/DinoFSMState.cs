@@ -35,6 +35,7 @@ namespace Dinopark.Npc
             ATTACK = 3,
             DEAD = 4,
             ON_FIRE = 5,
+            NONE = 6,
         }
         
     }

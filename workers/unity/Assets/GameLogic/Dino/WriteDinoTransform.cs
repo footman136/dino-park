@@ -1,12 +1,14 @@
 ﻿using Assets.Gamelogic.Utils;
 using Com.Infalliblecode;
+using Dinopark.Npc;
 using Improbable;
 using Improbable.Gdk.Subscriptions;
+using LowPolyAnimalPack;
 using UnityEngine;
 
 namespace Assets.Gamelogic.Core
 {
-    public class WriteTransform : MonoBehaviour
+    public class WriteDinoTransform : MonoBehaviour
     {
         [Require] private PlayerTransformWriter _writer;
         [Require] private PositionWriter spatialPosition;

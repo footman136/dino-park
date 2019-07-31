@@ -1193,6 +1193,7 @@ GameObject:
   - component: {fileID: 114214127523473264}
   - component: {fileID: 195197703218002412}
   - component: {fileID: 936367185648261932}
+  - component: {fileID: -8412173907983510710}
   m_Layer: 0
   m_Name: DinoBrachio
   m_TagString: Untagged
@@ -1334,7 +1335,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1582867359527748}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88cf970f678540c43be42e30c0fd0f61, type: 3}
+  m_Script: {fileID: 11500000, guid: f60e3294caffeff45abb2ae1d48abb98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8412173907983510710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582867359527748}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72c9d65d4287434086c873e57cd10db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1596340026738218
