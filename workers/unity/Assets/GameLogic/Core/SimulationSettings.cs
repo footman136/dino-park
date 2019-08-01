@@ -45,7 +45,7 @@ namespace Assets.Gamelogic.Core
         public static Vector3 InvalidPosition = Vector3.one * -9999;
         
         // Entity counts
-            public static int AttemptedTreeCount = 2000; //20000;
+            public static int AttemptedTreeCount = 200; //20000;
         public static float TreeJitter = 9.0f;
         
         // Component Updates

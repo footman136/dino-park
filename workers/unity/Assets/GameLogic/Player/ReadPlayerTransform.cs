@@ -12,8 +12,8 @@ namespace Assets.Gamelogic.Core
         // Update is called once per frame
         void Update()
         {
-            //transform.position = _reader.Data.Position.ToUnityVector();
             transform.position = spatialPosition.Data.Coords.ToUnityVector();
+            //transform.position = _reader.Data.Position.ToUnityVector();
             transform.rotation = Quaternion.Euler(_reader.Data.Rotation.ToUnityVector());
         }
     }

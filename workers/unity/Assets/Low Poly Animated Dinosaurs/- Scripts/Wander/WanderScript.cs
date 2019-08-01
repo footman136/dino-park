@@ -205,7 +205,7 @@ namespace LowPolyAnimalPack
       originalScent = scent;
       originalAgression = ScriptableAnimalStats.agression;
 
-      if (navMeshAgent)
+      if (navMeshAgent && navMeshAgent.isActiveAndEnabled)
       {
         useNavMesh = true;
         navMeshAgent.stoppingDistance = contingencyDistance;

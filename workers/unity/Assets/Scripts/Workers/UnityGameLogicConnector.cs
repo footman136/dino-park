@@ -56,6 +56,7 @@ namespace DinoPark
             var template = new EntityTemplate();
             template.AddComponent(new Position.Snapshot(), clientAttribute);
             template.AddComponent(new Metadata.Snapshot("Player"), serverAttribute);
+            template.AddComponent(new Persistence.Snapshot(), serverAttribute);
             template.AddComponent(new PlayerTransform.Snapshot(), clientAttribute);
             TransformSynchronizationHelper.AddTransformSynchronizationComponents(template, clientAttribute);
             PlayerLifecycleHelper.AddPlayerLifecycleComponents(template, workerId, serverAttribute);
