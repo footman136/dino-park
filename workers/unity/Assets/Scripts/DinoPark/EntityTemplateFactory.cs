@@ -66,21 +66,36 @@ namespace DinoPark
 
 	    public static EntityTemplate CreateDinoBrachioTemplate(Coordinates initialPosition, uint teamId)
 	    {
-		    //Debug.Log("SnapShot Create Dinosauser - Brachiosaurus!");
 		    var serverAttribute = UnityGameLogicConnector.WorkerType;
 		    var template = new EntityTemplate();
 		    template.AddComponent(new Position.Snapshot(initialPosition), serverAttribute);
 		    template.AddComponent(new Metadata.Snapshot(SimulationSettings.Dino_Brachio_PrefabName), serverAttribute);
 		    template.AddComponent(new Persistence.Snapshot(), serverAttribute);
-		    //template.AddComponent(new TransformComponent.Snapshot(), serverAttribute);
+		    template.AddComponent(new PlayerTransform.Snapshot(), serverAttribute);
+		    template.AddComponent(new Health.Snapshot(SimulationSettings.LumberjackMaxHealth, SimulationSettings.LumberjackMaxHealth, true), serverAttribute);
+		    template.AddComponent(new Flammable.Snapshot(false, true, FireEffectType.SMALL), serverAttribute);
+		    template.AddComponent(new Inventory.Snapshot(0), serverAttribute);
+		    template.AddComponent(new DinoBrachio.Snapshot(0), serverAttribute);
+		    
+		    template.SetReadAccess(UnityClientConnector.WorkerType, UnityGameLogicConnector.WorkerType, MobileClientWorkerConnector.WorkerType);
+		    template.SetComponentWriteAccess(EntityAcl.ComponentId, serverAttribute);
+		    
+		    return template;
+	    }
+
+	    public static EntityTemplate CreateDinoTRexTemplate(Coordinates initialPosition, uint teamId)
+	    {
+		    var serverAttribute = UnityGameLogicConnector.WorkerType;
+		    var template = new EntityTemplate();
+		    template.AddComponent(new Position.Snapshot(initialPosition), serverAttribute);
+		    template.AddComponent(new Metadata.Snapshot(SimulationSettings.Dino_TRex_PrefabName), serverAttribute);
+		    template.AddComponent(new Persistence.Snapshot(), serverAttribute);
 		    template.AddComponent(new PlayerTransform.Snapshot(), serverAttribute);
 		    template.AddComponent(new Health.Snapshot(SimulationSettings.LumberjackMaxHealth, SimulationSettings.LumberjackMaxHealth, true), serverAttribute);
 		    template.AddComponent(new Flammable.Snapshot(false, true, FireEffectType.SMALL), serverAttribute);
 		    //template.AddComponent(new TargetNavigation.Snapshot(NavigationState.INACTIVE, Vector3f.Zero, new EntityId(), 0f), serverAttribute);
 		    template.AddComponent(new Inventory.Snapshot(0), serverAttribute);
 		    template.AddComponent(new DinoBrachio.Snapshot(0), serverAttribute);
-		    //template.AddComponent(new NPCLumberjack.Snapshot(LumberjackFSMState.StateEnum.IDLE, new EntityId(), SimulationSettings.InvalidPosition.ToVector3f()), serverAttribute);
-		    //template.AddComponent(new TeamAssignment.Snapshot(teamId), serverAttribute);
 		    
 		    template.SetReadAccess(UnityClientConnector.WorkerType, UnityGameLogicConnector.WorkerType, MobileClientWorkerConnector.WorkerType);
 		    template.SetComponentWriteAccess(EntityAcl.ComponentId, serverAttribute);

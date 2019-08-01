@@ -70,7 +70,7 @@ namespace Editor
 
         public static void SpawnNpcsAroundPosition(Snapshot snapshot, Coordinates position, uint team)
         {
-            float totalNpcs = SimulationSettings.HQStartingWizardsCount + SimulationSettings.HQStartingLumberjacksCount;
+            float totalNpcs = SimulationSettings.HQStartingTRexCount + SimulationSettings.HQStartingBrachioCount;
             float radiusFromHQ = SimulationSettings.NPCSpawnDistanceToHQ;
 
             for (int i = 0; i < totalNpcs; i++)
@@ -81,7 +81,7 @@ namespace Editor
                 Coordinates coordinates = (position.ToVector3() + offset).ToCoordinates();
 
                 EntityTemplate entity = null;
-                if (i < SimulationSettings.HQStartingLumberjacksCount)
+                if (i < SimulationSettings.HQStartingBrachioCount)
                 {
                     //entity = EntityTemplateFactory.CreateNPCLumberjackTemplate(coordinates, team);
                     entity = EntityTemplateFactory.CreateDinoBrachioTemplate(coordinates, team);
@@ -89,6 +89,7 @@ namespace Editor
                 else
                 {
                     //entity = EntityTemplateFactory.CreateNPCWizardTemplate(coordinates, team);
+                    entity = EntityTemplateFactory.CreateDinoTRexTemplate(coordinates, team);
                 }
 
                 if (entity != null)

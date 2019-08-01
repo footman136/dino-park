@@ -31,7 +31,8 @@ namespace DinoPark
             var isPlayer = metadata.EntityType == "Player";// 玩家
             var isTree = metadata.EntityType == SimulationSettings.TreePrefabName;// 树
             var isLumberJack = metadata.EntityType == SimulationSettings.NPCPrefabName; // 伐木工
-            var isDino = metadata.EntityType == SimulationSettings.Dino_Brachio_PrefabName;// Dino Brachiosaurus
+            var isDinoBrachio = metadata.EntityType == SimulationSettings.Dino_Brachio_PrefabName;// Dino Brachiosaurus
+            var isDinoTRex = metadata.EntityType == SimulationSettings.Dino_TRex_PrefabName;// Dino T-Rex
             var hasAuthority = PlayerLifecycleHelper.IsOwningWorker(entity.SpatialOSEntityId, _world);
             if (isPlayer && hasAuthority)
             {
@@ -57,15 +58,23 @@ namespace DinoPark
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 Debug.Log("EntityGameObjectCreator OnEntityCreated - A LumberJack GameObject created");
             }
-            else if (isDino)
+            else if (isDinoBrachio)
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Dino_Brachio_PrefabName;
-                Debug.Log("Begin Create a Dinosauer GameObject! - " + pathPrefab);
                 var prefab = Resources.Load(pathPrefab);
                 var entityGameObject = UnityEngine.Object.Instantiate(prefab);
                 entityGameObject.name = SimulationSettings.Dino_Brachio_PrefabName + "(EntityID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer Brachiosaurus GameObject created");
+            }
+            else if (isDinoTRex)
+            {
+                var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Dino_TRex_PrefabName;
+                var prefab = Resources.Load(pathPrefab);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab);
+                entityGameObject.name = SimulationSettings.Dino_TRex_PrefabName + "(EntityID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
+                linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
+                Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer T-Rex GameObject created");
             }
             else
             {

@@ -8,8 +8,8 @@ namespace Assets.Gamelogic.Core
         // Entity Prefab Names
 //        public static string PlayerPrefabName = "Player";
         public static string NPCPrefabName = "NPCLumberjack";
+        public static string Dino_Brachio_PrefabName = "DinoBrachio";
         public static string Dino_TRex_PrefabName = "DinoTRex";
-            public static string Dino_Brachio_PrefabName = "DinoBrachio";
 //        public static string NPCWizardPrefabName = "NPCWizard";
 //        public static string HQPrefabName = "HQ";
         public static string TreePrefabName = "Tree";
@@ -117,6 +117,8 @@ namespace Assets.Gamelogic.Core
 //                public static float PlayerSpawnOffsetFactor = 48.0f;
                 public static int HQStartingLumberjacksCount = 8; // 20
                 public static int HQStartingWizardsCount = 0;
+        public static int HQStartingBrachioCount = 15; // 20
+        public static int HQStartingTRexCount = 5;
 //                public static float DefaultHQBarracksSpawnRadius = 25f;
 //                public static float MaxHQBarracksSpawnRadius = 200f;
 //                public static float HQBarracksSpawnRadiusIncrease = 10f;

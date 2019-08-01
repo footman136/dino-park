@@ -205,7 +205,7 @@ namespace LowPolyAnimalPack
       originalScent = scent;
       originalAgression = ScriptableAnimalStats.agression;
 
-      if (navMeshAgent && navMeshAgent.isActiveAndEnabled)
+      if (navMeshAgent)
       {
         useNavMesh = true;
         navMeshAgent.stoppingDistance = contingencyDistance;
@@ -1041,7 +1041,8 @@ namespace LowPolyAnimalPack
         }
       }
 
-      DecideNextState(false);
+      // BUG FIX - 这里频繁调用，在SpatialOS下，可能会导致堆栈溢出。Aug.1.2019. Liu Gang.
+      //DecideNextState(false);
     }
   }
 }

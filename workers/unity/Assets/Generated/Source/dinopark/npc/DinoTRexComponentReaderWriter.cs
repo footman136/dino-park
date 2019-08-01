@@ -352,14 +352,14 @@ namespace Dinopark.Npc
             }
         }
 
-        private Dictionary<Action<global::Dinopark.Npc.LumberjackFSMState.StateEnum>, ulong> currentStateUpdateCallbackToCallbackKey;
-        public event Action<global::Dinopark.Npc.LumberjackFSMState.StateEnum> OnCurrentStateUpdate
+        private Dictionary<Action<global::Dinopark.Npc.DinoFSMState.StateEnum>, ulong> currentStateUpdateCallbackToCallbackKey;
+        public event Action<global::Dinopark.Npc.DinoFSMState.StateEnum> OnCurrentStateUpdate
         {
             add
             {
                 if (currentStateUpdateCallbackToCallbackKey == null)
                 {
-                    currentStateUpdateCallbackToCallbackKey = new Dictionary<Action<global::Dinopark.Npc.LumberjackFSMState.StateEnum>, ulong>();
+                    currentStateUpdateCallbackToCallbackKey = new Dictionary<Action<global::Dinopark.Npc.DinoFSMState.StateEnum>, ulong>();
                 }
 
                 var key = CallbackSystem.RegisterComponentUpdateCallback<DinoTRex.Update>(EntityId, update =>
@@ -380,68 +380,6 @@ namespace Dinopark.Npc
 
                 CallbackSystem.UnregisterCallback(key);
                 currentStateUpdateCallbackToCallbackKey.Remove(value);
-            }
-        }
-
-        private Dictionary<Action<global::Improbable.Gdk.Core.EntityId>, ulong> targetEntityIdUpdateCallbackToCallbackKey;
-        public event Action<global::Improbable.Gdk.Core.EntityId> OnTargetEntityIdUpdate
-        {
-            add
-            {
-                if (targetEntityIdUpdateCallbackToCallbackKey == null)
-                {
-                    targetEntityIdUpdateCallbackToCallbackKey = new Dictionary<Action<global::Improbable.Gdk.Core.EntityId>, ulong>();
-                }
-
-                var key = CallbackSystem.RegisterComponentUpdateCallback<DinoTRex.Update>(EntityId, update =>
-                {
-                    if (update.TargetEntityId.HasValue)
-                    {
-                        value(update.TargetEntityId.Value);
-                    }
-                });
-                targetEntityIdUpdateCallbackToCallbackKey.Add(value, key);
-            }
-            remove
-            {
-                if (!targetEntityIdUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
-                {
-                    return;
-                }
-
-                CallbackSystem.UnregisterCallback(key);
-                targetEntityIdUpdateCallbackToCallbackKey.Remove(value);
-            }
-        }
-
-        private Dictionary<Action<global::Improbable.Vector3f>, ulong> targetPositionUpdateCallbackToCallbackKey;
-        public event Action<global::Improbable.Vector3f> OnTargetPositionUpdate
-        {
-            add
-            {
-                if (targetPositionUpdateCallbackToCallbackKey == null)
-                {
-                    targetPositionUpdateCallbackToCallbackKey = new Dictionary<Action<global::Improbable.Vector3f>, ulong>();
-                }
-
-                var key = CallbackSystem.RegisterComponentUpdateCallback<DinoTRex.Update>(EntityId, update =>
-                {
-                    if (update.TargetPosition.HasValue)
-                    {
-                        value(update.TargetPosition.Value);
-                    }
-                });
-                targetPositionUpdateCallbackToCallbackKey.Add(value, key);
-            }
-            remove
-            {
-                if (!targetPositionUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
-                {
-                    return;
-                }
-
-                CallbackSystem.UnregisterCallback(key);
-                targetPositionUpdateCallbackToCallbackKey.Remove(value);
             }
         }
 
@@ -490,26 +428,6 @@ namespace Dinopark.Npc
 
                 currentStateUpdateCallbackToCallbackKey.Clear();
             }
-
-            if (targetEntityIdUpdateCallbackToCallbackKey != null)
-            {
-                foreach (var callbackToKey in targetEntityIdUpdateCallbackToCallbackKey)
-                {
-                    CallbackSystem.UnregisterCallback(callbackToKey.Value);
-                }
-
-                targetEntityIdUpdateCallbackToCallbackKey.Clear();
-            }
-
-            if (targetPositionUpdateCallbackToCallbackKey != null)
-            {
-                foreach (var callbackToKey in targetPositionUpdateCallbackToCallbackKey)
-                {
-                    CallbackSystem.UnregisterCallback(callbackToKey.Value);
-                }
-
-                targetPositionUpdateCallbackToCallbackKey.Clear();
-            }
         }
     }
 
@@ -527,16 +445,6 @@ namespace Dinopark.Npc
             if (update.CurrentState.HasValue)
             {
                 component.CurrentState = update.CurrentState.Value;
-            }
-
-            if (update.TargetEntityId.HasValue)
-            {
-                component.TargetEntityId = update.TargetEntityId.Value;
-            }
-
-            if (update.TargetPosition.HasValue)
-            {
-                component.TargetPosition = update.TargetPosition.Value;
             }
 
             EntityManager.SetComponentData(Entity, component);
