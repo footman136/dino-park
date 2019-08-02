@@ -4,6 +4,7 @@ using Dinopark.Npc;
 using Improbable;
 using Improbable.Gdk.Subscriptions;
 using LowPolyAnimalPack;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Gamelogic.Core
@@ -13,8 +14,8 @@ namespace Assets.Gamelogic.Core
         [Require] private DinoBrachioWriter dinoWriter; // 恐龙的状态
 
         private Animator animator; // 恐龙的动画，直接修改动画的播放
-        private DinoFSMState.StateEnum _lastStatus;
-        
+        [SerializeField] private DinoFSMState.StateEnum _lastStatus;
+
         void Awake()
         {
             animator = GetComponent<Animator>();
@@ -32,6 +33,8 @@ namespace Assets.Gamelogic.Core
                 CurrentState =  status
             };
             dinoWriter.SendUpdate(update);
+            _lastStatus = status;
+            
         }
 
         DinoFSMState.StateEnum GetStatus()

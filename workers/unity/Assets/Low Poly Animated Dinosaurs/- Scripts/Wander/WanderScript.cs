@@ -124,6 +124,11 @@ namespace LowPolyAnimalPack
     private float currentTurnSpeed = 0f;
     private bool attacking = false;
 
+    public bool IsDead()
+    {
+      return dead;
+    }
+
     public void OnDrawGizmosSelected()
     {
       if (!showGizmos)
@@ -166,7 +171,7 @@ namespace LowPolyAnimalPack
       // Draw target position.
       if (useNavMesh)
       {
-        if (navMeshAgent.remainingDistance > 1f)
+        if (navMeshAgent.isActiveAndEnabled && navMeshAgent.remainingDistance > 1f)
         {
           Gizmos.DrawSphere(navMeshAgent.destination + new Vector3(0f, 0.1f, 0f), 0.2f);
           Gizmos.DrawLine(transform.position, navMeshAgent.destination);
@@ -873,9 +878,13 @@ namespace LowPolyAnimalPack
         else
         {
 
-          if (idleStates.Length > 0 && !string.IsNullOrEmpty(idleStates[currentState].animationBool))
+          if (currentState < idleStates.Length && idleStates.Length > 0 && !string.IsNullOrEmpty(idleStates[currentState].animationBool))
           {
             animator.SetBool(idleStates[currentState].animationBool, false);
+          }
+          else
+          {
+            animator.SetBool(movementStates[currentState].animationBool, false);
           }
         }
       }
@@ -901,15 +910,15 @@ namespace LowPolyAnimalPack
       StopAllCoroutines();
       dead = true;
 
-
-      if (useNavMesh)
-      {
-        navMeshAgent.SetDestination(transform.position);
-      }
-      else
-      {
-        targetLocation = transform.position;
-      }
+// BUG FIX : 死了以后就不要设置移动目的地了吧,否则会报错。Aug.1.2019. Liu Gang.
+//      if (useNavMesh)
+//      {
+//        navMeshAgent.SetDestination(transform.position);
+//      }
+//      else
+//      {
+//        targetLocation = transform.position;
+//      }
 
       foreach (AnimalState state in idleStates)
       {
@@ -1035,9 +1044,13 @@ namespace LowPolyAnimalPack
       }
       else
       {
-        if (idleStates.Length > 0 && !string.IsNullOrEmpty(idleStates[currentState].animationBool))
+        if (currentState < idleStates.Length && idleStates.Length > 0 && !string.IsNullOrEmpty(idleStates[currentState].animationBool))
         {
           animator.SetBool(idleStates[currentState].animationBool, false);
+        }
+        else
+        {
+          animator.SetBool(movementStates[currentState].animationBool, false);
         }
       }
 

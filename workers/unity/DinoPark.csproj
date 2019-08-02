@@ -137,7 +137,7 @@
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\MovementState.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\SurfaceRotation.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\WanderScript.cs" />
-    <Compile Include="Assets\Scripts\CameraControl.cs" />
+    <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DinoPark\EntityGameObjectCreator.cs" />
     <Compile Include="Assets\Scripts\DinoPark\EntityTemplateFactory.cs" />
     <Compile Include="Assets\Scripts\MetricSendSystem.cs" />
