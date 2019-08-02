@@ -1106,7 +1106,7 @@ namespace LowPolyAnimalPack
       }
 
       // BUG FIX - 这里频繁调用，在SpatialOS下，可能会导致堆栈溢出。Aug.1.2019. Liu Gang.
-      DecideNextState(false);
+      //DecideNextState(false);
     }
   }
 }
