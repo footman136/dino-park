@@ -119,7 +119,7 @@ namespace LowPolyAnimalPack
     private int currentState = 0;
     private bool dead = false;
     private bool moving = false;
-    private bool useNavMesh = false;
+    [SerializeField] private bool useNavMesh = false;
     private Vector3 targetLocation = Vector3.zero;
     private float currentTurnSpeed = 0f;
     private bool attacking = false;
@@ -214,6 +214,11 @@ namespace LowPolyAnimalPack
       {
         useNavMesh = true;
         navMeshAgent.stoppingDistance = contingencyDistance;
+        navMeshAgent.Warp(transform.position);
+      }
+      else
+      {
+        useNavMesh = false;
       }
 
       if (matchSurfaceRotation && transform.childCount > 0)
@@ -249,33 +254,47 @@ namespace LowPolyAnimalPack
     {
       attacking = false;
 
-      // Look for a predator.
+      // Look for a predator. 逻辑修改，增加：寻找最近的敌人
       if (awareness > 0)
       {
+        float distMin = float.MaxValue;
+        int index = -1;
         for (int i = 0; i < allAnimals.Count; i++)
         {
-          if (allAnimals[i].dead == true || allAnimals[i] == this || allAnimals[i].species == species || allAnimals[i].ScriptableAnimalStats.dominance <= ScriptableAnimalStats.dominance || allAnimals[i].ScriptableAnimalStats.stealthy)
+          if (allAnimals[i].dead == true || allAnimals[i] == this || allAnimals[i].species == species ||
+              allAnimals[i].ScriptableAnimalStats.dominance <= ScriptableAnimalStats.dominance ||
+              allAnimals[i].ScriptableAnimalStats.stealthy)
           {
             continue;
           }
 
-          if (Vector3.Distance(transform.position, allAnimals[i].transform.position) > awareness)
+          float dist = Vector3.Distance(transform.position, allAnimals[i].transform.position);
+          if ( dist > awareness)
           {
             continue;
           }
 
+          if (dist < distMin)
+          {
+            distMin = dist;
+            index = i;
+          }
+        }
+        
+        if(index >= 0 && index < allAnimals.Count)
+        {
           if (useNavMesh)
           {
-            RunAwayFromAnimal(allAnimals[i]);
+            RunAwayFromAnimal(allAnimals[index]);
           }
           else
           {
-            NonNavMeshRunAwayFromAnimal(allAnimals[i]);
+            NonNavMeshRunAwayFromAnimal(allAnimals[index]);
           }
 
           if (logChanges)
           {
-            Debug.Log(string.Format("{0}: Found predator ({1}), running away.", gameObject.name, allAnimals[i].gameObject.name));
+            Debug.Log(string.Format("{0}: Found predator ({1}), running away.", gameObject.name, allAnimals[index].gameObject.name));
           }
 
           return;
@@ -285,9 +304,14 @@ namespace LowPolyAnimalPack
       // Look for pray.
       if (ScriptableAnimalStats.dominance > 0)
       {
+        float distMin = float.MaxValue;
+        int index = -1;
         for (int i = 0; i < allAnimals.Count; i++)
         {
-          if (allAnimals[i].dead == true || allAnimals[i] == this || (allAnimals[i].species == species && !ScriptableAnimalStats.territorial) || allAnimals[i].ScriptableAnimalStats.dominance > ScriptableAnimalStats.dominance || allAnimals[i].ScriptableAnimalStats.stealthy)
+          if (allAnimals[i].dead == true || allAnimals[i] == this ||
+              (allAnimals[i].species == species && !ScriptableAnimalStats.territorial) ||
+              allAnimals[i].ScriptableAnimalStats.dominance > ScriptableAnimalStats.dominance ||
+              allAnimals[i].ScriptableAnimalStats.stealthy)
           {
             continue;
           }
@@ -298,7 +322,8 @@ namespace LowPolyAnimalPack
             continue;
           }
 
-          if (Vector3.Distance(transform.position, allAnimals[i].transform.position) > scent)
+          float dist = Vector3.Distance(transform.position, allAnimals[i].transform.position);
+          if ( dist > scent)
           {
             continue;
           }
@@ -307,16 +332,29 @@ namespace LowPolyAnimalPack
           {
             continue;
           }
-
-          if (logChanges)
+          
+          if (dist < distMin)
           {
-            Debug.Log(string.Format("{0}: Found prey ({1}), chasing.", gameObject.name, allAnimals[i].gameObject.name));
+            distMin = dist;
+            index = i;
           }
-
-          ChaseAnimal(allAnimals[i]);
-          return;
         }
-      }
+        if(index >=0 && index < allAnimals.Count)
+        {
+          if (logChanges)
+            {
+              Debug.Log(string.Format("{0}: Found prey ({1}), chasing.", gameObject.name, allAnimals[index].gameObject.name));
+            }
+
+          if (allAnimals[index] == this)
+          {
+            Debug.LogWarning("Cannot eat myself!!!");
+          }
+            ChaseAnimal(allAnimals[index]);
+            return;
+          }
+        }
+      
 
       if (wasIdle && movementStates.Length > 0)
       {
