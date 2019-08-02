@@ -1,9 +1,7 @@
 ﻿using Com.Infalliblecode;
-using Dinopark.Npc;
 using Improbable.Gdk.Subscriptions; // Require
 using UnityEngine;
 using Improbable;
-using LowPolyAnimalPack;
 
 namespace Assets.Gamelogic.Core
 {
