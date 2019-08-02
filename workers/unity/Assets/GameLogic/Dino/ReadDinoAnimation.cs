@@ -9,7 +9,7 @@ namespace Assets.Gamelogic.Core
         [Require] private DinoBrachioReader dinoReader; // 恐龙的状态
 
         private Animator _animator; // 恐龙的动画，直接修改动画的播放
-        [SerializeField] private DinoFSMState.StateEnum _lastStatus = DinoFSMState.StateEnum.IDLE;
+        [SerializeField] private DinoFSMState.StateEnum _status;
 
         void Awake()
         {
@@ -25,24 +25,42 @@ namespace Assets.Gamelogic.Core
 
         void SetStatus(DinoFSMState.StateEnum inStatus)
         {
-            if (_animator == null)
-                return;
-            if (_lastStatus == inStatus)
-                return;
             string[] animationBool = { "isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
-            if (inStatus < 0 || inStatus > DinoFSMState.StateEnum.ON_FIRE)
+            _status = GetStatus();
+            if (_status == inStatus || inStatus == DinoFSMState.StateEnum.NONE)
                 return;
-            _animator.SetBool(animationBool[(int)_lastStatus], false);
+
+            if (_status != DinoFSMState.StateEnum.NONE)
+            {
+                _animator.SetBool(animationBool[(int) _status], false);
+            }
+
             // 如果动画已经是DEAD了，这时候又收到的其他状态的动画，这时候只有rebind动画，否则，动画不能被正确设置，因为一旦被设置到DEAD，就再也回不来了
             // 这种情况会出现在客户端重启，而服务器没有重启的情况，服务器发过来的动画状态会因为上次运行过而发生错乱。
             // 也就是说，上次运行后，本客户端死过，下次运行的时候，服务器仍然会把死亡状态发过来，然后又重置为新的（活的）状态。
-            if (_lastStatus == DinoFSMState.StateEnum.DEAD && inStatus != DinoFSMState.StateEnum.DEAD)
+            if (_status == DinoFSMState.StateEnum.DEAD && inStatus != DinoFSMState.StateEnum.DEAD)
             {
                 _animator.Rebind();
-                Debug.Log("Receive old Status<"+_lastStatus+"> new Status<"+inStatus+">");
+                Debug.Log("Receive old Status<"+_status+"> new Status<"+inStatus+">");
             }
             _animator.SetBool(animationBool[(int)inStatus], true);
-            _lastStatus = inStatus;
+        }
+        DinoFSMState.StateEnum GetStatus()
+        {
+            string[] animationBool = { "isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
+            int index = 0;
+            foreach (var ani in animationBool)
+            {
+                var isPlaying = _animator.GetBool(ani);
+                if (isPlaying)
+                {
+                    return (DinoFSMState.StateEnum)index;
+                }
+
+                index++;
+            }
+
+            return DinoFSMState.StateEnum.NONE;
         }
     }
 }

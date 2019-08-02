@@ -2764,7 +2764,7 @@ MonoBehaviour:
   - stateName: Run
     animationBool: isRunning
     maxStateTime: 13
-    moveSpeed: 6
+    moveSpeed: 8
     turnSpeed: 120
   attackingStates:
   - stateName: Attack
@@ -2788,6 +2788,7 @@ MonoBehaviour:
   drawWanderRange: 1
   drawScentRange: 1
   drawAwarenessRange: 1
+  useNavMesh: 0
 --- !u!195 &195688642582221476
 NavMeshAgent:
   m_ObjectHideFlags: 0

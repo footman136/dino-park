@@ -1281,7 +1281,7 @@ MonoBehaviour:
   - stateName: Run
     animationBool: isRunning
     maxStateTime: 13
-    moveSpeed: 8
+    moveSpeed: 6
     turnSpeed: 120
   attackingStates:
   - stateName: Attack
@@ -1304,6 +1304,7 @@ MonoBehaviour:
   drawWanderRange: 1
   drawScentRange: 1
   drawAwarenessRange: 1
+  useNavMesh: 0
 --- !u!195 &195197703218002412
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1350,6 +1351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72c9d65d4287434086c873e57cd10db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lastStatus: 0
 --- !u!1 &1596340026738218
 GameObject:
   m_ObjectHideFlags: 0

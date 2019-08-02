@@ -58,6 +58,7 @@ namespace LowPolyAnimalPack
     [SerializeField, Tooltip("How far this animal can sense it's prey.")]
     private float scent = 30f;
     private float originalScent = 0f;
+    private float originalToughness = 0f;
 
     // [SerializeField, Tooltip("How many seconds this animal can run for before it gets tired.")]
     // private float stamina = 10f;
@@ -123,7 +124,7 @@ namespace LowPolyAnimalPack
     private Vector3 targetLocation = Vector3.zero;
     private float currentTurnSpeed = 0f;
     private bool attacking = false;
-
+    
     public bool IsDead()
     {
       return dead;
@@ -209,7 +210,8 @@ namespace LowPolyAnimalPack
       originalDominance = ScriptableAnimalStats.dominance;
       originalScent = scent;
       originalAgression = ScriptableAnimalStats.agression;
-
+      originalToughness = ScriptableAnimalStats.toughness;
+        
       if (navMeshAgent)
       {
         useNavMesh = true;
@@ -658,6 +660,7 @@ namespace LowPolyAnimalPack
 
     private void ChaseAnimal(WanderScript prey)
     {
+      // BUG 这里不需要调用，否则没有腕龙逃跑的逻辑了
       Vector3 target = prey.transform.position;
       prey.BeginChase(this);
 
@@ -814,6 +817,9 @@ namespace LowPolyAnimalPack
 
     private void AttackAnimal(WanderScript target)
     {
+      // 如果对方已经处于攻击状态，则我不能攻击对方，否则会导致navMeshAgent报错，我感觉应该是多线程导致的报错。
+      if (!target.IfCanBeAttacked())
+        return;
       attacking = true;
 
       if (logChanges)
@@ -854,8 +860,8 @@ namespace LowPolyAnimalPack
 
         if (timer > ScriptableAnimalStats.attackSpeed)
         {
-          target.TakeDamage(ScriptableAnimalStats.power);
-          timer = 0f;
+            target.TakeDamage(ScriptableAnimalStats.power);
+            timer = 0f;
         }
 
         yield return null;
@@ -947,6 +953,7 @@ namespace LowPolyAnimalPack
 
       StopAllCoroutines();
       dead = true;
+      ScriptableAnimalStats.toughness = originalToughness;
 
 // BUG FIX : 死了以后就不要设置移动目的地了吧,否则会报错。Aug.1.2019. Liu Gang.
 //      if (useNavMesh)
@@ -1044,6 +1051,12 @@ namespace LowPolyAnimalPack
       }
     }
 
+    private bool IfCanBeAttacked()
+    {// 如果本动物正在攻击别人，则本动物不能被别人追击
+      if (attacking)
+        return false;
+      return true;
+    }
     private void BeginChase(WanderScript chasingAnimal)
     {
       if (attacking)
@@ -1093,7 +1106,7 @@ namespace LowPolyAnimalPack
       }
 
       // BUG FIX - 这里频繁调用，在SpatialOS下，可能会导致堆栈溢出。Aug.1.2019. Liu Gang.
-      //DecideNextState(false);
+      DecideNextState(false);
     }
   }
 }
