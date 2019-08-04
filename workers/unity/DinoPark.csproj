@@ -138,7 +138,6 @@
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\SurfaceRotation.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\WanderScript.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\DinoPark\DinoStats.cs" />
     <Compile Include="Assets\Scripts\DinoPark\EntityGameObjectCreator.cs" />
     <Compile Include="Assets\Scripts\DinoPark\EntityTemplateFactory.cs" />
     <Compile Include="Assets\Scripts\DinoPark\LogicDino.cs" />

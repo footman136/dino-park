@@ -3,14 +3,16 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fec3f8212b47c5945b2469ad42d22b1c, type: 3}
   m_Name: Brachiosaurus
   m_EditorClassIdentifier: 
+  species: Brachiosaurus
   dominance: 1
   stamina: 10
   power: 10
@@ -19,3 +21,15 @@ MonoBehaviour:
   attackSpeed: 0.5
   territorial: 0
   stealthy: 0
+  awareness: 30
+  scent: 30
+  nonAgressiveTowards: []
+  contingencyDistance: 1
+  thinkingFrequency: 1
+  moveSpeed: 2
+  runSpeed: 6
+  turnSpeed: 120
+  hardTime: 40
+  foodStorage: 100
+  HungryRate: 0.5
+  liveCost: 1
