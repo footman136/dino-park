@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Animal Stats", menuName = "Polyperfect/NewAnimalStats", order = 1)]
-public class AnimalStats : ScriptableObject
+public class     AnimalStats : ScriptableObject
 {
+    [SerializeField, Tooltip("恐龙的种类，名称")]
+    public string species = "NA";
+
     [SerializeField, Tooltip("How dominent this animal is in the food chain, agressive animals will attack less dominant animals.")]
     public int dominance = 1;
 
@@ -28,4 +31,41 @@ public class AnimalStats : ScriptableObject
 
     [SerializeField, Tooltip("Stealthy animals can't be detected by other animals.")]
     public bool stealthy = false;
+
+    [SerializeField, Tooltip("How far this animal can sense a predator.")]
+    public float awareness = 30f;
+
+    [SerializeField, Tooltip("How far this animal can sense it's prey.")]
+    public float scent = 30f;
+
+    [SerializeField, Tooltip("This animal will be peaceful towards species in this list.")]
+    public string[] nonAgressiveTowards;
+
+    [SerializeField, Tooltip("恐龙的大小，走到多近距离后就停下")]
+    public float contingencyDistance = 1.0f;
+        
+    [SerializeField, Tooltip("思考间隔，间隔越小，反应越灵敏（单位:秒）")]
+    public float thinkingFrequency = 1.0f;
+    
+    [SerializeField, Tooltip("移动速度")]
+    public float moveSpeed = 3.0f;
+    
+    [SerializeField, Tooltip("奔跑速度")]
+    public float runSpeed = 6.0f;
+
+    [SerializeField, Tooltip("转身速度")]
+    public float turnSpeed = 120.0f;
+    
+    [SerializeField, Tooltip("追击敌人所坚持的时间（单位：秒）")]
+    public float hardTime = 40.0f;
+    
+    [SerializeField, Tooltip("身上携带的最大食物")]
+    public float foodStorage = 100.0f;
+    
+    [SerializeField, Tooltip("饥饿到什么程度（身上的食物与最大携带量的比例）就要去找吃的了")]
+    public float HungryRate = 0.5f;
+
+    [SerializeField, Tooltip("活着的消耗，每秒消耗多少的食物")]
+    public float liveCost = 1.0f;
+
 }

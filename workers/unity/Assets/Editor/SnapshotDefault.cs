@@ -14,8 +14,8 @@ namespace Editor
             var texture = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Editor/Resources/perlin.png");
             
             //SnapshotUtil.AddHQs(snapshot, SimulationSettings.TeamHQLocations);
-            SnapshotUtil.AddNPCsAroundHQs(snapshot, SimulationSettings.TeamHQLocations);
             SnapshotUtil.AddTrees(snapshot, texture, 0.35f, SimulationSettings.AttemptedTreeCount, SimulationSettings.SpawningWorldEdgeLength, SimulationSettings.TreeJitter);
+            SnapshotUtil.AddNPCsAroundHQs(snapshot, SimulationSettings.TeamHQLocations);
 			SnapshotUtil.AddPlayerSpawner(snapshot);
         }
     }

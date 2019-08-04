@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DinoPark;
 
 namespace LowPolyAnimalPack
 {
@@ -63,11 +64,19 @@ namespace LowPolyAnimalPack
       {
         animal.SetPeaceTime(enabled);
       }
+      foreach (LogicDino animal in LogicDino.AllAnimals)
+      {
+        animal.SetPeaceTime(enabled);
+      }
     }
 
     public void Nuke()
     {
 			foreach (WanderScript animal in WanderScript.AllAnimals)
+      {
+        animal.Die();
+      }
+      foreach (LogicDino animal in LogicDino.AllAnimals)
       {
         animal.Die();
       }

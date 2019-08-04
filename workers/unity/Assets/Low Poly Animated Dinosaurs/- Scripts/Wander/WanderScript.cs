@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using Assets.Gamelogic.Tree;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -125,6 +126,10 @@ namespace LowPolyAnimalPack
     private float currentTurnSpeed = 0f;
     private bool attacking = false;
     
+    // Trees
+    //private TreeBehaviour[] _trees;
+    private GameObject[] _trees;
+    
     public bool IsDead()
     {
       return dead;
@@ -229,6 +234,7 @@ namespace LowPolyAnimalPack
       }
 
       allAnimals.Add(this);
+      
     }
 
     private void Start()
@@ -439,7 +445,7 @@ namespace LowPolyAnimalPack
 
     private void BeginWanderState()
     {
-      Vector3 target = RandonPointInRange();
+      Vector3 target = WanderStateFindTree(); // RandonPointInRange();
 
       int slowestMovementState = 0;
       for (int i = 0; i < movementStates.Length; i++)
@@ -464,6 +470,37 @@ namespace LowPolyAnimalPack
       {
         StartCoroutine(NonNavMeshMovementState(target));
       }
+    }
+
+    private Vector3 WanderStateFindTree()
+    {
+
+      if (_trees == null)
+      {
+        // Trees
+        TreeBehaviour[] _treesBeh = GameObject.FindObjectsOfType<TreeBehaviour>();
+        _trees = GameObject.FindGameObjectsWithTag("Tree");
+        Debug.Log("Tree Count:" + _trees.Length + "   Beh Count:" + _treesBeh.Length);
+      }
+
+      Vector3 posTree = Vector3.zero;
+      float distMin = float.MaxValue;
+      GameObject theTree = null;
+      foreach( var atree in _trees)
+      {
+        float dist = (transform.position - atree.transform.position).sqrMagnitude;
+        if (dist < distMin)
+        {
+          distMin = dist;
+          theTree = atree;
+        }
+      }
+
+      if (theTree != null)
+      {
+        posTree = theTree.transform.position;
+      }
+      return posTree;
     }
 
     private IEnumerator MovementState(Vector3 target)

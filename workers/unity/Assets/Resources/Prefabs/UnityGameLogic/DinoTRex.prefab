@@ -2682,6 +2682,7 @@ GameObject:
   - component: {fileID: 4473641379092700067}
   - component: {fileID: -801407508168684804}
   - component: {fileID: -7785470960375904400}
+  - component: {fileID: -8553906193800645428}
   m_Layer: 0
   m_Name: DinoTRex
   m_TagString: Untagged
@@ -2749,7 +2750,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1962935449849492}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01897ae0afb46794d88a3dc2d9386348, type: 3}
   m_Name: 
@@ -2848,6 +2849,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee42c9b510395d44b8c1cefa546e6367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8553906193800645428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962935449849492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6111004e61de88b4991ce0dc63835db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dinoStates: []
+  _currentState: 0
+  ScriptableAnimalStats: {fileID: 11400000, guid: 9c7379948e13260408795fd7bbe27a03,
+    type: 2}
+  matchSurfaceRotation: 0
+  surfaceRotationSpeed: 2
+  useNavMesh: 0
+  wanderZone: 10
 --- !u!1 &1974999610606678
 GameObject:
   m_ObjectHideFlags: 0
