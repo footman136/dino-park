@@ -2869,6 +2869,10 @@ MonoBehaviour:
   surfaceRotationSpeed: 2
   useNavMesh: 0
   wanderZone: 10
+  _currentFood: 0
+  _currentToughness: 0
+  _aiStatus: 0
+  logChanges: 1
 --- !u!1 &1974999610606678
 GameObject:
   m_ObjectHideFlags: 0

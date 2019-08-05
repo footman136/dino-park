@@ -1,10 +1,10 @@
-﻿//using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Dinopark.Npc;
 using UnityEngine.AI;
 using LowPolyAnimalPack;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 namespace DinoPark
 {
@@ -17,7 +17,7 @@ namespace DinoPark
         [SerializeField]
         private AnimalState[] dinoStates;
         [SerializeField]
-        const int stateCount = 6;
+        const int stateCount = 5;
 
         [SerializeField]
         private DinoFSMState.StateEnum _currentState;
@@ -40,8 +40,9 @@ namespace DinoPark
         [SerializeField, Tooltip("How far away from it's origin this animal will wander by itself.")]
         private float wanderZone = 10f;
 
-        private static List<LogicDino> allAnimals = new List<LogicDino>();
-        public static List<LogicDino> AllAnimals { get { return allAnimals; } }
+        private static Dictionary<int, LogicDino> allAnimals = new Dictionary<int, LogicDino>();
+        public static Dictionary<int, LogicDino> AllAnimals { get { return allAnimals; } }
+        private static int _animalKey = 0;
     
         private Animator animator;
         private CharacterController characterController;
@@ -52,10 +53,15 @@ namespace DinoPark
         private float originalAgression = 0f;
         private int originalDominance = 0;
         private Vector3 origin;
+        private float _deltaTime;
         
-        public bool Attacking { private set; get; }
+        public bool IsAttacking()
+        {
+            return _aiStatus == AI_STATUS.AI_ATTACKING;
+            
+        }
         public bool Dead { private set; get; }
-        public bool Dying { private set; get; }
+        //public bool Dying { private set; get; }
         private Vector3 targetLocation = Vector3.zero;
         private float currentTurnSpeed = 0f;
         [SerializeField]
@@ -70,13 +76,25 @@ namespace DinoPark
           AI_LOOKFOR_FOOD = 2,
           AI_CHASING = 3,
           AI_ESCAPING = 4,
-          AI_DEAD = 5,
+          AI_ATTACKING = 5,
+          AI_BEINGATTACKED = 6,
+          AI_DEAD = 7,
         };
 
         [SerializeField]
         private AI_STATUS _aiStatus;
+
+        public int Id { private set; get; } // 我自己的id，allAnimals里的key
+        private int _attackerId; // 打我的人的id，这里保存的是id，因为这个id所代表的恐龙可能会被销毁，按照C++的习惯，就不直接保存指针了，访问以前要判定是否有效
+        private int _eatingTreeId; // 被吃的树的id
+
+        private delegate void ArrivedDelegate(int targetId);
         
-        
+        [Space(), Header("Debug"), Space(5)]
+        [SerializeField, Tooltip("If true, AI changes to this animal will be logged in the console.")]
+        private bool logChanges = false;
+
+        #region 主要函数
         void Awake()
         {
             animator = GetComponent<Animator>();
@@ -89,8 +107,8 @@ namespace DinoPark
             
             // 初始化所有动画状态
             dinoStates = new AnimalState[stateCount];
-            var stateNames = new string[stateCount] {"Idle", "Eat", "Walk", "Run", "Attack", "Death"};
-            var animationBools = new string[stateCount] {"IsIdling", "IsEating", "IsWalking", "IsRunning", "IsAttacking", "IsDead"};
+            var stateNames = new string[stateCount] {"Eat", "Walk", "Run", "Attack", "Death"};
+            var animationBools = new string[stateCount] {"isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
             for (int i = 0; i < stateCount; ++i)
             {
                 dinoStates[i] = new AnimalState {stateName = stateNames[i], animationBool = animationBools[i]};
@@ -111,13 +129,15 @@ namespace DinoPark
                 transform.GetChild(0).gameObject.AddComponent<SurfaceRotation>().SetRotationSpeed(surfaceRotationSpeed);
             }
 
-            allAnimals.Add(this);
+            Id = _animalKey;
+            allAnimals.Add(_animalKey++, this);
         }
         
         // Start is called before the first frame update
         void Start()
         {
             InvokeRepeating("AI_running", Random.Range(0,1), ScriptableAnimalStats.thinkingFrequency);
+            StopAllCoroutines();
         }
 
         void Update()
@@ -130,10 +150,14 @@ namespace DinoPark
     
         private void AI_running()
         {
-            float deltaTime = Time.deltaTime;
+            _deltaTime = Time.deltaTime;
+
+            // No.1 死了就什么都不干了
+            if (Dead)
+                return;
             
-            // No.1 消耗粮食
-            float cost = ScriptableAnimalStats.liveCost * deltaTime;
+            // No.2 消耗粮食
+            float cost = ScriptableAnimalStats.liveCost * _deltaTime;
             if(_currentFood >= cost)
                 _currentFood -= cost;
             else
@@ -142,44 +166,56 @@ namespace DinoPark
                 _currentToughness -= cost - _currentFood;
             }
             
-            // No.2 判断是否该死
+            // No.3 判断是否该死
             if (_currentToughness <= 0)
             {
                 Die();
+                return;
             }
+
+            // No.4 是否正在被别人攻击，被攻击的时候，则要么还击（其实只是播放动画），要么等死
+            if (BeingAttacked())
+                return;
             
-            // No.3 判断粮食还有存货，则补充生命值，立即补满
-            if (_currentFood > 0 && _currentToughness < ScriptableAnimalStats.toughness)
-            {
-                float needToughness = ScriptableAnimalStats.toughness - _currentToughness;
-                if (_currentFood > needToughness)
-                {
-                    _currentToughness = ScriptableAnimalStats.toughness;
-                    _currentFood -= needToughness;
-                }
-                else
-                {
-                    _currentToughness += needToughness;
-                    _currentFood = 0;
-                }
-            }
+            // No.5 是否正在攻击别人
+            if (IsAttacking())
+                return;
             
-            // No.4 躲避天敌的逻辑
+            // No.6 判断粮食还有存货，则补充生命值，立即补满
+//            if (_currentFood > 0 && _currentToughness < ScriptableAnimalStats.toughness)
+//            {
+//                float needToughness = ScriptableAnimalStats.toughness - _currentToughness;
+//                if (_currentFood > needToughness)
+//                {
+//                    _currentToughness = ScriptableAnimalStats.toughness;
+//                    _currentFood -= needToughness;
+//                }
+//                else
+//                {
+//                    _currentToughness += needToughness;
+//                    _currentFood = 0;
+//                }
+//            }
+            
+            // No.7 躲避天敌的逻辑
             if (LookforPredator())
                 return;
             
-            // No.5 寻找猎物的逻辑
+            // No.8 寻找猎物的逻辑
             if (LookforPrey())
                 return;
             
-            // No.6 寻找植物性食物的逻辑
+            // No.9 寻找植物性食物的逻辑
             if (LookforFood())
                 return;
 
-            // No.7 随机漫游的逻辑
+            // No.10 随机漫游的逻辑
             Wandering();
             
         }
+        #endregion
+        
+        #region 工具函数
         public void SetPeaceTime(bool peace)
         {
             if (peace)
@@ -208,16 +244,26 @@ namespace DinoPark
             _currentFood = ScriptableAnimalStats.foodStorage;
             _currentToughness = ScriptableAnimalStats.toughness;
             _currentState = DinoFSMState.StateEnum.NONE;
+            _attackerId = -1;
+            _eatingTreeId = -1;
         }
 
         public void Die()
         {
+            if (logChanges)
+            {
+                Debug.Log(string.Format("{0} died. Current Health{1}", gameObject.name, _currentToughness));
+            }
             StopAllCoroutines();
             Dead = true;
             PlayAnimation(DinoFSMState.StateEnum.DEAD);
-            _currentFood = 0;
-            _currentToughness = 0;
+            StopMoving();
+            _currentFood = ScriptableAnimalStats.foodStorage;
+            _currentToughness = ScriptableAnimalStats.toughness;
             _aiStatus = AI_STATUS.AI_DEAD;
+            
+            _attackerId = -1;
+            _eatingTreeId = -1;
         }
 
         private void PlayAnimation(DinoFSMState.StateEnum inState)
@@ -230,152 +276,496 @@ namespace DinoPark
             animator.SetBool(dinoStates[(int)_currentState].animationBool, true);
         }
 
-        private void TurnAround(Vector3 destination, bool forward)
+        private IEnumerator TurnToLookAtTarget(Transform target)
         {
-            Quaternion startRotation = transform.rotation;
-            if(forward)
-            {// 朝向目的地方向
-                transform.rotation = Quaternion.LookRotation(destination - transform.position);
-            }
-            else
-            {// 与目的地方向相反
-                transform.rotation = Quaternion.LookRotation(transform.position - destination);
+            while (true)
+            {
+                Vector3 direction = target.position - transform.position;
+
+                if (Vector3.Angle(direction, transform.forward) < 1f)
+                {
+                    break;
+                }
+
+                float step = 2f * _deltaTime;
+                Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, step, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirection);
+                yield return null;
             }
         }
+        
         /// <summary>
         ///  获取与给定的目的地相反方向，一定距离的点的坐标
         /// </summary>
         /// <param name="destination">给定的目的地</param>
         /// <param name="range">距离</param>
         /// <returns></returns>
-        private Vector3 RandonPointAwayFromDestination(Vector3 destination, float range)
+        private Vector3 RandomPointAwayFromDestination(Vector3 destination, float range)
         {
             Vector3 randomPoint = transform.position + (transform.position - destination) * range;
             return new Vector3(randomPoint.x, transform.position.y, randomPoint.z);
         }
-        
 
-        #region AI逻辑
-
-        private bool LookforPredator()
+        private Vector3 RandomPoint(float range)
         {
-            if (ScriptableAnimalStats.awareness > 0)
+            Vector3 randomPoint = transform.position + Random.insideUnitSphere* range;
+            return new Vector3(randomPoint.x, transform.position.y, randomPoint.z);
+        }
+        #endregion
+
+        #region AI逻辑-第一层
+
+        private bool BeingAttacked()
+        {
+            if (_aiStatus != AI_STATUS.AI_BEINGATTACKED)
             {
-                float distMin = float.MaxValue;
-                int index = -1;
-                for (int i = 0; i < allAnimals.Count; i++)
+                LogicDino attacker = null;
+                if (allAnimals.TryGetValue(_attackerId, out attacker))
                 {
-                    if (allAnimals[i].Dead == true || allAnimals[i] == this || allAnimals[i].Species == Species ||
-                        allAnimals[i].ScriptableAnimalStats.dominance <= ScriptableAnimalStats.dominance ||
-                        allAnimals[i].ScriptableAnimalStats.stealthy)
+                    if (!attacker.Dead)
                     {
-                        continue;
-                    }
+                        if (logChanges)
+                        {
+                            Debug.Log(string.Format("{0}: Getting attacked by {1}!", gameObject.name,
+                                attacker.gameObject.name));
+                        }
 
-                    float dist = Vector3.Distance(transform.position, allAnimals[i].transform.position);
-                    if (dist > ScriptableAnimalStats.awareness)
-                    {
-                        continue;
-                    }
+                        //StopMoving();
+                        
+                        StartCoroutine(TurnToLookAtTarget(attacker.transform));
+                        if (ScriptableAnimalStats.agression > 0)
+                        {
+                            // 不真正还击，仅播放攻击动作，防止双方都一起死了
+                            PlayAnimation(DinoFSMState.StateEnum.ATTACK);
+                        }
+                        else
+                        {
+                            PlayAnimation(DinoFSMState.StateEnum.IDLE);
+                        }
 
-                    if (dist < distMin)
-                    {
-                        distMin = dist;
-                        index = i;
+                        _aiStatus = AI_STATUS.AI_BEINGATTACKED;
+
+                        return true;
                     }
                 }
-
-                if (index >= 0 && index < allAnimals.Count)
+            }
+            else
+            {
+                LogicDino attacker = null;
+                bool endBeingAttacked = true;
+                if (allAnimals.TryGetValue(_attackerId, out attacker))
                 {
-                    var predator = allAnimals[index];
-                    if (useNavMesh)
+                    float distance = Vector3.Distance(transform.position, attacker.transform.position);
+                    if (!attacker.Dead && attacker._aiStatus == AI_STATUS.AI_ATTACKING && distance > ScriptableAnimalStats.contingencyDistance)
                     {
-                        var target = RandonPointAwayFromDestination(predator.transform.position, 5f);
-                        StopCoroutine("RunAwayState");
-                        StartCoroutine(RunAwayState(target));
-
+                        endBeingAttacked = false;
                     }
-                    else
-                    {
-                        targetLocation = RandonPointAwayFromDestination(predator.transform.position, 5f);
-                        StopCoroutine("NonNavMeshRunAwayState");
-                        StartCoroutine(NonNavMeshRunAwayState(targetLocation));
-                    }
-                    // 进入“躲避天敌”的状态
-                    return true;
+                }
+                // 攻击者死亡，或者攻击者不是“攻击状态”了，那么自己也解除攻击状态
+                if(endBeingAttacked)
+                {
+                    _attackerId = -1;
+                    PlayAnimation(DinoFSMState.StateEnum.IDLE);
+                    _aiStatus = AI_STATUS.AI_IDLE;
+                    return false;
                 }
 
+                return true;
             }
 
-            StopCoroutine("RunAwayState");
-            StopCoroutine("NonNavMeshRunAwayState");
-            // 感知距离为0，没有感知力，所以永远不会进入“躲避天敌”的状态
+            // 我没有处于被攻击状态，也没有任何人攻击我，什么都不做
             return false;
         }
-
-        private IEnumerator RunAwayState(Vector3 target)
+        
+        private bool LookforPredator()
         {
-            navMeshAgent.speed = ScriptableAnimalStats.runSpeed;
-            navMeshAgent.angularSpeed = ScriptableAnimalStats.turnSpeed;
-            navMeshAgent.SetDestination(target);
-            PlayAnimation(DinoFSMState.StateEnum.RUN);
-            _aiStatus = AI_STATUS.AI_ESCAPING;
-
-            float timeMoving = 0f;
-            while ((navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance || timeMoving < 0.1f) && timeMoving < ScriptableAnimalStats.stamina)
+            if (_aiStatus != AI_STATUS.AI_ESCAPING)
             {
-                timeMoving += Time.deltaTime;
-                yield return null;
+                if (ScriptableAnimalStats.awareness > 0)
+                {
+                    float distMin = float.MaxValue;
+                    int index = -1;
+                    for (int i = 0; i < allAnimals.Count; i++)
+                    {
+                        if (allAnimals[i].Dead == true || allAnimals[i] == this || allAnimals[i].Species == Species ||
+                            allAnimals[i].ScriptableAnimalStats.dominance <= ScriptableAnimalStats.dominance ||
+                            allAnimals[i].ScriptableAnimalStats.stealthy)
+                        {
+                            continue;
+                        }
+
+                        float dist = Vector3.Distance(transform.position, allAnimals[i].transform.position);
+                        if (dist > ScriptableAnimalStats.awareness)
+                        {
+                            continue;
+                        }
+
+                        if (dist < distMin)
+                        {
+                            distMin = dist;
+                            index = i;
+                        }
+                    }
+
+                    if (index >= 0 && index < allAnimals.Count)
+                    {
+                        var predator = allAnimals[index];
+                        if (logChanges)
+                        {
+                            Debug.Log(string.Format("{0}: Found predator ({1}), running away.", gameObject.name,
+                                predator.gameObject.name));
+                        }
+
+                        if (useNavMesh)
+                        {
+                            var targetPosition = RandomPointAwayFromDestination(predator.transform.position, 15f);
+                            StartCoroutine(WanderingState(targetPosition, -1, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
+
+                        }
+                        else
+                        {
+                            var targetPosition = RandomPointAwayFromDestination(predator.transform.position, 15f);
+                            StartCoroutine(NonNavMeshWanderingState(targetPosition, -1, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
+                        }
+
+                        // 进入“躲避天敌”的状态
+                        return true;
+                    }
+                }
             }
-            PlayAnimation(DinoFSMState.StateEnum.IDLE);
-            navMeshAgent.speed = ScriptableAnimalStats.moveSpeed;
-            navMeshAgent.angularSpeed = ScriptableAnimalStats.turnSpeed;
-            _aiStatus = AI_STATUS.AI_IDLE;
-        }
-        private IEnumerator NonNavMeshRunAwayState(Vector3 target)
-        {
-            currentTurnSpeed = ScriptableAnimalStats.turnSpeed;
-            PlayAnimation(DinoFSMState.StateEnum.RUN);
-            _aiStatus = AI_STATUS.AI_ESCAPING;
-
-            float walkTime = 0f;
-            float timeUntilAbortWalk = Vector3.Distance(transform.position, target) / ScriptableAnimalStats.runSpeed;
-
-            while (Vector3.Distance(transform.position, target) > ScriptableAnimalStats.contingencyDistance && walkTime < timeUntilAbortWalk && ScriptableAnimalStats.stamina > 0)
+            else
             {
-                characterController.SimpleMove(transform.TransformDirection(Vector3.forward) * ScriptableAnimalStats.runSpeed);
-
-                Vector3 relativePos = target - transform.position;
-                Quaternion rotation = Quaternion.LookRotation(relativePos);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * (currentTurnSpeed / 10));
-                currentTurnSpeed += Time.deltaTime;
-
-                walkTime += Time.deltaTime;
-                ScriptableAnimalStats.stamina -= Time.deltaTime;
-                yield return null;
+                return true;
             }
 
-            targetLocation = Vector3.zero;
-            PlayAnimation(DinoFSMState.StateEnum.IDLE);
-            currentTurnSpeed = ScriptableAnimalStats.turnSpeed;
-            _aiStatus = AI_STATUS.AI_IDLE;
+            return false;
         }
 
         private bool LookforPrey()
         {
+            if (_aiStatus != AI_STATUS.AI_CHASING)
+            {
+                if (ScriptableAnimalStats.dominance > 0)
+                {
+                    float distMin = float.MaxValue;
+                    int index = -1;
+                    for (int i = 0; i < allAnimals.Count; i++)
+                    {
+                        if (allAnimals[i].Dead == true || allAnimals[i] == this ||
+                            (allAnimals[i].Species == Species && !ScriptableAnimalStats.territorial) ||
+                            allAnimals[i].ScriptableAnimalStats.dominance > ScriptableAnimalStats.dominance ||
+                            allAnimals[i].ScriptableAnimalStats.stealthy)
+                        {
+                            continue;
+                        }
+
+                        int p = System.Array.IndexOf(ScriptableAnimalStats.nonAgressiveTowards, allAnimals[i].Species);
+                        if (p > -1)
+                        {
+                            continue;
+                        }
+
+                        float dist = Vector3.Distance(transform.position, allAnimals[i].transform.position);
+                        if (dist > ScriptableAnimalStats.scent)
+                        {
+                            continue;
+                        }
+
+                        if (Random.Range(0, 100) > ScriptableAnimalStats.agression)
+                        {
+                            continue;
+                        }
+
+                        if (dist < distMin)
+                        {
+                            distMin = dist;
+                            index = i;
+                        }
+                    }
+
+                    if (index >= 0 && index < allAnimals.Count)
+                    {
+                        var prey = allAnimals[index];
+                        if (logChanges)
+                        {
+                            Debug.Log(string.Format("{0}: Found prey ({1}), chasing.", gameObject.name,
+                                prey.gameObject.name));
+                        }
+
+                        if (prey == this)
+                        {
+                            Debug.LogError("Cannot eat myself!!!");
+                        }
+
+                        if (useNavMesh)
+                        {
+                            StartCoroutine(WanderingState(prey.transform.position, prey.Id,
+                                ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_CHASING,
+                                AttackAnimal));
+                        }
+                        else
+                        {
+                            StartCoroutine(NonNavMeshWanderingState(prey.transform.position, prey.Id,
+                                ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_CHASING,
+                                AttackAnimal));
+                        }
+
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                return true;
+            }
+
             return false;
         }
-
+        
         private bool LookforFood()
         {
+            if (_aiStatus != AI_STATUS.AI_LOOKFOR_FOOD)
+            {
+                if (_currentFood / ScriptableAnimalStats.foodStorage < ScriptableAnimalStats.HungryRate)
+                {
+                    float distMin = float.MaxValue;
+                    int index = -1;
+                    for (int i = 0; i < LogicTree.AllTrees.Count; ++i)
+                    {
+                        var tree = LogicTree.AllTrees[i];
+                        float dist = Vector3.Distance(transform.position, tree.transform.position);
+                        if (dist > ScriptableAnimalStats.scent)
+                        {
+                            continue;
+                        }
+
+                        if (dist < distMin)
+                        {
+                            distMin = dist;
+                            index = i;
+                        }
+                    }
+
+                    if (index >= 0 && index < LogicTree.AllTrees.Count)
+                    {
+                        var targetPosition = LogicTree.AllTrees[index].transform.position;
+                        _eatingTreeId = index;
+                        if (useNavMesh)
+                        {
+                            StartCoroutine(WanderingState(targetPosition, -1, ScriptableAnimalStats.moveSpeed,
+                                DinoFSMState.StateEnum.WALK, AI_STATUS.AI_LOOKFOR_FOOD, EatFood));
+                        }
+                        else
+                        {
+                            StartCoroutine(NonNavMeshWanderingState(targetPosition, -1, ScriptableAnimalStats.moveSpeed,
+                                DinoFSMState.StateEnum.WALK, AI_STATUS.AI_LOOKFOR_FOOD, EatFood));
+                        }
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                return true;
+            }
+
             return false;
         }
 
         private void Wandering()
         {
+            if (_aiStatus != AI_STATUS.AI_WANDERING)
+            {
+                int ran = Random.Range(0, 1);
+                if (ran < 1) // 每秒都有一半的概率，原地不动，休息。
+                {
+                    var targetPosition = RandomPoint(30f);
+                    if (useNavMesh)
+                    {
+                        StartCoroutine(WanderingState(targetPosition, -1, ScriptableAnimalStats.moveSpeed,
+                            DinoFSMState.StateEnum.WALK, AI_STATUS.AI_WANDERING, null));
+                    }
+                    else
+                    {
+                        StartCoroutine(NonNavMeshWanderingState(targetPosition, -1, ScriptableAnimalStats.moveSpeed,
+                            DinoFSMState.StateEnum.WALK, AI_STATUS.AI_WANDERING, null));
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region AI逻辑-第二层
+
+        private void AttackAnimal(int targetId)
+        {
+            // 如果对方已经处于攻击状态，则我不能攻击对方，否则会导致navMeshAgent报错(即便是双方同归于尽也不是我们想看到的)，我感觉应该是多线程导致的报错。
+//            if (!target.IfCanBeAttacked())
+//                return;
+            //StopMoving();
+            LogicDino target = null;
+            if (allAnimals.TryGetValue(targetId, out target))
+            {
+                if (logChanges)
+                {
+                    Debug.Log(string.Format("{0}: Making Attack {1} !", gameObject.name, target.gameObject.name));
+                }
+
+                if (!target.Dead)
+                {
+                    StartCoroutine(MakeAttack(target));
+                }
+            }
+        }
+
+        private bool IfCanBeAttacked()
+        {
+            return _aiStatus != AI_STATUS.AI_ATTACKING && _aiStatus != AI_STATUS.AI_DEAD;
+        }
+
+        private IEnumerator MakeAttack(LogicDino target)
+        {
+            PlayAnimation(DinoFSMState.StateEnum.ATTACK);
+            _aiStatus = AI_STATUS.AI_ATTACKING;
+            target.SetAttacked(Id);
+            
+            while (!target.Dead)
+            {
+                float distance = Vector3.Distance(transform.position, target.transform.position);
+                if (distance > ScriptableAnimalStats.contingencyDistance)
+                {
+                    PlayAnimation(DinoFSMState.StateEnum.IDLE);
+                    _aiStatus = AI_STATUS.AI_IDLE;
+                    yield break;
+                }
+
+                target.TakeDamage(ScriptableAnimalStats.power);
+                
+                yield return new WaitForSeconds(ScriptableAnimalStats.attackSpeed);
+            }
+            
+            PlayAnimation(DinoFSMState.StateEnum.IDLE);
+            _aiStatus = AI_STATUS.AI_IDLE;
+        }
+
+        private void SetAttacked(int attackerId)
+        {
+            _attackerId = attackerId;
+        }
+
+        private void TakeDamage(float damage)
+        {
+            _currentToughness -= damage;
+            if (logChanges)
+            {
+                Debug.Log(string.Format("{0}: Taking Damage {1} HP {2}!", gameObject.name, damage, _currentToughness));
+            }
+
+            // 如果血不够了，立即死亡。不用等到下一个AI周期了。
+            if (_currentToughness <= 0)
+                Die();
+        }
+
+        private void EatFood(int targetId)
+        {
+            EatingFood(_eatingTreeId);
+        }
+        private IEnumerator EatingFood(int treeId)
+        {
+            PlayAnimation(DinoFSMState.StateEnum.IDLE);
+            
+            //......未完成
+            
+            yield return null;
+        }
+
+        private IEnumerator WanderingState(Vector3 targetPosition, int targetId, float speed, DinoFSMState.StateEnum aniState, AI_STATUS aiStatus, ArrivedDelegate onArrivedDelegate)
+        {
+            navMeshAgent.speed = speed;
+            navMeshAgent.angularSpeed = ScriptableAnimalStats.turnSpeed;
+            navMeshAgent.SetDestination(targetPosition);
+            PlayAnimation(aniState);
+            _aiStatus = aiStatus;
+            float distance = Vector3.Distance(transform.position, targetPosition);
+            float timeMoving = 0f;
+
+            while ((navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance || timeMoving < 0.1f)
+                   && timeMoving < ScriptableAnimalStats.stamina
+                   && distance > ScriptableAnimalStats.contingencyDistance)
+            {
+                timeMoving += _deltaTime;
+                
+                LogicDino target = null;
+                if (allAnimals.TryGetValue(targetId, out target))
+                {
+                    distance = Vector3.Distance(transform.position, target.transform.position);
+                }
+
+                yield return null;
+            }
+            
+            PlayAnimation(DinoFSMState.StateEnum.IDLE);
+            navMeshAgent.speed = ScriptableAnimalStats.moveSpeed;
+            navMeshAgent.angularSpeed = ScriptableAnimalStats.turnSpeed;
+            navMeshAgent.SetDestination(transform.position);
+            _aiStatus = AI_STATUS.AI_IDLE;
+            onArrivedDelegate?.Invoke(targetId);
+        }
+
+        private IEnumerator NonNavMeshWanderingState(Vector3 targetPosition, int targetId, float speed, DinoFSMState.StateEnum aniState, AI_STATUS aiStatus, ArrivedDelegate onArrivedDelegate)
+        {
+            targetLocation = targetPosition;
+            currentTurnSpeed = ScriptableAnimalStats.turnSpeed;
+            PlayAnimation(aniState);
+            _aiStatus = aiStatus;
+            float distance = Vector3.Distance(transform.position, targetPosition);
+            float distance2 = distance;
+            float timeMoving = 0f;
+
+            while (distance > ScriptableAnimalStats.contingencyDistance
+                   && timeMoving < ScriptableAnimalStats.stamina
+                   && distance2 > ScriptableAnimalStats.contingencyDistance)
+            {
+                timeMoving += _deltaTime;
+                
+                characterController.SimpleMove(transform.TransformDirection(Vector3.forward) * speed);
+                Vector3 relativePos = targetPosition - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(relativePos);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _deltaTime * (currentTurnSpeed / 10));
+                //currentTurnSpeed += _deltaTime;
+                
+                LogicDino target = null;
+                if (allAnimals.TryGetValue(targetId, out target))
+                {
+                    distance2 = Vector3.Distance(transform.position, target.transform.position);
+                }
+                distance = Vector3.Distance(transform.position, targetPosition);
+                
+                yield return null;
+                
+            }
+            
+            PlayAnimation(DinoFSMState.StateEnum.IDLE);
+            //currentTurnSpeed = ScriptableAnimalStats.turnSpeed;
+            _aiStatus = AI_STATUS.AI_IDLE;
+            targetLocation = transform.position;
+            characterController.SimpleMove(Vector3.zero);
+            onArrivedDelegate?.Invoke(targetId);
+        }
+
+        private void StopMoving()
+        {
+            if (useNavMesh)
+            {
+                navMeshAgent.SetDestination(transform.position);
+            }
+            else
+            {
+                characterController.SimpleMove(Vector3.zero);
+            }
             
         }
         
-        #endregion
+    #endregion
     }
 }

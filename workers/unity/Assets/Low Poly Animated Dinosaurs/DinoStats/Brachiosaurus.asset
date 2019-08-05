@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   species: Brachiosaurus
   dominance: 1
-  stamina: 10
+  stamina: 5
   power: 10
-  toughness: 5
+  toughness: 200
   agression: 0
   attackSpeed: 0.5
   territorial: 0
   stealthy: 0
-  awareness: 30
+  awareness: 50
   scent: 30
   nonAgressiveTowards: []
-  contingencyDistance: 1
+  contingencyDistance: 5
   thinkingFrequency: 1
   moveSpeed: 2
   runSpeed: 6

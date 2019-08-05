@@ -207,28 +207,28 @@
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <Reference Include="Improbable.Gdk.Core">
-      <HintPath>D:/work/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Core.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Core.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Gdk.Mobile">
-      <HintPath>D:/work/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Mobile.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.Mobile.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Gdk.TransformSynchronization">
-      <HintPath>D:/work/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.TransformSynchronization.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.TransformSynchronization.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Gdk.PlayerLifecycle">
-      <HintPath>D:/work/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.PlayerLifecycle.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.PlayerLifecycle.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities">
-      <HintPath>D:/work/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities.Hybrid">
-      <HintPath>D:/work/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
-      <HintPath>D:/work/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Gdk.GameObjectCreation">
-      <HintPath>D:/work/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.GameObjectCreation.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/ScriptAssemblies/Improbable.Gdk.GameObjectCreation.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2019.1.6/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -438,28 +438,28 @@
       <HintPath>D:/Unity2019.1.6/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
-      <HintPath>D:/work/dino-park/workers/unity/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>D:/work/dino-park/workers/unity/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/work/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/work/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/work/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>D:/work/dino-park/workers/unity/Library/PackageCache/com.unity.collections@0.0.9-preview.20/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.collections@0.0.9-preview.20/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>D:/work/dino-park/workers/unity/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="Improbable.Worker.CInterop">
-      <HintPath>D:/work/dino-park/workers/unity/Library/PackageCache/io.improbable.worker.sdk@13.7.1/Plugins/Improbable/Sdk/Common/Improbable.Worker.CInterop.dll</HintPath>
+      <HintPath>E:/Work-Spatial/SpatialOS-GDK-GitHub/dino-park/workers/unity/Library/PackageCache/io.improbable.worker.sdk@13.7.1/Plugins/Improbable/Sdk/Common/Improbable.Worker.CInterop.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity2019.1.6/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

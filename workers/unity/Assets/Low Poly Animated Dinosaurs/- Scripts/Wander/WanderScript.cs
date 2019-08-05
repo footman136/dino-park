@@ -445,7 +445,8 @@ namespace LowPolyAnimalPack
 
     private void BeginWanderState()
     {
-      Vector3 target = WanderStateFindTree(); // RandonPointInRange();
+      //Vector3 target = WanderStateFindTree(); // RandonPointInRange();
+      Vector3 target = RandonPointInRange();
 
       int slowestMovementState = 0;
       for (int i = 0; i < movementStates.Length; i++)

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   species: Velociraptor
   dominance: 5
-  stamina: 40
+  stamina: 15
   power: 15
   toughness: 45
   agression: 100
@@ -24,7 +24,7 @@ MonoBehaviour:
   awareness: 30
   scent: 30
   nonAgressiveTowards: []
-  contingencyDistance: 1
+  contingencyDistance: 3
   thinkingFrequency: 1
   moveSpeed: 3
   runSpeed: 9
