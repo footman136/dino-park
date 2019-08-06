@@ -34,7 +34,7 @@ namespace Assets.Gamelogic.Core
 
         DinoFSMState.StateEnum GetStatus()
         {
-            string[] animationBool = { "isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
+            string[] animationBool = { "isIdling", "isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
             int count = 0;
             foreach (var ani in animationBool)
             {

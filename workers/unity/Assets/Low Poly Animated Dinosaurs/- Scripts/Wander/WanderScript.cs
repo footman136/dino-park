@@ -217,7 +217,7 @@ namespace LowPolyAnimalPack
       originalAgression = ScriptableAnimalStats.agression;
       originalToughness = ScriptableAnimalStats.toughness;
         
-      if (navMeshAgent)
+      if (navMeshAgent && navMeshAgent.isActiveAndEnabled)
       {
         useNavMesh = true;
         navMeshAgent.stoppingDistance = contingencyDistance;

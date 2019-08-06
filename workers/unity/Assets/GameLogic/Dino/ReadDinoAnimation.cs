@@ -25,14 +25,18 @@ namespace Assets.Gamelogic.Core
 
         void SetStatus(DinoFSMState.StateEnum inStatus)
         {
-            string[] animationBool = { "isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
+            string[] animationBool = { "isIdling", "isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
             _status = GetStatus();
             if (_status == inStatus || inStatus == DinoFSMState.StateEnum.NONE)
-                return;
-
-            if (_status != DinoFSMState.StateEnum.NONE)
             {
-                _animator.SetBool(animationBool[(int) _status], false);
+                if(inStatus == DinoFSMState.StateEnum.NONE)
+                    Debug.LogWarning("None State received");
+                return;
+            }
+
+            foreach (var ani in animationBool)
+            {
+                _animator.SetBool(ani, false);
             }
 
             // 如果动画已经是DEAD了，这时候又收到的其他状态的动画，这时候只有rebind动画，否则，动画不能被正确设置，因为一旦被设置到DEAD，就再也回不来了
@@ -47,7 +51,7 @@ namespace Assets.Gamelogic.Core
         }
         DinoFSMState.StateEnum GetStatus()
         {
-            string[] animationBool = { "isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
+            string[] animationBool = { "isIdling", "isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
             int index = 0;
             foreach (var ani in animationBool)
             {

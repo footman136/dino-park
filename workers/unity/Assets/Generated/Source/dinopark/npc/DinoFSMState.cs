@@ -30,12 +30,14 @@ namespace Dinopark.Npc
         public enum StateEnum : uint
         {
             IDLE = 0,
-            WALK = 1,
-            RUN = 2,
-            ATTACK = 3,
-            DEAD = 4,
-            ON_FIRE = 5,
-            NONE = 6,
+            EAT = 1,
+            WALK = 2,
+            RUN = 3,
+            ATTACK = 4,
+            DEAD = 5,
+            ROAR = 6,
+            ON_FIRE = 7,
+            NONE = 8,
         }
         
     }

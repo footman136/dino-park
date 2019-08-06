@@ -2677,7 +2677,6 @@ GameObject:
   - component: {fileID: 4074189310207666}
   - component: {fileID: 95553055873237688}
   - component: {fileID: 143508606849169824}
-  - component: {fileID: 114360470004652090}
   - component: {fileID: 195688642582221476}
   - component: {fileID: -6077478767539296765}
   - component: {fileID: -6789061257957373394}
@@ -2741,53 +2740,6 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &114360470004652090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1962935449849492}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01897ae0afb46794d88a3dc2d9386348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleStates: []
-  movementStates:
-  - stateName: Walk
-    animationBool: isWalking
-    maxStateTime: 20
-    moveSpeed: 4
-    turnSpeed: 120
-  - stateName: Run
-    animationBool: isRunning
-    maxStateTime: 13
-    moveSpeed: 8
-    turnSpeed: 120
-  attackingStates:
-  - stateName: Attack
-    animationBool: isAttacking
-  deathStates:
-  - stateName: Death
-    animationBool: isDead
-  species: T-Rex
-  ScriptableAnimalStats: {fileID: 11400000, guid: 9c7379948e13260408795fd7bbe27a03,
-    type: 2}
-  wanderZone: 10
-  awareness: 50
-  scent: 50
-  constainedToWanderZone: 0
-  nonAgressiveTowards:
-  - Velociraptor
-  matchSurfaceRotation: 0
-  surfaceRotationSpeed: 2
-  logChanges: 0
-  showGizmos: 1
-  drawWanderRange: 1
-  drawScentRange: 1
-  drawAwarenessRange: 1
-  useNavMesh: 0
 --- !u!195 &195688642582221476
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2834,7 +2786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72c9d65d4287434086c873e57cd10db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lastStatus: 0
+  _status: 0
 --- !u!1 &1974999610606678
 GameObject:
   m_ObjectHideFlags: 0

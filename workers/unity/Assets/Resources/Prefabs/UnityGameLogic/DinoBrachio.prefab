@@ -1386,6 +1386,7 @@ MonoBehaviour:
   surfaceRotationSpeed: 2
   useNavMesh: 0
   wanderZone: 10
+  _deltaTime: 0
   _currentFood: 0
   _currentToughness: 0
   _aiStatus: 0

@@ -4,6 +4,7 @@ using Dinopark.Npc;
 using UnityEngine.AI;
 using LowPolyAnimalPack;
 using System.Collections;
+using UnityEditor;
 using Random = UnityEngine.Random;
 
 namespace DinoPark
@@ -17,7 +18,7 @@ namespace DinoPark
         [SerializeField]
         private AnimalState[] dinoStates;
         [SerializeField]
-        const int stateCount = 5;
+        const int stateCount = 6;
 
         [SerializeField]
         private DinoFSMState.StateEnum _currentState;
@@ -53,6 +54,7 @@ namespace DinoPark
         private float originalAgression = 0f;
         private int originalDominance = 0;
         private Vector3 origin;
+        [SerializeField]
         private float _deltaTime;
         
         public bool IsAttacking()
@@ -72,13 +74,14 @@ namespace DinoPark
         public enum AI_STATUS
         {
           AI_IDLE = 0,
-          AI_WANDERING = 1,
-          AI_LOOKFOR_FOOD = 2,
-          AI_CHASING = 3,
-          AI_ESCAPING = 4,
-          AI_ATTACKING = 5,
-          AI_BEINGATTACKED = 6,
-          AI_DEAD = 7,
+          AI_EATING = 1,
+          AI_WANDERING = 2,
+          AI_LOOKFOR_FOOD = 3,
+          AI_CHASING = 4,
+          AI_ESCAPING = 5,
+          AI_ATTACKING = 6,
+          AI_BEINGATTACKED = 7,
+          AI_DEAD = 8,
         };
 
         [SerializeField]
@@ -99,6 +102,7 @@ namespace DinoPark
         {
             animator = GetComponent<Animator>();
             animator.applyRootMotion = false;
+            //animator.Play("Idle", 0, Random.Range(0,1));
             characterController = GetComponent<CharacterController>();
             navMeshAgent = GetComponent<NavMeshAgent>();
 
@@ -107,14 +111,14 @@ namespace DinoPark
             
             // 初始化所有动画状态
             dinoStates = new AnimalState[stateCount];
-            var stateNames = new string[stateCount] {"Eat", "Walk", "Run", "Attack", "Death"};
-            var animationBools = new string[stateCount] {"isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
+            var stateNames = new string[stateCount] {"Idle", "Eat", "Walk", "Run", "Attack", "Death"};
+            var animationBools = new string[stateCount] {"isIdling", "isEating", "isWalking", "isRunning", "isAttacking", "isDead"};
             for (int i = 0; i < stateCount; ++i)
             {
                 dinoStates[i] = new AnimalState {stateName = stateNames[i], animationBool = animationBools[i]};
             }
 
-            if (navMeshAgent)
+            if (navMeshAgent && navMeshAgent.isActiveAndEnabled)
             {
                 useNavMesh = true;
                 navMeshAgent.stoppingDistance = ScriptableAnimalStats.contingencyDistance;
@@ -136,10 +140,11 @@ namespace DinoPark
         // Start is called before the first frame update
         void Start()
         {
-            InvokeRepeating("AI_running", Random.Range(0,1), ScriptableAnimalStats.thinkingFrequency);
+            InvokeRepeating("AI_running", 3, ScriptableAnimalStats.thinkingFrequency);
             StopAllCoroutines();
         }
 
+        
         void Update()
         {
             if (AnimalManager.Instance.PeaceTime)
@@ -147,10 +152,16 @@ namespace DinoPark
                 SetPeaceTime(true);
             }
         }
-    
+
+        private float _lastTime = 0f;
         private void AI_running()
         {
-            _deltaTime = Time.deltaTime;
+            // 这里的_deltaTime是真实的每次本函数调用的时间间隔（而不是Time.deltaTime）。
+            //_deltaTime = Time.deltaTime;
+            var nowTime = Time.fixedTime;
+            _deltaTime = nowTime - _lastTime;
+            _lastTime = nowTime;
+            
 
             // No.1 死了就什么都不干了
             if (Dead)
@@ -287,7 +298,7 @@ namespace DinoPark
                     break;
                 }
 
-                float step = 2f * _deltaTime;
+                float step = 2f * Time.deltaTime;
                 Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, step, 0.0f);
                 transform.rotation = Quaternion.LookRotation(newDirection);
                 yield return null;
@@ -302,7 +313,7 @@ namespace DinoPark
         /// <returns></returns>
         private Vector3 RandomPointAwayFromDestination(Vector3 destination, float range)
         {
-            Vector3 randomPoint = transform.position + (transform.position - destination) * range;
+            Vector3 randomPoint = transform.position + (transform.position - destination).normalized * range;
             return new Vector3(randomPoint.x, transform.position.y, randomPoint.z);
         }
 
@@ -418,14 +429,15 @@ namespace DinoPark
 
                         if (useNavMesh)
                         {
-                            var targetPosition = RandomPointAwayFromDestination(predator.transform.position, 15f);
-                            StartCoroutine(WanderingState(targetPosition, -1, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
+                            var targetPosition = RandomPointAwayFromDestination(predator.transform.position, 30f);
+                            Debug.Log("Escaping Distance : "+Vector3.Distance(transform.position, targetPosition));
+                            StartCoroutine(WanderingState(targetPosition, predator.Id, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
 
                         }
                         else
                         {
-                            var targetPosition = RandomPointAwayFromDestination(predator.transform.position, 15f);
-                            StartCoroutine(NonNavMeshWanderingState(targetPosition, -1, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
+                            var targetPosition = RandomPointAwayFromDestination(predator.transform.position, 30f);
+                            StartCoroutine(NonNavMeshWanderingState(targetPosition, predator.Id, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
                         }
 
                         // 进入“躲避天敌”的状态
@@ -580,6 +592,7 @@ namespace DinoPark
                 if (ran < 1) // 每秒都有一半的概率，原地不动，休息。
                 {
                     var targetPosition = RandomPoint(30f);
+                    Debug.Log("Wandering Distance : "+ Vector3.Distance(transform.position, targetPosition));
                     if (useNavMesh)
                     {
                         StartCoroutine(WanderingState(targetPosition, -1, ScriptableAnimalStats.moveSpeed,
@@ -602,7 +615,6 @@ namespace DinoPark
             // 如果对方已经处于攻击状态，则我不能攻击对方，否则会导致navMeshAgent报错(即便是双方同归于尽也不是我们想看到的)，我感觉应该是多线程导致的报错。
 //            if (!target.IfCanBeAttacked())
 //                return;
-            //StopMoving();
             LogicDino target = null;
             if (allAnimals.TryGetValue(targetId, out target))
             {
@@ -613,7 +625,15 @@ namespace DinoPark
 
                 if (!target.Dead)
                 {
-                    StartCoroutine(MakeAttack(target));
+                    float distance = Vector3.Distance(transform.position, target.transform.position);
+                    if (distance < ScriptableAnimalStats.contingencyDistance)
+                    {
+                        StartCoroutine(MakeAttack(target));
+                    }
+                    else
+                    {
+                        Debug.Log("Should Attack but it's too far...");
+                    }
                 }
             }
         }
@@ -693,7 +713,7 @@ namespace DinoPark
                    && timeMoving < ScriptableAnimalStats.stamina
                    && distance > ScriptableAnimalStats.contingencyDistance)
             {
-                timeMoving += _deltaTime;
+                timeMoving += Time.deltaTime;
                 
                 LogicDino target = null;
                 if (allAnimals.TryGetValue(targetId, out target))
@@ -703,7 +723,12 @@ namespace DinoPark
 
                 yield return null;
             }
-            
+
+            if (logChanges)
+            {
+                Debug.Log(string.Format("Leave the {0} status", _aiStatus));
+            }
+
             PlayAnimation(DinoFSMState.StateEnum.IDLE);
             navMeshAgent.speed = ScriptableAnimalStats.moveSpeed;
             navMeshAgent.angularSpeed = ScriptableAnimalStats.turnSpeed;
@@ -726,13 +751,13 @@ namespace DinoPark
                    && timeMoving < ScriptableAnimalStats.stamina
                    && distance2 > ScriptableAnimalStats.contingencyDistance)
             {
-                timeMoving += _deltaTime;
+                timeMoving += Time.deltaTime;
                 
                 characterController.SimpleMove(transform.TransformDirection(Vector3.forward) * speed);
                 Vector3 relativePos = targetPosition - transform.position;
                 Quaternion rotation = Quaternion.LookRotation(relativePos);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _deltaTime * (currentTurnSpeed / 10));
-                //currentTurnSpeed += _deltaTime;
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * (currentTurnSpeed / 10));
+                currentTurnSpeed += Time.deltaTime;
                 
                 LogicDino target = null;
                 if (allAnimals.TryGetValue(targetId, out target))
@@ -746,7 +771,7 @@ namespace DinoPark
             }
             
             PlayAnimation(DinoFSMState.StateEnum.IDLE);
-            //currentTurnSpeed = ScriptableAnimalStats.turnSpeed;
+            currentTurnSpeed = ScriptableAnimalStats.turnSpeed;
             _aiStatus = AI_STATUS.AI_IDLE;
             targetLocation = transform.position;
             characterController.SimpleMove(Vector3.zero);

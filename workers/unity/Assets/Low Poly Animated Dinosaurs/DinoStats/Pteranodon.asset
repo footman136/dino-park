@@ -21,7 +21,7 @@ MonoBehaviour:
   attackSpeed: 0.5
   territorial: 0
   stealthy: 0
-  awareness: 50
+  awareness: 30
   scent: 30
   nonAgressiveTowards: []
   contingencyDistance: 5
