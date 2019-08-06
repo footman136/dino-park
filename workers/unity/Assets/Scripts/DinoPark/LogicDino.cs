@@ -317,10 +317,10 @@ namespace DinoPark
             return new Vector3(randomPoint.x, transform.position.y, randomPoint.z);
         }
 
-        private Vector3 RandomPoint(float range)
+        private Vector3 RandomPoint(Vector3 destination, float range)
         {
-            Vector3 randomPoint = transform.position + Random.insideUnitSphere* range;
-            return new Vector3(randomPoint.x, transform.position.y, randomPoint.z);
+            Vector3 randomPoint = destination + Random.insideUnitSphere* range;
+            return new Vector3(randomPoint.x, destination.y, randomPoint.z);
         }
         #endregion
 
@@ -341,8 +341,7 @@ namespace DinoPark
                                 attacker.gameObject.name));
                         }
 
-                        //StopMoving();
-                        
+                        StopMoving();
                         StartCoroutine(TurnToLookAtTarget(attacker.transform));
                         if (ScriptableAnimalStats.agression > 0)
                         {
@@ -430,14 +429,19 @@ namespace DinoPark
                         if (useNavMesh)
                         {
                             var targetPosition = RandomPointAwayFromDestination(predator.transform.position, 30f);
+                            if (navMeshAgent.remainingDistance < 1)
+                            {
+                                targetPosition = RandomPoint(predator.transform.position, 30f);
+                            }
                             Debug.Log("Escaping Distance : "+Vector3.Distance(transform.position, targetPosition));
-                            StartCoroutine(WanderingState(targetPosition, predator.Id, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
+                            // 这里不能给天敌的ID，因为WanderingState逻辑里，有对目标物体距离的判定，如果太近，就意味着到达了，状态会结束。
+                            StartCoroutine(WanderingState(targetPosition, -1, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
 
                         }
                         else
                         {
                             var targetPosition = RandomPointAwayFromDestination(predator.transform.position, 30f);
-                            StartCoroutine(NonNavMeshWanderingState(targetPosition, predator.Id, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
+                            StartCoroutine(NonNavMeshWanderingState(targetPosition, -1, ScriptableAnimalStats.runSpeed, DinoFSMState.StateEnum.RUN, AI_STATUS.AI_ESCAPING, null));
                         }
 
                         // 进入“躲避天敌”的状态
@@ -588,10 +592,10 @@ namespace DinoPark
         {
             if (_aiStatus != AI_STATUS.AI_WANDERING)
             {
-                int ran = Random.Range(0, 1);
+                int ran = Random.Range(0, 3);
                 if (ran < 1) // 每秒都有一半的概率，原地不动，休息。
                 {
-                    var targetPosition = RandomPoint(30f);
+                    var targetPosition = RandomPoint(transform.position, 30f);
                     Debug.Log("Wandering Distance : "+ Vector3.Distance(transform.position, targetPosition));
                     if (useNavMesh)
                     {
@@ -628,6 +632,7 @@ namespace DinoPark
                     float distance = Vector3.Distance(transform.position, target.transform.position);
                     if (distance < ScriptableAnimalStats.contingencyDistance)
                     {
+                        StartCoroutine(TurnToLookAtTarget(target.transform));
                         StartCoroutine(MakeAttack(target));
                     }
                     else
@@ -645,6 +650,7 @@ namespace DinoPark
 
         private IEnumerator MakeAttack(LogicDino target)
         {
+            
             PlayAnimation(DinoFSMState.StateEnum.ATTACK);
             _aiStatus = AI_STATUS.AI_ATTACKING;
             target.SetAttacked(Id);
@@ -726,7 +732,10 @@ namespace DinoPark
 
             if (logChanges)
             {
-                Debug.Log(string.Format("Leave the {0} status", _aiStatus));
+                Debug.Log(string.Format("Leave the {0} status. distance1<{1}><{2}> elasped time<{3}><{4}> distance2<{5}><{6}>", _aiStatus, 
+                    navMeshAgent.remainingDistance,navMeshAgent.stoppingDistance,
+                    timeMoving, ScriptableAnimalStats.stamina,
+                distance, ScriptableAnimalStats.contingencyDistance ));
             }
 
             PlayAnimation(DinoFSMState.StateEnum.IDLE);

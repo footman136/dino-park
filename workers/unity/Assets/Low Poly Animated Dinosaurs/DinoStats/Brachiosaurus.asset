@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   species: Brachiosaurus
   dominance: 1
-  stamina: 5
+  stamina: 6
   power: 10
   toughness: 200
   agression: 0

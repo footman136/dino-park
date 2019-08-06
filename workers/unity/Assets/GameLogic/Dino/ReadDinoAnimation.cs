@@ -44,7 +44,7 @@ namespace Assets.Gamelogic.Core
             // 也就是说，上次运行后，本客户端死过，下次运行的时候，服务器仍然会把死亡状态发过来，然后又重置为新的（活的）状态。
             if (_status == DinoFSMState.StateEnum.DEAD && inStatus != DinoFSMState.StateEnum.DEAD)
             {
-                _animator.Rebind();
+                //_animator.Rebind();
                 Debug.Log("Receive old Status<"+_status+"> new Status<"+inStatus+">");
             }
             _animator.SetBool(animationBool[(int)inStatus], true);
