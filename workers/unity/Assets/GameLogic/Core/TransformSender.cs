@@ -16,30 +16,33 @@ namespace Assets.Gamelogic.Core
 
         private int fixedFramesSinceLastUpdate = 0;
 
-        // 传送门
-        public void TriggerTeleport(Vector3 position, uint rotation)
-        {
-            transform.position = position;
-            var update = new Position.Update()
-            {
-                Coords = position.ToCoordinates()
-            };
-            positionComponent.SendUpdate(update);
-
-            transform.rotation = Quaternion.Euler(0, rotation, 0); // 沿Y轴旋转
-            var update2 = new TransformComponent.Update()
-            {
-                Rotation = rotation
-            };
-            transformComponent.SendUpdate(update2);
-            
-            var tevent = new TeleportEvent {TargetPosition = position.ToCoordinates()}; // 事件用此方法传递
-            transformComponent.SendTeleportEventEvent(tevent);
-        }
+//        // 传送门
+//        public void TriggerTeleport(Vector3 position, uint rotation)
+//        {
+//            transform.position = position;
+//            var update = new Position.Update()
+//            {
+//                Coords = position.ToCoordinates()
+//            };
+//            positionComponent.SendUpdate(update);
+//
+//            transform.rotation = Quaternion.Euler(0, rotation, 0); // 沿Y轴旋转
+//            var update2 = new TransformComponent.Update()
+//            {
+//                Rotation = rotation
+//            };
+//            transformComponent.SendUpdate(update2);
+//            
+//            var tevent = new TeleportEvent {TargetPosition = position.ToCoordinates()}; // 事件用此方法传递
+//            transformComponent.SendTeleportEventEvent(tevent);
+//        }
 
         private void OnEnable()
         {
-            transform.position = positionComponent.Data.Coords.ToVector3();
+//            var newPosition = positionComponent.Data.Coords.ToVector3();
+//            var newRotation = transformComponent.Data.Rotation; // 沿Y轴旋转
+//            transform.position = newPosition;
+//            transform.rotation = Quaternion.EulerAngles(0, newRotation, 0);
         }
 
         private void FixedUpdate()

@@ -16,7 +16,7 @@ MonoBehaviour:
   dominance: 6
   stamina: 10
   power: 35
-  toughness: 100
+  toughness: 50
   agression: 100
   attackSpeed: 2.5
   territorial: 1
@@ -30,6 +30,6 @@ MonoBehaviour:
   runSpeed: 8
   turnSpeed: 120
   hardTime: 40
-  foodStorage: 100
+  foodStorage: 5
   HungryRate: 1
   liveCost: 1

@@ -25,7 +25,7 @@ namespace Improbable.Unity.Entity
         /// <summary>
         ///     Singleton instance of <see cref="ILocalEntities" />.
         /// </summary>
-        public static ILocalEntities Instance
+        public static LocalEntities Instance
         {
             get { return LocalEntitiesInstance; }
         }

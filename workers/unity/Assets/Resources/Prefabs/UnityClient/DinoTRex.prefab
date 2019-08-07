@@ -2676,10 +2676,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4074189310207666}
   - component: {fileID: 95553055873237688}
-  - component: {fileID: 143508606849169824}
   - component: {fileID: 195688642582221476}
-  - component: {fileID: -6077478767539296765}
-  - component: {fileID: -6789061257957373394}
+  - component: {fileID: 5234275421456393614}
+  - component: {fileID: -8578846688993753934}
   m_Layer: 0
   m_Name: DinoTRex
   m_TagString: Untagged
@@ -2722,24 +2721,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!143 &143508606849169824
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1962935449849492}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Height: 4
-  m_Radius: 1.41
-  m_SlopeLimit: 45
-  m_StepOffset: 0
-  m_SkinWidth: 0.0001
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 2, z: 0}
 --- !u!195 &195688642582221476
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2747,7 +2728,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1962935449849492}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.8
   m_Speed: 3.5
@@ -2762,7 +2743,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-6077478767539296765
+--- !u!114 &5234275421456393614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2771,10 +2752,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1962935449849492}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f60e3294caffeff45abb2ae1d48abb98, type: 3}
+  m_Script: {fileID: 11500000, guid: a1419769ff3af9b4289c5b5bfc8a26f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-6789061257957373394
+  dinoStates: []
+  ScriptableAnimalStats: {fileID: 11400000, guid: 9c7379948e13260408795fd7bbe27a03,
+    type: 2}
+  _id: 0
+  _currentAiState: 0
+  _aniState: 0
+  _isDead: 0
+  _currentFood: 0
+  _currentToughness: 0
+--- !u!114 &-8578846688993753934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2783,10 +2773,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1962935449849492}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b72c9d65d4287434086c873e57cd10db, type: 3}
+  m_Script: {fileID: 11500000, guid: ee42c9b510395d44b8c1cefa546e6367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _status: 0
 --- !u!1 &1974999610606678
 GameObject:
   m_ObjectHideFlags: 0

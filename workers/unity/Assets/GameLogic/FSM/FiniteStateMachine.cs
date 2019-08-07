@@ -9,6 +9,8 @@ namespace Assets.Gamelogic.FSM
 
         private IDictionary<TStateEnum, IList<TStateEnum>> transitions;
         private IDictionary<TStateEnum, IFsmState> states;
+        
+        public int StateCount(){ return states.Count; }
 
         protected void SetStates(IDictionary<TStateEnum, IFsmState> inStates)
         {

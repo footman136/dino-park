@@ -1189,13 +1189,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4544073354655166}
   - component: {fileID: 95232484740621992}
-  - component: {fileID: 143072043481942176}
-  - component: {fileID: 114214127523473264}
   - component: {fileID: 195197703218002412}
-  - component: {fileID: 1093883757104275585}
-  - component: {fileID: -3629205396198729020}
-  - component: {fileID: 8109332923259061058}
-  - component: {fileID: 8764538042645856456}
+  - component: {fileID: -3784937377162035994}
   m_Layer: 0
   m_Name: DinoBrachio
   m_TagString: Untagged
@@ -1238,75 +1233,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!143 &143072043481942176
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582867359527748}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 10
-  m_Radius: 4.02
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 5, z: 0}
---- !u!114 &114214127523473264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582867359527748}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01897ae0afb46794d88a3dc2d9386348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleStates:
-  - stateName: Eat
-    animationBool: isEating
-    minStateTime: 10
-    maxStateTime: 0
-    stateWeight: 1
-  movementStates:
-  - stateName: Walk
-    animationBool: isWalking
-    maxStateTime: 20
-    moveSpeed: 2
-    turnSpeed: 120
-  - stateName: Run
-    animationBool: isRunning
-    maxStateTime: 13
-    moveSpeed: 6
-    turnSpeed: 120
-  attackingStates:
-  - stateName: Attack
-    animationBool: isAttacking
-  deathStates:
-  - stateName: Death
-    animationBool: isDead
-  species: Brachiosaurus
-  ScriptableAnimalStats: {fileID: 11400000, guid: fe27361d8b51aac4f9468810843e51aa,
-    type: 2}
-  wanderZone: 40
-  awareness: 20
-  scent: 0
-  constainedToWanderZone: 0
-  nonAgressiveTowards: []
-  matchSurfaceRotation: 0
-  surfaceRotationSpeed: 2
-  logChanges: 0
-  showGizmos: 1
-  drawWanderRange: 1
-  drawScentRange: 1
-  drawAwarenessRange: 1
-  useNavMesh: 0
 --- !u!195 &195197703218002412
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1329,7 +1255,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1093883757104275585
+--- !u!114 &-3784937377162035994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1338,58 +1264,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1582867359527748}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190b3ca6a4e2e0242ac4bad14c0dabf9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7dcc85fb6582c7a4cba6f2787b7fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-3629205396198729020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582867359527748}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9c499a04679e3140a81d8acb6e28c71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lastStatus: 0
---- !u!114 &8109332923259061058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582867359527748}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee42c9b510395d44b8c1cefa546e6367, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8764538042645856456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582867359527748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6111004e61de88b4991ce0dc63835db3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dinoStates: []
-  _currentState: 0
+  navMeshAgent: {fileID: 0}
   ScriptableAnimalStats: {fileID: 11400000, guid: fe27361d8b51aac4f9468810843e51aa,
     type: 2}
-  matchSurfaceRotation: 0
-  surfaceRotationSpeed: 2
-  useNavMesh: 0
-  wanderZone: 10
+  _currentAiState: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  distance: 0
+  _id: 0
+  _stateCount: 0
   _deltaTime: 0
-  _currentFood: 0
-  _currentToughness: 0
-  _aiStatus: 0
+  _isDead: 0
   logChanges: 1
 --- !u!1 &1596340026738218
 GameObject:
