@@ -6,7 +6,9 @@ using Dinopark.Npc;
 using Improbable.Gdk.Core;
 using Improbable.Gdk.Subscriptions;
 using LowPolyAnimalPack;
+using Assets.Gamelogic.Core;
 
+[WorkerType(WorkerUtils.UnityClient)]
 public class DinoVisualizer : MonoBehaviour
 {
     [Require] private DinoAiDataReader aiDataReader;
@@ -106,7 +108,6 @@ public class DinoVisualizer : MonoBehaviour
                 break;
             case DinoAiFSMState.StateEnum.EAT:
                 aniState = 2;
-                navMeshAgent.SetDestination(transform.position);
                 break;
             case DinoAiFSMState.StateEnum.RUN_AWAY:
                 targetPosition = update.TargetPosition.Value.ToUnityVector();
@@ -120,15 +121,25 @@ public class DinoVisualizer : MonoBehaviour
                 break;
             case DinoAiFSMState.StateEnum.ATTACK:
                 aniState = 4;
+                StartCoroutine(TurnToLookAtTarget(update.TargetPosition.Value.ToUnityVector()));
                 break;
             case DinoAiFSMState.StateEnum.BE_ATTACK:
                 aniState = 4;
+                StartCoroutine(TurnToLookAtTarget(update.TargetPosition.Value.ToUnityVector()));
                 break;
             case DinoAiFSMState.StateEnum.DEAD:
                 aniState = 5;
                 break;
             case DinoAiFSMState.StateEnum.BREED:
                 aniState = 5;
+                break;
+            case DinoAiFSMState.StateEnum.LOOK_FOR_FOOD:
+                targetPosition = update.TargetPosition.Value.ToUnityVector();
+                navMeshAgent.speed = ScriptableAnimalStats.moveSpeed;
+                aniState = 1;
+                break;
+            case DinoAiFSMState.StateEnum.EAT_FOOD:
+                aniState = 2;
                 break;
         }
 
@@ -159,4 +170,21 @@ public class DinoVisualizer : MonoBehaviour
         animator.SetBool(dinoStates[inState].animationBool, true);
     }
 
+    private IEnumerator TurnToLookAtTarget(Vector3 targetPosition)
+    {
+        while (true)
+        {
+            Vector3 direction = targetPosition - transform.position;
+
+            if (Vector3.Angle(direction, transform.forward) < 1f)
+            {
+                yield break;
+            }
+
+            float step = 2f * Time.deltaTime;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, step, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+            yield return null;
+        }
+    }
 }

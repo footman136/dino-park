@@ -13,10 +13,12 @@ namespace Dinopark.Plants
     public struct HarvestRequest
     {
         public global::Improbable.Gdk.Core.EntityId Harvester;
+        public float ResourcesNeed;
     
-        public HarvestRequest(global::Improbable.Gdk.Core.EntityId harvester)
+        public HarvestRequest(global::Improbable.Gdk.Core.EntityId harvester, float resourcesNeed)
         {
             Harvester = harvester;
+            ResourcesNeed = resourcesNeed;
         }
         public static class Serialization
         {
@@ -25,6 +27,9 @@ namespace Dinopark.Plants
                 {
                     obj.AddEntityId(1, instance.Harvester);
                 }
+                {
+                    obj.AddFloat(2, instance.ResourcesNeed);
+                }
             }
     
             public static HarvestRequest Deserialize(global::Improbable.Worker.CInterop.SchemaObject obj)
@@ -32,6 +37,9 @@ namespace Dinopark.Plants
                 var instance = new HarvestRequest();
                 {
                     instance.Harvester = obj.GetEntityIdStruct(1);
+                }
+                {
+                    instance.ResourcesNeed = obj.GetFloat(2);
                 }
                 return instance;
             }

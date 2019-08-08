@@ -12,9 +12,9 @@ namespace Dinopark.Plants
     [global::System.Serializable]
     public struct HarvestResponse
     {
-        public int ResourcesTaken;
+        public float ResourcesTaken;
     
-        public HarvestResponse(int resourcesTaken)
+        public HarvestResponse(float resourcesTaken)
         {
             ResourcesTaken = resourcesTaken;
         }
@@ -23,7 +23,7 @@ namespace Dinopark.Plants
             public static void Serialize(HarvestResponse instance, global::Improbable.Worker.CInterop.SchemaObject obj)
             {
                 {
-                    obj.AddInt32(1, instance.ResourcesTaken);
+                    obj.AddFloat(1, instance.ResourcesTaken);
                 }
             }
     
@@ -31,7 +31,7 @@ namespace Dinopark.Plants
             {
                 var instance = new HarvestResponse();
                 {
-                    instance.ResourcesTaken = obj.GetInt32(1);
+                    instance.ResourcesTaken = obj.GetFloat(1);
                 }
                 return instance;
             }

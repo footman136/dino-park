@@ -5,12 +5,12 @@ using Assets.Gamelogic.FSM;
 using Dinopark.Npc;
 using Improbable.Gdk.Core;
 
-public class DinoWanderState : FsmBaseState<DinoStateMachine, DinoAiFSMState.StateEnum>
+public class DinoLookForFoodState : FsmBaseState<DinoStateMachine, DinoAiFSMState.StateEnum>
 {
     private readonly DinoBehaviour parentBehaviour;
-    public DinoWanderState(DinoStateMachine owner, DinoBehaviour behaviour) : base(owner)
+    public DinoLookForFoodState(DinoStateMachine owner, DinoBehaviour behaviour) : base(owner)
     {
-        parentBehaviour = behaviour;
+        parentBehaviour = behaviour;      
     }
     public override void Enter()
     {
@@ -38,7 +38,7 @@ public class DinoWanderState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Sta
 
         if (arrived>0)
         {
-            Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
+            Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT_FOOD, Owner.Data.TargetEntityId, Owner.Data.TargetPosition.ToUnityVector());
         }
     }
 

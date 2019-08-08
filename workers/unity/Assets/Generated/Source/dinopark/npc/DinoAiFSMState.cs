@@ -39,6 +39,8 @@ namespace Dinopark.Npc
             DEAD = 7,
             ROAR = 8,
             BREED = 9,
+            LOOK_FOR_FOOD = 10,
+            EAT_FOOD = 11,
             ON_FIRE = 19,
             NONE = 20,
         }

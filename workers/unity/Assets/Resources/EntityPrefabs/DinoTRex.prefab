@@ -2691,7 +2691,7 @@ GameObject:
   - component: {fileID: 8241178319560159748}
   - component: {fileID: -8713196430268978214}
   m_Layer: 0
-  m_Name: NPCTRex
+  m_Name: DinoTRex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2796,6 +2796,7 @@ MonoBehaviour:
   drawWanderRange: 1
   drawScentRange: 1
   drawAwarenessRange: 1
+  useNavMesh: 0
 --- !u!195 &195688642582221476
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2909,11 +2910,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1962935449849492}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 735bd84262c0e7140975aec3f91c6993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthStr: 
 --- !u!114 &5458454620355221720
 MonoBehaviour:
   m_ObjectHideFlags: 0

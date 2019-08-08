@@ -145,8 +145,10 @@
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoBreedState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoChaseState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoDeadState.cs" />
+    <Compile Include="Assets\Scripts\DinoPark\FSM\DinoEatFoodState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoEatState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoIdleState.cs" />
+    <Compile Include="Assets\Scripts\DinoPark\FSM\DinoLookForFoodState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoRunAwayState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoStateMachine.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoWanderState.cs" />

@@ -1277,7 +1277,9 @@ MonoBehaviour:
   _stateCount: 0
   _deltaTime: 0
   _isDead: 0
-  logChanges: 1
+  _currentFood: 0
+  _currentToughness: 0
+  logChanges: 0
 --- !u!1 &1596340026738218
 GameObject:
   m_ObjectHideFlags: 0

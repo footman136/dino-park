@@ -24,12 +24,14 @@ MonoBehaviour:
   awareness: 30
   scent: 30
   nonAgressiveTowards: []
-  contingencyDistance: 5
+  contingencyDistance: 4
   thinkingFrequency: 1
   moveSpeed: 4
   runSpeed: 8
   turnSpeed: 120
   hardTime: 40
-  foodStorage: 5
+  foodStorage: 50
   HungryRate: 1
   liveCost: 1
+  appetite: 5
+  vegetarian: 0

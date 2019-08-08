@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Gamelogic.FSM;
 using Dinopark.Npc;
+using Improbable.Gdk.Core;
 
 public class DinoRunAwayState : FsmBaseState<DinoStateMachine, DinoAiFSMState.StateEnum>
 {
@@ -13,10 +14,32 @@ public class DinoRunAwayState : FsmBaseState<DinoStateMachine, DinoAiFSMState.St
     }
     public override void Enter()
     {
+        parentBehaviour.navMeshAgent.SetDestination(Owner.Data.TargetPosition.ToUnityVector());
+        parentBehaviour.navMeshAgent.speed = parentBehaviour.ScriptableAnimalStats.runSpeed;
     }
 
     public override void Tick()
     {
+        int arrived = 0;
+        if (parentBehaviour.navMeshAgent.remainingDistance < parentBehaviour.navMeshAgent.stoppingDistance)
+        {
+            arrived = 1;
+        }
+
+        float deltaTime = Time.time - Owner._startTime;
+        if (deltaTime > parentBehaviour.ScriptableAnimalStats.stamina)
+        {
+            arrived = 2;
+            if (parentBehaviour.logChanges)
+            {
+                Debug.Log("Time's up.");
+            }
+        }
+
+        if (arrived>0)
+        {
+            Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
+        }
     }
 
     public override void Exit(bool disabled)

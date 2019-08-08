@@ -17,8 +17,8 @@ namespace Assets.Gamelogic.Life
         [Require] private HealthReader health;
         //[Require] private TeamAssignment.Reader teamAssigment;
 
-        public int CurrentHealth { get { return health.Data.CurrentHealth; } }
-        public int MaxHealth { get { return health.Data.MaxHealth; } }
+        public float CurrentHealth { get { return health.Data.CurrentHealth; } }
+        public float MaxHealth { get { return health.Data.MaxHealth; } }
         private GameObject entityInfoCanvasInstance;
         //private EntityHealthPanelController entityHealthPanelController;
 

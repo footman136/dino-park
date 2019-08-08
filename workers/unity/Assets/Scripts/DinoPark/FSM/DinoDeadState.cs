@@ -13,6 +13,7 @@ public class DinoDeadState : FsmBaseState<DinoStateMachine, DinoAiFSMState.State
     }
     public override void Enter()
     {
+        parentBehaviour.navMeshAgent.SetDestination(parentBehaviour.transform.position);
     }
 
     public override void Tick()

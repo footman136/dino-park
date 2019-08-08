@@ -60,24 +60,26 @@ namespace Editor
             snapshot.AddEntity(entity);
         }
         
-        public static void AddNPCsAroundHQs(Snapshot snapshot, Coordinates[] locations)
+        public static void AddNPCsAroundHQs(Snapshot snapshot, Coordinates[] locations, float edgeLength)
         {
             for (uint teamId = 0; teamId < locations.Length; teamId++)
             {
-                SpawnNpcsAroundPosition(snapshot, locations[teamId], teamId);
+                SpawnNpcsAroundPosition(snapshot, locations[teamId], teamId, edgeLength);
             }
         }
 
-        public static void SpawnNpcsAroundPosition(Snapshot snapshot, Coordinates position, uint team)
+        public static void SpawnNpcsAroundPosition(Snapshot snapshot, Coordinates position, uint team, float edgeLength)
         {
             float totalNpcs = SimulationSettings.HQStartingTRexCount + SimulationSettings.HQStartingBrachioCount;
             float radiusFromHQ = SimulationSettings.NPCSpawnDistanceToHQ;
 
             for (int i = 0; i < totalNpcs; i++)
             {
-                float radians = (i / totalNpcs) * 2 * Mathf.PI;
-                Vector3 offset = new Vector3(Mathf.Cos(radians), 0, Mathf.Sin(radians));
-                offset *= radiusFromHQ;
+//                float radians = (i / totalNpcs) * 2 * Mathf.PI;
+//                Vector3 offset = new Vector3(Mathf.Cos(radians), 0, Mathf.Sin(radians));
+//                offset *= radiusFromHQ;
+                Vector3 offset = new Vector3(Random.Range(-edgeLength / 2, edgeLength / 2), 0,
+                    Random.Range(-edgeLength / 2, edgeLength / 2));
                 Coordinates coordinates = (position.ToVector3() + offset).ToCoordinates();
 
                 EntityTemplate entity = null;

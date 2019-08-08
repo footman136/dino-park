@@ -44,20 +44,12 @@ namespace DinoPark
             }
             else if (isTree)
             {
-                var pathPrefab = "EntityPrefabs/" + SimulationSettings.TreePrefabName;
+                var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.TreePrefabName;
                 var prefab = Resources.Load(pathPrefab);
                 var entityGameObject = UnityEngine.Object.Instantiate(prefab);
                 entityGameObject.name = SimulationSettings.TreePrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A tree GameObject created");
-            }
-            else if (isLumberJack)
-            {
-                var pathPrefab = "EntityPrefabs/" + SimulationSettings.NPCPrefabName;
-                var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab);
-                linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
-                Debug.Log("EntityGameObjectCreator OnEntityCreated - A LumberJack GameObject created");
             }
             else if (isDinoBrachio)
             {

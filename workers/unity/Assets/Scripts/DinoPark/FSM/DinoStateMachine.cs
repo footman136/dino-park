@@ -28,6 +28,8 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
         var beAttackState = new DinoBeAttackState(this, behaviour);
         var deadState = new DinoDeadState(this, behaviour);
         var breedState = new DinoBreedState(this, behaviour);
+        var lookforfoodState = new DinoLookForFoodState(this, behaviour);
+        var eatfoodState = new DinoEatFoodState(this, behaviour);
         
         var stateList = new Dictionary<DinoAiFSMState.StateEnum, IFsmState>
         {
@@ -40,6 +42,8 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
             { DinoAiFSMState.StateEnum.BE_ATTACK, beAttackState },
             { DinoAiFSMState.StateEnum.DEAD, deadState },
             { DinoAiFSMState.StateEnum.BREED, breedState },
+            { DinoAiFSMState.StateEnum.LOOK_FOR_FOOD, lookforfoodState },
+            { DinoAiFSMState.StateEnum.EAT_FOOD, eatfoodState },
         };
 
         SetStates(stateList);
@@ -56,33 +60,45 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
             DinoAiFSMState.StateEnum.BE_ATTACK,
             DinoAiFSMState.StateEnum.DEAD,
             DinoAiFSMState.StateEnum.BREED,
+            DinoAiFSMState.StateEnum.LOOK_FOR_FOOD,
+            DinoAiFSMState.StateEnum.EAT_FOOD,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.WANDER, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.BE_ATTACK,
+            DinoAiFSMState.StateEnum.RUN_AWAY,
+            DinoAiFSMState.StateEnum.CHASE,
+            DinoAiFSMState.StateEnum.LOOK_FOR_FOOD,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.EAT, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.BE_ATTACK,
+            DinoAiFSMState.StateEnum.RUN_AWAY,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.RUN_AWAY, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
             DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.BE_ATTACK,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.CHASE, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
-            DinoAiFSMState.StateEnum.ATTACK,
             DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.BE_ATTACK,
+            DinoAiFSMState.StateEnum.ATTACK,
+            DinoAiFSMState.StateEnum.RUN_AWAY,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.ATTACK, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.BE_ATTACK,
+            DinoAiFSMState.StateEnum.EAT,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.BE_ATTACK, new List<DinoAiFSMState.StateEnum>
         {
@@ -98,6 +114,22 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.BE_ATTACK,
+        });
+        allowedTransitions.Add(DinoAiFSMState.StateEnum.LOOK_FOR_FOOD, new List<DinoAiFSMState.StateEnum>
+        {
+            DinoAiFSMState.StateEnum.IDLE,
+            DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.BE_ATTACK,
+            DinoAiFSMState.StateEnum.EAT_FOOD,
+            DinoAiFSMState.StateEnum.RUN_AWAY,
+        });
+        allowedTransitions.Add(DinoAiFSMState.StateEnum.EAT_FOOD, new List<DinoAiFSMState.StateEnum>
+        {
+            DinoAiFSMState.StateEnum.IDLE,
+            DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.BE_ATTACK,
+            DinoAiFSMState.StateEnum.RUN_AWAY,
         });
         SetTransitions(allowedTransitions);
     }
@@ -143,11 +175,8 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
         }
         else
         {
-            if (_behaviour.logChanges)
-            {
-                Debug.LogErrorFormat("DinoStateMachine: Invalid transition from {0} to {1} detected.",
-                    Data.CurrentAiState, newState);
-            }
+            Debug.LogErrorFormat("DinoStateMachine: Invalid transition from {0} to {1} detected.",
+                Data.CurrentAiState, newState);
         }
     }
     protected override void OnEnableImpl()

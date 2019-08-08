@@ -23,6 +23,7 @@ namespace Assets.Gamelogic.Tree
 
         public override void Enter()
         {
+            // 进入这个状态的时候，要把树的血设置满
             var update = new Health.Update
             {
                 CurrentHealth = SimulationSettings.TreeMaxHealth

@@ -2,10 +2,11 @@ package dinopark.plants;
 
 type HarvestRequest {
   EntityId harvester = 1;
+  float resources_need = 2;
 }
 
 type HarvestResponse {
-  int32 resources_taken = 1;
+  float resources_taken = 1;
 }
 
 component Harvestable {

@@ -68,4 +68,9 @@ public class     AnimalStats : ScriptableObject
     [SerializeField, Tooltip("活着的消耗，每秒消耗多少的食物")]
     public float liveCost = 1.0f;
 
+    [SerializeField, Tooltip("胃口，每次吃多少食物")]
+    public float appetite = 1.0f;
+
+    [SerializeField, Tooltip("素食者")]
+    public bool vegetarian = true;
 }

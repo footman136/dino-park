@@ -352,14 +352,14 @@ namespace Dinopark.Life
             }
         }
 
-        private Dictionary<Action<int>, ulong> currentHealthUpdateCallbackToCallbackKey;
-        public event Action<int> OnCurrentHealthUpdate
+        private Dictionary<Action<float>, ulong> currentHealthUpdateCallbackToCallbackKey;
+        public event Action<float> OnCurrentHealthUpdate
         {
             add
             {
                 if (currentHealthUpdateCallbackToCallbackKey == null)
                 {
-                    currentHealthUpdateCallbackToCallbackKey = new Dictionary<Action<int>, ulong>();
+                    currentHealthUpdateCallbackToCallbackKey = new Dictionary<Action<float>, ulong>();
                 }
 
                 var key = CallbackSystem.RegisterComponentUpdateCallback<Health.Update>(EntityId, update =>
@@ -383,14 +383,14 @@ namespace Dinopark.Life
             }
         }
 
-        private Dictionary<Action<int>, ulong> maxHealthUpdateCallbackToCallbackKey;
-        public event Action<int> OnMaxHealthUpdate
+        private Dictionary<Action<float>, ulong> maxHealthUpdateCallbackToCallbackKey;
+        public event Action<float> OnMaxHealthUpdate
         {
             add
             {
                 if (maxHealthUpdateCallbackToCallbackKey == null)
                 {
-                    maxHealthUpdateCallbackToCallbackKey = new Dictionary<Action<int>, ulong>();
+                    maxHealthUpdateCallbackToCallbackKey = new Dictionary<Action<float>, ulong>();
                 }
 
                 var key = CallbackSystem.RegisterComponentUpdateCallback<Health.Update>(EntityId, update =>

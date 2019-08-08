@@ -22,6 +22,8 @@ namespace Assets.Gamelogic.Tree
         [SerializeField] private GameObject BurntTree;
         [SerializeField] private Mesh[] meshes;
 
+        [SerializeField] private TreeFSMState _state;
+
         private void OnEnable()
         {
             SetupTreeModel();
@@ -43,6 +45,7 @@ namespace Assets.Gamelogic.Tree
         private void UpdateVisualization(TreeState.Update newState)
         {
             ShowTreeModel(newState.CurrentState.Value);
+            _state = newState.CurrentState.Value;
         }
 
         private void ShowTreeModel(TreeFSMState currentState)

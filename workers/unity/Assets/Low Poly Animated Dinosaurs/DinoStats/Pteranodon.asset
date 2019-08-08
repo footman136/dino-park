@@ -33,3 +33,5 @@ MonoBehaviour:
   foodStorage: 100
   HungryRate: 0.5
   liveCost: 1
+  appetite: 1
+  vegetarian: 0

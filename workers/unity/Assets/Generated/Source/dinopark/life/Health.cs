@@ -99,9 +99,9 @@ namespace Dinopark.Life
                 return snapshot;
             }
 
-            private int currentHealth;
+            private float currentHealth;
 
-            public int CurrentHealth
+            public float CurrentHealth
             {
                 get => currentHealth;
                 set
@@ -111,9 +111,9 @@ namespace Dinopark.Life
                 }
             }
 
-            private int maxHealth;
+            private float maxHealth;
 
-            public int MaxHealth
+            public float MaxHealth
             {
                 get => maxHealth;
                 set
@@ -181,11 +181,11 @@ namespace Dinopark.Life
         {
             public uint ComponentId => 1300;
 
-            public int CurrentHealth;
-            public int MaxHealth;
+            public float CurrentHealth;
+            public float MaxHealth;
             public bool CanBeChanged;
 
-            public Snapshot(int currentHealth, int maxHealth, bool canBeChanged)
+            public Snapshot(float currentHealth, float maxHealth, bool canBeChanged)
             {
                 CurrentHealth = currentHealth;
                 MaxHealth = maxHealth;
@@ -198,10 +198,10 @@ namespace Dinopark.Life
             public static void SerializeComponent(global::Dinopark.Life.Health.Component component, global::Improbable.Worker.CInterop.SchemaObject obj, global::Unity.Entities.World world)
             {
                 {
-                    obj.AddInt32(1, component.CurrentHealth);
+                    obj.AddFloat(1, component.CurrentHealth);
                 }
                 {
-                    obj.AddInt32(2, component.MaxHealth);
+                    obj.AddFloat(2, component.MaxHealth);
                 }
                 {
                     obj.AddBool(3, component.CanBeChanged);
@@ -214,14 +214,14 @@ namespace Dinopark.Life
                 {
                     if (component.IsDataDirty(0))
                     {
-                        obj.AddInt32(1, component.CurrentHealth);
+                        obj.AddFloat(1, component.CurrentHealth);
                     }
 
                 }
                 {
                     if (component.IsDataDirty(1))
                     {
-                        obj.AddInt32(2, component.MaxHealth);
+                        obj.AddFloat(2, component.MaxHealth);
                     }
 
                 }
@@ -241,14 +241,14 @@ namespace Dinopark.Life
                     if (update.CurrentHealth.HasValue)
                     {
                         var field = update.CurrentHealth.Value;
-                        obj.AddInt32(1, field);
+                        obj.AddFloat(1, field);
                     }
                 }
                 {
                     if (update.MaxHealth.HasValue)
                     {
                         var field = update.MaxHealth.Value;
-                        obj.AddInt32(2, field);
+                        obj.AddFloat(2, field);
                     }
                 }
                 {
@@ -263,10 +263,10 @@ namespace Dinopark.Life
             public static void SerializeSnapshot(global::Dinopark.Life.Health.Snapshot snapshot, global::Improbable.Worker.CInterop.SchemaObject obj)
             {
                 {
-                    obj.AddInt32(1, snapshot.CurrentHealth);
+                    obj.AddFloat(1, snapshot.CurrentHealth);
                 }
                 {
-                    obj.AddInt32(2, snapshot.MaxHealth);
+                    obj.AddFloat(2, snapshot.MaxHealth);
                 }
                 {
                     obj.AddBool(3, snapshot.CanBeChanged);
@@ -278,10 +278,10 @@ namespace Dinopark.Life
                 var component = new global::Dinopark.Life.Health.Component();
 
                 {
-                    component.CurrentHealth = obj.GetInt32(1);
+                    component.CurrentHealth = obj.GetFloat(1);
                 }
                 {
-                    component.MaxHealth = obj.GetInt32(2);
+                    component.MaxHealth = obj.GetFloat(2);
                 }
                 {
                     component.CanBeChanged = obj.GetBool(3);
@@ -295,18 +295,18 @@ namespace Dinopark.Life
                 var obj = updateObj.GetFields();
 
                 {
-                    if (obj.GetInt32Count(1) == 1)
+                    if (obj.GetFloatCount(1) == 1)
                     {
-                        var value = obj.GetInt32(1);
-                        update.CurrentHealth = new global::Improbable.Gdk.Core.Option<int>(value);
+                        var value = obj.GetFloat(1);
+                        update.CurrentHealth = new global::Improbable.Gdk.Core.Option<float>(value);
                     }
                     
                 }
                 {
-                    if (obj.GetInt32Count(2) == 1)
+                    if (obj.GetFloatCount(2) == 1)
                     {
-                        var value = obj.GetInt32(2);
-                        update.MaxHealth = new global::Improbable.Gdk.Core.Option<int>(value);
+                        var value = obj.GetFloat(2);
+                        update.MaxHealth = new global::Improbable.Gdk.Core.Option<float>(value);
                     }
                     
                 }
@@ -327,13 +327,13 @@ namespace Dinopark.Life
                 var obj = data.GetFields();
 
                 {
-                    var value = obj.GetInt32(1);
-                    update.CurrentHealth = new global::Improbable.Gdk.Core.Option<int>(value);
+                    var value = obj.GetFloat(1);
+                    update.CurrentHealth = new global::Improbable.Gdk.Core.Option<float>(value);
                     
                 }
                 {
-                    var value = obj.GetInt32(2);
-                    update.MaxHealth = new global::Improbable.Gdk.Core.Option<int>(value);
+                    var value = obj.GetFloat(2);
+                    update.MaxHealth = new global::Improbable.Gdk.Core.Option<float>(value);
                     
                 }
                 {
@@ -349,11 +349,11 @@ namespace Dinopark.Life
                 var component = new global::Dinopark.Life.Health.Snapshot();
 
                 {
-                    component.CurrentHealth = obj.GetInt32(1);
+                    component.CurrentHealth = obj.GetFloat(1);
                 }
 
                 {
-                    component.MaxHealth = obj.GetInt32(2);
+                    component.MaxHealth = obj.GetFloat(2);
                 }
 
                 {
@@ -368,17 +368,17 @@ namespace Dinopark.Life
                 var obj = updateObj.GetFields();
 
                 {
-                    if (obj.GetInt32Count(1) == 1)
+                    if (obj.GetFloatCount(1) == 1)
                     {
-                        var value = obj.GetInt32(1);
+                        var value = obj.GetFloat(1);
                         component.CurrentHealth = value;
                     }
                     
                 }
                 {
-                    if (obj.GetInt32Count(2) == 1)
+                    if (obj.GetFloatCount(2) == 1)
                     {
-                        var value = obj.GetInt32(2);
+                        var value = obj.GetFloat(2);
                         component.MaxHealth = value;
                     }
                     
@@ -398,17 +398,17 @@ namespace Dinopark.Life
                 var obj = updateObj.GetFields();
 
                 {
-                    if (obj.GetInt32Count(1) == 1)
+                    if (obj.GetFloatCount(1) == 1)
                     {
-                        var value = obj.GetInt32(1);
+                        var value = obj.GetFloat(1);
                         snapshot.CurrentHealth = value;
                     }
                     
                 }
                 {
-                    if (obj.GetInt32Count(2) == 1)
+                    if (obj.GetFloatCount(2) == 1)
                     {
-                        var value = obj.GetInt32(2);
+                        var value = obj.GetFloat(2);
                         snapshot.MaxHealth = value;
                     }
                     
@@ -428,8 +428,8 @@ namespace Dinopark.Life
         {
             internal static Stack<List<Update>> Pool = new Stack<List<Update>>();
 
-            public Option<int> CurrentHealth;
-            public Option<int> MaxHealth;
+            public Option<float> CurrentHealth;
+            public Option<float> MaxHealth;
             public Option<bool> CanBeChanged;
         }
 
@@ -495,8 +495,8 @@ namespace Dinopark.Life
             private static Update SnapshotToUpdate(in Snapshot snapshot)
             {
                 var update = new Update();
-                update.CurrentHealth = new Option<int>(snapshot.CurrentHealth);
-                update.MaxHealth = new Option<int>(snapshot.MaxHealth);
+                update.CurrentHealth = new Option<float>(snapshot.CurrentHealth);
+                update.MaxHealth = new Option<float>(snapshot.MaxHealth);
                 update.CanBeChanged = new Option<bool>(snapshot.CanBeChanged);
                 return update;
             }
