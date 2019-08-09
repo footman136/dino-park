@@ -126,6 +126,16 @@ namespace Dinopark.Npc
                     data.OriginPosotion = update.OriginPosotion.Value;
                 }
 
+                if (update.Age.HasValue)
+                {
+                    data.Age = update.Age.Value;
+                }
+
+                if (update.LastHatchTime.HasValue)
+                {
+                    data.LastHatchTime = update.LastHatchTime.Value;
+                }
+
                 componentData[entityId] = data;
             }
         }

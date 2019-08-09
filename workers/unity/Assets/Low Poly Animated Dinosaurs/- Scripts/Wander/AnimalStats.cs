@@ -75,15 +75,18 @@ public class     AnimalStats : ScriptableObject
     public bool vegetarian = true;
     
     [SerializeField, Tooltip("食物达到多少比例的情况下，可以下蛋")]
-    public float bornRate = 0.67f;
+    public float hatchRate = 0.67f;
     
     [SerializeField, Tooltip("距离上次下蛋的间隔时间")]
-    public float bornDelay = 30f;
+    public float hatchDelay = 30f;
     
     [SerializeField, Tooltip("孵蛋的时间")]
     public float hatchTime = 30f;
     
     [SerializeField, Tooltip("长成成人需要的时间")]
-    public float growupTime = 60f;
+    public float growUpTime = 60f;
+
+    [SerializeField, Tooltip("恐龙寿命")]
+    public float ageMax = 1200f;
 
 }

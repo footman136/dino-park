@@ -21,11 +21,13 @@ namespace Dinopark.Npc
             // Bit masks for tracking which component properties were changed locally and need to be synced.
             // Each byte tracks 8 component properties.
             private byte dirtyBits0;
+            private byte dirtyBits1;
 
             public bool IsDataDirty()
             {
                 var isDataDirty = false;
                 isDataDirty |= (dirtyBits0 != 0x0);
+                isDataDirty |= (dirtyBits1 != 0x0);
                 return isDataDirty;
             }
 
@@ -43,9 +45,9 @@ namespace Dinopark.Npc
             */
             public bool IsDataDirty(int propertyIndex)
             {
-                if (propertyIndex < 0 || propertyIndex >= 6)
+                if (propertyIndex < 0 || propertyIndex >= 8)
                 {
-                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 5]. " +
+                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 7]. " +
                         "Unless you are using custom component replication code, this is most likely caused by a code generation bug. " +
                         "Please contact SpatialOS support if you encounter this issue.");
                 }
@@ -56,6 +58,8 @@ namespace Dinopark.Npc
                 {
                     case 0:
                         return (dirtyBits0 & (0x1 << propertyIndex % 8)) != 0x0;
+                    case 1:
+                        return (dirtyBits1 & (0x1 << propertyIndex % 8)) != 0x0;
                 }
 
                 return false;
@@ -65,9 +69,9 @@ namespace Dinopark.Npc
             // This method throws an InvalidOperationException in case your component doesn't contain properties.
             public void MarkDataDirty(int propertyIndex)
             {
-                if (propertyIndex < 0 || propertyIndex >= 6)
+                if (propertyIndex < 0 || propertyIndex >= 8)
                 {
-                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 5]. " +
+                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 7]. " +
                         "Unless you are using custom component replication code, this is most likely caused by a code generation bug. " +
                         "Please contact SpatialOS support if you encounter this issue.");
                 }
@@ -79,12 +83,16 @@ namespace Dinopark.Npc
                     case 0:
                         dirtyBits0 |= (byte) (0x1 << propertyIndex % 8);
                         break;
+                    case 1:
+                        dirtyBits1 |= (byte) (0x1 << propertyIndex % 8);
+                        break;
                 }
             }
 
             public void MarkDataClean()
             {
                 dirtyBits0 = 0x0;
+                dirtyBits1 = 0x0;
             }
 
             public Snapshot ToComponentSnapshot(global::Unity.Entities.World world)
@@ -170,6 +178,30 @@ namespace Dinopark.Npc
                     this.originPosotion = value;
                 }
             }
+
+            private float age;
+
+            public float Age
+            {
+                get => age;
+                set
+                {
+                    MarkDataDirty(6);
+                    this.age = value;
+                }
+            }
+
+            private float lastHatchTime;
+
+            public float LastHatchTime
+            {
+                get => lastHatchTime;
+                set
+                {
+                    MarkDataDirty(7);
+                    this.lastHatchTime = value;
+                }
+            }
         }
 
         public struct ComponentAuthority : ISharedComponentData, IEquatable<ComponentAuthority>
@@ -223,8 +255,10 @@ namespace Dinopark.Npc
             public float OriginalAgression;
             public int OriginalDominance;
             public global::Improbable.Vector3f OriginPosotion;
+            public float Age;
+            public float LastHatchTime;
 
-            public Snapshot(bool isDead, float currentFood, float originalScent, float originalAgression, int originalDominance, global::Improbable.Vector3f originPosotion)
+            public Snapshot(bool isDead, float currentFood, float originalScent, float originalAgression, int originalDominance, global::Improbable.Vector3f originPosotion, float age, float lastHatchTime)
             {
                 IsDead = isDead;
                 CurrentFood = currentFood;
@@ -232,6 +266,8 @@ namespace Dinopark.Npc
                 OriginalAgression = originalAgression;
                 OriginalDominance = originalDominance;
                 OriginPosotion = originPosotion;
+                Age = age;
+                LastHatchTime = lastHatchTime;
             }
         }
 
@@ -256,6 +292,12 @@ namespace Dinopark.Npc
                 }
                 {
                     global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosotion, obj.AddObject(7));
+                }
+                {
+                    obj.AddFloat(8, component.Age);
+                }
+                {
+                    obj.AddFloat(9, component.LastHatchTime);
                 }
             }
 
@@ -301,6 +343,20 @@ namespace Dinopark.Npc
                     if (component.IsDataDirty(5))
                     {
                         global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosotion, obj.AddObject(7));
+                    }
+
+                }
+                {
+                    if (component.IsDataDirty(6))
+                    {
+                        obj.AddFloat(8, component.Age);
+                    }
+
+                }
+                {
+                    if (component.IsDataDirty(7))
+                    {
+                        obj.AddFloat(9, component.LastHatchTime);
                     }
 
                 }
@@ -351,6 +407,20 @@ namespace Dinopark.Npc
                         global::Improbable.Vector3f.Serialization.Serialize(field, obj.AddObject(7));
                     }
                 }
+                {
+                    if (update.Age.HasValue)
+                    {
+                        var field = update.Age.Value;
+                        obj.AddFloat(8, field);
+                    }
+                }
+                {
+                    if (update.LastHatchTime.HasValue)
+                    {
+                        var field = update.LastHatchTime.Value;
+                        obj.AddFloat(9, field);
+                    }
+                }
             }
 
             public static void SerializeSnapshot(global::Dinopark.Npc.DinoAttrs.Snapshot snapshot, global::Improbable.Worker.CInterop.SchemaObject obj)
@@ -372,6 +442,12 @@ namespace Dinopark.Npc
                 }
                 {
                     global::Improbable.Vector3f.Serialization.Serialize(snapshot.OriginPosotion, obj.AddObject(7));
+                }
+                {
+                    obj.AddFloat(8, snapshot.Age);
+                }
+                {
+                    obj.AddFloat(9, snapshot.LastHatchTime);
                 }
             }
 
@@ -396,6 +472,12 @@ namespace Dinopark.Npc
                 }
                 {
                     component.OriginPosotion = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
+                }
+                {
+                    component.Age = obj.GetFloat(8);
+                }
+                {
+                    component.LastHatchTime = obj.GetFloat(9);
                 }
                 return component;
             }
@@ -453,6 +535,22 @@ namespace Dinopark.Npc
                     }
                     
                 }
+                {
+                    if (obj.GetFloatCount(8) == 1)
+                    {
+                        var value = obj.GetFloat(8);
+                        update.Age = new global::Improbable.Gdk.Core.Option<float>(value);
+                    }
+                    
+                }
+                {
+                    if (obj.GetFloatCount(9) == 1)
+                    {
+                        var value = obj.GetFloat(9);
+                        update.LastHatchTime = new global::Improbable.Gdk.Core.Option<float>(value);
+                    }
+                    
+                }
                 return update;
             }
 
@@ -491,6 +589,16 @@ namespace Dinopark.Npc
                     update.OriginPosotion = new global::Improbable.Gdk.Core.Option<global::Improbable.Vector3f>(value);
                     
                 }
+                {
+                    var value = obj.GetFloat(8);
+                    update.Age = new global::Improbable.Gdk.Core.Option<float>(value);
+                    
+                }
+                {
+                    var value = obj.GetFloat(9);
+                    update.LastHatchTime = new global::Improbable.Gdk.Core.Option<float>(value);
+                    
+                }
                 return update;
             }
 
@@ -520,6 +628,14 @@ namespace Dinopark.Npc
 
                 {
                     component.OriginPosotion = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
+                }
+
+                {
+                    component.Age = obj.GetFloat(8);
+                }
+
+                {
+                    component.LastHatchTime = obj.GetFloat(9);
                 }
 
                 return component;
@@ -577,6 +693,22 @@ namespace Dinopark.Npc
                     }
                     
                 }
+                {
+                    if (obj.GetFloatCount(8) == 1)
+                    {
+                        var value = obj.GetFloat(8);
+                        component.Age = value;
+                    }
+                    
+                }
+                {
+                    if (obj.GetFloatCount(9) == 1)
+                    {
+                        var value = obj.GetFloat(9);
+                        component.LastHatchTime = value;
+                    }
+                    
+                }
             }
 
             public static void ApplyUpdate(global::Improbable.Worker.CInterop.SchemaComponentUpdate updateObj, ref global::Dinopark.Npc.DinoAttrs.Snapshot snapshot)
@@ -631,6 +763,22 @@ namespace Dinopark.Npc
                     }
                     
                 }
+                {
+                    if (obj.GetFloatCount(8) == 1)
+                    {
+                        var value = obj.GetFloat(8);
+                        snapshot.Age = value;
+                    }
+                    
+                }
+                {
+                    if (obj.GetFloatCount(9) == 1)
+                    {
+                        var value = obj.GetFloat(9);
+                        snapshot.LastHatchTime = value;
+                    }
+                    
+                }
             }
         }
 
@@ -644,6 +792,8 @@ namespace Dinopark.Npc
             public Option<float> OriginalAgression;
             public Option<int> OriginalDominance;
             public Option<global::Improbable.Vector3f> OriginPosotion;
+            public Option<float> Age;
+            public Option<float> LastHatchTime;
         }
 
 #if !DISABLE_REACTIVE_COMPONENTS
@@ -714,6 +864,8 @@ namespace Dinopark.Npc
                 update.OriginalAgression = new Option<float>(snapshot.OriginalAgression);
                 update.OriginalDominance = new Option<int>(snapshot.OriginalDominance);
                 update.OriginPosotion = new Option<global::Improbable.Vector3f>(snapshot.OriginPosotion);
+                update.Age = new Option<float>(snapshot.Age);
+                update.LastHatchTime = new Option<float>(snapshot.LastHatchTime);
                 return update;
             }
 

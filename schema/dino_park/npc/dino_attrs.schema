@@ -10,4 +10,6 @@ component DinoAttrs {
   float original_agression = 5;
   int32 original_dominance = 6;
   improbable.Vector3f origin_posotion = 7;
+  float age = 8;
+  float last_hatch_time = 9;
 }

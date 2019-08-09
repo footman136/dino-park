@@ -92,6 +92,16 @@ namespace Dinopark.Npc
                                 update.OriginPosotion = data.OriginPosotion;
                             }
 
+                            if (data.IsDataDirty(6))
+                            {
+                                update.Age = data.Age;
+                            }
+
+                            if (data.IsDataDirty(7))
+                            {
+                                update.LastHatchTime = data.LastHatchTime;
+                            }
+
                             componentUpdateSystem.SendUpdate(in update, entityIdArray[i].EntityId);
                             data.MarkDataClean();
                             componentArray[i] = data;

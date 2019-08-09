@@ -107,6 +107,8 @@ namespace Assets.Gamelogic.Core
         public static float NPCSpawnDistanceToHQ = 30f;
         public static float NPCDefaultInteractionSqrDistance = 9f;
         public static float NPCViewRadius = 30f;
+        public static float NPCOriginalMinFoodRate = 0.3f; // 一开始每只恐龙肚里的食物的比例
+        public static float NPCChildhoodMinWeekness = 0.3f; // 童年的恐龙各方面参数变弱的最小比例（刚出生时，以后会逐步向成年恐龙靠拢）
             
                 // Buildings
 //                public static int HQMaxHealth = 20;

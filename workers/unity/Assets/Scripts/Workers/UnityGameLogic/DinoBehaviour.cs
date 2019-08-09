@@ -46,6 +46,8 @@ public class DinoBehaviour : MonoBehaviour
     [SerializeField] private bool _isDead;
     [SerializeField] private float _currentFood; // 当前的粮食
     [SerializeField] private float _currentHealth; // 当前生命值
+    [SerializeField] private float _life; // 存活时间
+    [SerializeField] private float _lastHatchTime; // 距离上次孵蛋的时间
     public string Species { private set; get; }
     public bool Dead(){return _isDead;}
 
@@ -108,11 +110,11 @@ public class DinoBehaviour : MonoBehaviour
         var update = new DinoAttrs.Update
         {
             IsDead = false,
-            CurrentFood = Random.Range(ScriptableAnimalStats.foodStorage * ScriptableAnimalStats.foodStorage,
+            CurrentFood = Random.Range(ScriptableAnimalStats.foodStorage * SimulationSettings.NPCOriginalMinFoodRate, ScriptableAnimalStats.foodStorage),
             OriginalAgression = ScriptableAnimalStats.agression,
             OriginalDominance = ScriptableAnimalStats.dominance,
             OriginalScent = ScriptableAnimalStats.scent,
-            OriginPosotion = transform.position.ToVector3f()
+            OriginPosotion = transform.position.ToVector3f(),
         };
         attrsWriter.SendUpdate(update);
         var update3 = new Health.Update
@@ -145,7 +147,7 @@ public class DinoBehaviour : MonoBehaviour
         var update = new DinoAttrs.Update
         {
             IsDead = true,
-            CurrentFood = ScriptableAnimalStats.foodStorage,
+            CurrentFood = Random.Range(ScriptableAnimalStats.foodStorage * SimulationSettings.NPCOriginalMinFoodRate, ScriptableAnimalStats.foodStorage),
             OriginalAgression = ScriptableAnimalStats.agression,
             OriginalDominance = ScriptableAnimalStats.dominance,
             OriginalScent = ScriptableAnimalStats.scent,

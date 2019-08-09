@@ -538,6 +538,68 @@ namespace Dinopark.Npc
             }
         }
 
+        private Dictionary<Action<float>, ulong> ageUpdateCallbackToCallbackKey;
+        public event Action<float> OnAgeUpdate
+        {
+            add
+            {
+                if (ageUpdateCallbackToCallbackKey == null)
+                {
+                    ageUpdateCallbackToCallbackKey = new Dictionary<Action<float>, ulong>();
+                }
+
+                var key = CallbackSystem.RegisterComponentUpdateCallback<DinoAttrs.Update>(EntityId, update =>
+                {
+                    if (update.Age.HasValue)
+                    {
+                        value(update.Age.Value);
+                    }
+                });
+                ageUpdateCallbackToCallbackKey.Add(value, key);
+            }
+            remove
+            {
+                if (!ageUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
+                {
+                    return;
+                }
+
+                CallbackSystem.UnregisterCallback(key);
+                ageUpdateCallbackToCallbackKey.Remove(value);
+            }
+        }
+
+        private Dictionary<Action<float>, ulong> lastHatchTimeUpdateCallbackToCallbackKey;
+        public event Action<float> OnLastHatchTimeUpdate
+        {
+            add
+            {
+                if (lastHatchTimeUpdateCallbackToCallbackKey == null)
+                {
+                    lastHatchTimeUpdateCallbackToCallbackKey = new Dictionary<Action<float>, ulong>();
+                }
+
+                var key = CallbackSystem.RegisterComponentUpdateCallback<DinoAttrs.Update>(EntityId, update =>
+                {
+                    if (update.LastHatchTime.HasValue)
+                    {
+                        value(update.LastHatchTime.Value);
+                    }
+                });
+                lastHatchTimeUpdateCallbackToCallbackKey.Add(value, key);
+            }
+            remove
+            {
+                if (!lastHatchTimeUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
+                {
+                    return;
+                }
+
+                CallbackSystem.UnregisterCallback(key);
+                lastHatchTimeUpdateCallbackToCallbackKey.Remove(value);
+            }
+        }
+
 
         internal DinoAttrsReader(World world, Entity entity, EntityId entityId)
         {
@@ -633,6 +695,26 @@ namespace Dinopark.Npc
 
                 originPosotionUpdateCallbackToCallbackKey.Clear();
             }
+
+            if (ageUpdateCallbackToCallbackKey != null)
+            {
+                foreach (var callbackToKey in ageUpdateCallbackToCallbackKey)
+                {
+                    CallbackSystem.UnregisterCallback(callbackToKey.Value);
+                }
+
+                ageUpdateCallbackToCallbackKey.Clear();
+            }
+
+            if (lastHatchTimeUpdateCallbackToCallbackKey != null)
+            {
+                foreach (var callbackToKey in lastHatchTimeUpdateCallbackToCallbackKey)
+                {
+                    CallbackSystem.UnregisterCallback(callbackToKey.Value);
+                }
+
+                lastHatchTimeUpdateCallbackToCallbackKey.Clear();
+            }
         }
     }
 
@@ -675,6 +757,16 @@ namespace Dinopark.Npc
             if (update.OriginPosotion.HasValue)
             {
                 component.OriginPosotion = update.OriginPosotion.Value;
+            }
+
+            if (update.Age.HasValue)
+            {
+                component.Age = update.Age.Value;
+            }
+
+            if (update.LastHatchTime.HasValue)
+            {
+                component.LastHatchTime = update.LastHatchTime.Value;
             }
 
             EntityManager.SetComponentData(Entity, component);
