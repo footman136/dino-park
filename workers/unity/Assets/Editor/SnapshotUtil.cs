@@ -4,6 +4,7 @@ using Assets.Gamelogic.Core;
 using Improbable.Gdk.Core;
 using Snapshot = Improbable.Gdk.Core.Snapshot;
 using Assets.Gamelogic.Utils;
+using Dinopark.Npc;
 using DinoPark;
 
 namespace Editor
@@ -71,7 +72,7 @@ namespace Editor
         public static void SpawnNpcsAroundPosition(Snapshot snapshot, Coordinates position, uint team, float edgeLength)
         {
             float totalNpcs = SimulationSettings.HQStartingTRexCount + SimulationSettings.HQStartingBrachioCount;
-            float radiusFromHQ = SimulationSettings.NPCSpawnDistanceToHQ;
+            //float radiusFromHQ = SimulationSettings.NPCSpawnDistanceToHQ;
 
             for (int i = 0; i < totalNpcs; i++)
             {
@@ -100,6 +101,35 @@ namespace Editor
                 }
             }
             Debug.Log("Snapshot Dinosaurs generated ! count<"+totalNpcs+">");
+        }
+
+        public static void AddEggs(Snapshot snapshot, Coordinates position, uint team, float edgeLength)
+        {
+            float totalEggs = SimulationSettings.HQStartingEggTRexCount + SimulationSettings.HQStartingEggBrachioCount;
+            for (int i = 0; i < totalEggs; i++)
+            {
+                Vector3 offset = new Vector3(Random.Range(-edgeLength / 2, edgeLength / 2), 0,
+                    Random.Range(-edgeLength / 2, edgeLength / 2));
+                Coordinates coordinates = (position.ToVector3() + offset).ToCoordinates();
+
+                EntityTemplate entity = null;
+                if (i < SimulationSettings.HQStartingEggBrachioCount)
+                {
+                    //entity = EntityTemplateFactory.CreateNPCLumberjackTemplate(coordinates, team);
+                    entity = EntityTemplateFactory.CreateEggTemplate(coordinates, team, EggTypeEnum.Brachiosaurus);
+                }
+                else
+                {
+                    //entity = EntityTemplateFactory.CreateNPCWizardTemplate(coordinates, team);
+                    entity = EntityTemplateFactory.CreateEggTemplate(coordinates, team, EggTypeEnum.TRex);
+                }
+
+                if (entity != null)
+                {
+                    snapshot.AddEntity(entity);
+                }
+            }
+            Debug.Log("Snapshot Dinosaur Eggs generated ! count<"+totalEggs+">");
         }
     }
 }

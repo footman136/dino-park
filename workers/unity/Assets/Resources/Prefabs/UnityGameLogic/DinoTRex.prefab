@@ -2678,6 +2678,7 @@ GameObject:
   - component: {fileID: 95553055873237688}
   - component: {fileID: 195688642582221476}
   - component: {fileID: 3936095597779742152}
+  - component: {fileID: -8892105542426237442}
   m_Layer: 0
   m_Name: DinoTRex
   m_TagString: Untagged
@@ -2765,8 +2766,22 @@ MonoBehaviour:
   _deltaTime: 0
   _isDead: 0
   _currentFood: 0
-  _currentToughness: 0
+  _currentHealth: 0
+  _life: 0
+  _lastHatchTime: 0
   logChanges: 0
+--- !u!114 &-8892105542426237442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962935449849492}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2269cf7f1aa7f04dbd3e0d637ec0185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1974999610606678
 GameObject:
   m_ObjectHideFlags: 0

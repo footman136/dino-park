@@ -80,9 +80,6 @@ public class     AnimalStats : ScriptableObject
     [SerializeField, Tooltip("距离上次下蛋的间隔时间")]
     public float hatchDelay = 30f;
     
-    [SerializeField, Tooltip("孵蛋的时间")]
-    public float hatchTime = 30f;
-    
     [SerializeField, Tooltip("长成成人需要的时间")]
     public float growUpTime = 60f;
 

@@ -32,7 +32,6 @@ public class DinoChaseState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Stat
             return;
         }
         
-        int arrived = 0;
         DinoBehaviour prey = null;
         if (DinoBehaviour.AllAnimals.TryGetValue(Owner.Data.TargetEntityId.Id, out prey))
         {

@@ -167,15 +167,15 @@ namespace Dinopark.Npc
                 }
             }
 
-            private global::Improbable.Vector3f originPosotion;
+            private global::Improbable.Vector3f originPosition;
 
-            public global::Improbable.Vector3f OriginPosotion
+            public global::Improbable.Vector3f OriginPosition
             {
-                get => originPosotion;
+                get => originPosition;
                 set
                 {
                     MarkDataDirty(5);
-                    this.originPosotion = value;
+                    this.originPosition = value;
                 }
             }
 
@@ -254,18 +254,18 @@ namespace Dinopark.Npc
             public float OriginalScent;
             public float OriginalAgression;
             public int OriginalDominance;
-            public global::Improbable.Vector3f OriginPosotion;
+            public global::Improbable.Vector3f OriginPosition;
             public float Age;
             public float LastHatchTime;
 
-            public Snapshot(bool isDead, float currentFood, float originalScent, float originalAgression, int originalDominance, global::Improbable.Vector3f originPosotion, float age, float lastHatchTime)
+            public Snapshot(bool isDead, float currentFood, float originalScent, float originalAgression, int originalDominance, global::Improbable.Vector3f originPosition, float age, float lastHatchTime)
             {
                 IsDead = isDead;
                 CurrentFood = currentFood;
                 OriginalScent = originalScent;
                 OriginalAgression = originalAgression;
                 OriginalDominance = originalDominance;
-                OriginPosotion = originPosotion;
+                OriginPosition = originPosition;
                 Age = age;
                 LastHatchTime = lastHatchTime;
             }
@@ -291,7 +291,7 @@ namespace Dinopark.Npc
                     obj.AddInt32(6, component.OriginalDominance);
                 }
                 {
-                    global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosotion, obj.AddObject(7));
+                    global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosition, obj.AddObject(7));
                 }
                 {
                     obj.AddFloat(8, component.Age);
@@ -342,7 +342,7 @@ namespace Dinopark.Npc
                 {
                     if (component.IsDataDirty(5))
                     {
-                        global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosotion, obj.AddObject(7));
+                        global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosition, obj.AddObject(7));
                     }
 
                 }
@@ -401,9 +401,9 @@ namespace Dinopark.Npc
                     }
                 }
                 {
-                    if (update.OriginPosotion.HasValue)
+                    if (update.OriginPosition.HasValue)
                     {
-                        var field = update.OriginPosotion.Value;
+                        var field = update.OriginPosition.Value;
                         global::Improbable.Vector3f.Serialization.Serialize(field, obj.AddObject(7));
                     }
                 }
@@ -441,7 +441,7 @@ namespace Dinopark.Npc
                     obj.AddInt32(6, snapshot.OriginalDominance);
                 }
                 {
-                    global::Improbable.Vector3f.Serialization.Serialize(snapshot.OriginPosotion, obj.AddObject(7));
+                    global::Improbable.Vector3f.Serialization.Serialize(snapshot.OriginPosition, obj.AddObject(7));
                 }
                 {
                     obj.AddFloat(8, snapshot.Age);
@@ -471,7 +471,7 @@ namespace Dinopark.Npc
                     component.OriginalDominance = obj.GetInt32(6);
                 }
                 {
-                    component.OriginPosotion = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
+                    component.OriginPosition = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
                 }
                 {
                     component.Age = obj.GetFloat(8);
@@ -531,7 +531,7 @@ namespace Dinopark.Npc
                     if (obj.GetObjectCount(7) == 1)
                     {
                         var value = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
-                        update.OriginPosotion = new global::Improbable.Gdk.Core.Option<global::Improbable.Vector3f>(value);
+                        update.OriginPosition = new global::Improbable.Gdk.Core.Option<global::Improbable.Vector3f>(value);
                     }
                     
                 }
@@ -586,7 +586,7 @@ namespace Dinopark.Npc
                 }
                 {
                     var value = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
-                    update.OriginPosotion = new global::Improbable.Gdk.Core.Option<global::Improbable.Vector3f>(value);
+                    update.OriginPosition = new global::Improbable.Gdk.Core.Option<global::Improbable.Vector3f>(value);
                     
                 }
                 {
@@ -627,7 +627,7 @@ namespace Dinopark.Npc
                 }
 
                 {
-                    component.OriginPosotion = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
+                    component.OriginPosition = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
                 }
 
                 {
@@ -689,7 +689,7 @@ namespace Dinopark.Npc
                     if (obj.GetObjectCount(7) == 1)
                     {
                         var value = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
-                        component.OriginPosotion = value;
+                        component.OriginPosition = value;
                     }
                     
                 }
@@ -759,7 +759,7 @@ namespace Dinopark.Npc
                     if (obj.GetObjectCount(7) == 1)
                     {
                         var value = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
-                        snapshot.OriginPosotion = value;
+                        snapshot.OriginPosition = value;
                     }
                     
                 }
@@ -791,7 +791,7 @@ namespace Dinopark.Npc
             public Option<float> OriginalScent;
             public Option<float> OriginalAgression;
             public Option<int> OriginalDominance;
-            public Option<global::Improbable.Vector3f> OriginPosotion;
+            public Option<global::Improbable.Vector3f> OriginPosition;
             public Option<float> Age;
             public Option<float> LastHatchTime;
         }
@@ -863,7 +863,7 @@ namespace Dinopark.Npc
                 update.OriginalScent = new Option<float>(snapshot.OriginalScent);
                 update.OriginalAgression = new Option<float>(snapshot.OriginalAgression);
                 update.OriginalDominance = new Option<int>(snapshot.OriginalDominance);
-                update.OriginPosotion = new Option<global::Improbable.Vector3f>(snapshot.OriginPosotion);
+                update.OriginPosition = new Option<global::Improbable.Vector3f>(snapshot.OriginPosition);
                 update.Age = new Option<float>(snapshot.Age);
                 update.LastHatchTime = new Option<float>(snapshot.LastHatchTime);
                 return update;

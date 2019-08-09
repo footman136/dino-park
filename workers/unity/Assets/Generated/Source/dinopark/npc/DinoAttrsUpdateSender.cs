@@ -89,7 +89,7 @@ namespace Dinopark.Npc
 
                             if (data.IsDataDirty(5))
                             {
-                                update.OriginPosotion = data.OriginPosotion;
+                                update.OriginPosition = data.OriginPosition;
                             }
 
                             if (data.IsDataDirty(6))

@@ -133,9 +133,9 @@ namespace Dinopark.Npc
                     data.OriginalDominance = update.Update.OriginalDominance.Value;
                 }
 
-                if (update.Update.OriginPosotion.HasValue)
+                if (update.Update.OriginPosition.HasValue)
                 {
-                    data.OriginPosotion = update.Update.OriginPosotion.Value;
+                    data.OriginPosition = update.Update.OriginPosition.Value;
                 }
 
                 if (update.Update.Age.HasValue)

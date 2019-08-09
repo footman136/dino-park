@@ -1,0 +1,38 @@
+package dinopark.npc;
+import "improbable/vector3.schema";
+
+enum EggTypeEnum{
+	Brachiosaurus = 1;
+	TRex = 2;
+	Pteranodon = 3;
+	Stegosaurus = 4;
+	Triceratops = 5;
+	Velociraptor = 6;
+	NONE = 10;
+}
+
+type HatchRequest{
+	EggTypeEnum egg_type = 1;
+  improbable.Vector3f egg_position = 2;
+}
+
+type HatchResponse{
+	EggTypeEnum hatch_out_type = 1;
+  improbable.Vector3f hatch_out_position = 2;
+}
+
+enum EggStateEnum{
+	GOOD = 1;
+	BROKEN = 2;
+	EMPTY = 3;
+	VANISH = 4;
+	NONE = 5;
+}
+
+component EggData {
+  id = 1873;
+	EggTypeEnum egg_type = 1;
+  float current_food = 2;
+	EggStateEnum current_state = 3;
+  command HatchResponse hatch(HatchRequest);
+}

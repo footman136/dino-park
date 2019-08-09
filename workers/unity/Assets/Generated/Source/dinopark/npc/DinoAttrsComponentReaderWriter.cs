@@ -507,34 +507,34 @@ namespace Dinopark.Npc
             }
         }
 
-        private Dictionary<Action<global::Improbable.Vector3f>, ulong> originPosotionUpdateCallbackToCallbackKey;
-        public event Action<global::Improbable.Vector3f> OnOriginPosotionUpdate
+        private Dictionary<Action<global::Improbable.Vector3f>, ulong> originPositionUpdateCallbackToCallbackKey;
+        public event Action<global::Improbable.Vector3f> OnOriginPositionUpdate
         {
             add
             {
-                if (originPosotionUpdateCallbackToCallbackKey == null)
+                if (originPositionUpdateCallbackToCallbackKey == null)
                 {
-                    originPosotionUpdateCallbackToCallbackKey = new Dictionary<Action<global::Improbable.Vector3f>, ulong>();
+                    originPositionUpdateCallbackToCallbackKey = new Dictionary<Action<global::Improbable.Vector3f>, ulong>();
                 }
 
                 var key = CallbackSystem.RegisterComponentUpdateCallback<DinoAttrs.Update>(EntityId, update =>
                 {
-                    if (update.OriginPosotion.HasValue)
+                    if (update.OriginPosition.HasValue)
                     {
-                        value(update.OriginPosotion.Value);
+                        value(update.OriginPosition.Value);
                     }
                 });
-                originPosotionUpdateCallbackToCallbackKey.Add(value, key);
+                originPositionUpdateCallbackToCallbackKey.Add(value, key);
             }
             remove
             {
-                if (!originPosotionUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
+                if (!originPositionUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
                 {
                     return;
                 }
 
                 CallbackSystem.UnregisterCallback(key);
-                originPosotionUpdateCallbackToCallbackKey.Remove(value);
+                originPositionUpdateCallbackToCallbackKey.Remove(value);
             }
         }
 
@@ -686,14 +686,14 @@ namespace Dinopark.Npc
                 originalDominanceUpdateCallbackToCallbackKey.Clear();
             }
 
-            if (originPosotionUpdateCallbackToCallbackKey != null)
+            if (originPositionUpdateCallbackToCallbackKey != null)
             {
-                foreach (var callbackToKey in originPosotionUpdateCallbackToCallbackKey)
+                foreach (var callbackToKey in originPositionUpdateCallbackToCallbackKey)
                 {
                     CallbackSystem.UnregisterCallback(callbackToKey.Value);
                 }
 
-                originPosotionUpdateCallbackToCallbackKey.Clear();
+                originPositionUpdateCallbackToCallbackKey.Clear();
             }
 
             if (ageUpdateCallbackToCallbackKey != null)
@@ -754,9 +754,9 @@ namespace Dinopark.Npc
                 component.OriginalDominance = update.OriginalDominance.Value;
             }
 
-            if (update.OriginPosotion.HasValue)
+            if (update.OriginPosition.HasValue)
             {
-                component.OriginPosotion = update.OriginPosotion.Value;
+                component.OriginPosition = update.OriginPosition.Value;
             }
 
             if (update.Age.HasValue)

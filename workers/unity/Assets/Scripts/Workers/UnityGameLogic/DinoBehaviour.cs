@@ -114,7 +114,7 @@ public class DinoBehaviour : MonoBehaviour
             OriginalAgression = ScriptableAnimalStats.agression,
             OriginalDominance = ScriptableAnimalStats.dominance,
             OriginalScent = ScriptableAnimalStats.scent,
-            OriginPosotion = transform.position.ToVector3f(),
+            OriginPosition = transform.position.ToVector3f(),
         };
         attrsWriter.SendUpdate(update);
         var update3 = new Health.Update
@@ -151,7 +151,7 @@ public class DinoBehaviour : MonoBehaviour
             OriginalAgression = ScriptableAnimalStats.agression,
             OriginalDominance = ScriptableAnimalStats.dominance,
             OriginalScent = ScriptableAnimalStats.scent,
-            OriginPosotion = transform.position.ToVector3f()
+            OriginPosition = transform.position.ToVector3f()
         };
         attrsWriter.SendUpdate(update);
         
@@ -650,22 +650,5 @@ public class DinoBehaviour : MonoBehaviour
         worldCommandSender.SendDeleteEntityCommand(request);
     }
 
-    public void CreateAnimal(Vector3 position)
-    {
-        var exampleEntity = EntityTemplateFactory.CreateDinoBrachioTemplate(position.ToCoordinates(), 0);
-        var request1 = new WorldCommands.CreateEntity.Request(exampleEntity);
-        worldCommandSender.SendCreateEntityCommand(request1, OnCreateEntityResponse);
-    }
-
-    private void OnCreateEntityResponse(WorldCommands.CreateEntity.ReceivedResponse response)
-    {
-        if (response.EntityId.HasValue)
-        {
-            var entityId = response.EntityId.Value;
-            Debug.Log("New entity created:"+entityId);
-        }
-    }
-
-    
 #endregion
 }

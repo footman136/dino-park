@@ -1191,6 +1191,7 @@ GameObject:
   - component: {fileID: 95232484740621992}
   - component: {fileID: 195197703218002412}
   - component: {fileID: -3784937377162035994}
+  - component: {fileID: -9161775607735873450}
   m_Layer: 0
   m_Name: DinoBrachio
   m_TagString: Untagged
@@ -1278,8 +1279,22 @@ MonoBehaviour:
   _deltaTime: 0
   _isDead: 0
   _currentFood: 0
-  _currentToughness: 0
+  _currentHealth: 0
+  _life: 0
+  _lastHatchTime: 0
   logChanges: 0
+--- !u!114 &-9161775607735873450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582867359527748}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2269cf7f1aa7f04dbd3e0d637ec0185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1596340026738218
 GameObject:
   m_ObjectHideFlags: 0

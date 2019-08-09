@@ -6,7 +6,6 @@ using Assets.Gamelogic.Utils;
 using Dinopark.Npc;
 using Improbable.Gdk.Core;
 
-
 public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
 {
     public AiData Data;
@@ -133,21 +132,6 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
         SetTransitions(allowedTransitions);
     }
     
-    void Awake()
-    {
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void TriggerTransition(DinoAiFSMState.StateEnum newState, EntityId targetEntityId, Vector3 targetPosition)
     {
         if (IsValidTransition(newState))

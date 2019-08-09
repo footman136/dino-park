@@ -168,7 +168,7 @@ public class DinoVisualizer : MonoBehaviour
         originalScent = attrsReader.Data.OriginalScent;
         originalAgression = attrsReader.Data.OriginalAgression;
         originalDominance = attrsReader.Data.OriginalDominance;
-        origin = attrsReader.Data.OriginPosotion.ToUnityVector();
+        origin = attrsReader.Data.OriginPosition.ToUnityVector();
     }
 
     private void PlayAnimation(int inState)
@@ -210,7 +210,7 @@ public class DinoVisualizer : MonoBehaviour
             transform.position = newpos;
             if (newpos.y <= -3f)
             {
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
                 yield break;
             }
 
