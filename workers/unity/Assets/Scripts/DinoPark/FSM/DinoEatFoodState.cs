@@ -17,7 +17,7 @@ public class DinoEatFoodState : FsmBaseState<DinoStateMachine, DinoAiFSMState.St
     public override void Enter()
     {
         parentBehaviour.navMeshAgent.SetDestination(parentBehaviour.transform.position);
-        deltaTime = 0f;
+        deltaTime = 1f;
     }
 
     public override void Tick()
@@ -26,7 +26,6 @@ public class DinoEatFoodState : FsmBaseState<DinoStateMachine, DinoAiFSMState.St
         if (deltaTime >= 1f)
         {
             deltaTime = 0;
-
             if (parentBehaviour.attrsWriter.Data.CurrentFood + parentBehaviour.ScriptableAnimalStats.liveCost >=
                 parentBehaviour.ScriptableAnimalStats.foodStorage)
             { // 吃饱了，不吃了，离开本状态
@@ -43,7 +42,7 @@ public class DinoEatFoodState : FsmBaseState<DinoStateMachine, DinoAiFSMState.St
                 }
                 else
                 {
-                    parentBehaviour.EatFood(aTree);
+                    parentBehaviour.HarvestFood(aTree);
                 }
             }
         }

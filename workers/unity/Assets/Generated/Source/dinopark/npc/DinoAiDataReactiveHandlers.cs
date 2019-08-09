@@ -24,7 +24,25 @@ namespace Dinopark.Npc
 
             public EntityQueryDesc EventQuery => null;
 
-            public EntityQueryDesc[] CommandQueries => null;
+            public EntityQueryDesc[] CommandQueries => new EntityQueryDesc[]
+            {
+                new EntityQueryDesc()
+                {
+                    All = new[]
+                    {
+                        ComponentType.ReadWrite<global::Dinopark.Npc.DinoAiData.CommandSenders.Attack>(),
+                        ComponentType.ReadWrite<global::Dinopark.Npc.DinoAiData.CommandResponders.Attack>(),
+                    },
+                },
+                new EntityQueryDesc()
+                {
+                    All = new[]
+                    {
+                        ComponentType.ReadWrite<global::Dinopark.Npc.DinoAiData.CommandSenders.Eat>(),
+                        ComponentType.ReadWrite<global::Dinopark.Npc.DinoAiData.CommandResponders.Eat>(),
+                    },
+                },
+            };
 
             public void SendEvents(NativeArray<ArchetypeChunk> chunkArray, ComponentSystemBase system, ComponentUpdateSystem componentUpdateSystem)
             {
@@ -32,6 +50,85 @@ namespace Dinopark.Npc
 
             public void SendCommands(NativeArray<ArchetypeChunk> chunkArray, ComponentSystemBase system, CommandSystem commandSystem)
             {
+                Profiler.BeginSample("DinoAiData");
+                var entityType = system.GetArchetypeChunkEntityType();
+                var senderTypeAttack = system.GetArchetypeChunkComponentType<global::Dinopark.Npc.DinoAiData.CommandSenders.Attack>(true);
+                var responderTypeAttack = system.GetArchetypeChunkComponentType<global::Dinopark.Npc.DinoAiData.CommandResponders.Attack>(true);
+                var senderTypeEat = system.GetArchetypeChunkComponentType<global::Dinopark.Npc.DinoAiData.CommandSenders.Eat>(true);
+                var responderTypeEat = system.GetArchetypeChunkComponentType<global::Dinopark.Npc.DinoAiData.CommandResponders.Eat>(true);
+
+                foreach (var chunk in chunkArray)
+                {
+                    var entities = chunk.GetNativeArray(entityType);
+                    if (chunk.Has(senderTypeAttack))
+                    {
+                        var senders = chunk.GetNativeArray(senderTypeAttack);
+                        for (var i = 0; i < senders.Length; i++)
+                        {
+                            var requests = senders[i].RequestsToSend;
+                            if (requests.Count > 0)
+                            {
+                                foreach (var request in requests)
+                                {
+                                    commandSystem.SendCommand(request, entities[i]);
+                                }
+
+                                requests.Clear();
+                            }
+                        }
+
+                        var responders = chunk.GetNativeArray(responderTypeAttack);
+                        for (var i = 0; i < responders.Length; i++)
+                        {
+                            var responses = responders[i].ResponsesToSend;
+                            if (responses.Count > 0)
+                            {
+                                foreach (var response in responses)
+                                {
+                                    commandSystem.SendResponse(response);
+                                }
+
+                                responses.Clear();
+                            }
+                        }
+                    }
+
+                    if (chunk.Has(senderTypeEat))
+                    {
+                        var senders = chunk.GetNativeArray(senderTypeEat);
+                        for (var i = 0; i < senders.Length; i++)
+                        {
+                            var requests = senders[i].RequestsToSend;
+                            if (requests.Count > 0)
+                            {
+                                foreach (var request in requests)
+                                {
+                                    commandSystem.SendCommand(request, entities[i]);
+                                }
+
+                                requests.Clear();
+                            }
+                        }
+
+                        var responders = chunk.GetNativeArray(responderTypeEat);
+                        for (var i = 0; i < responders.Length; i++)
+                        {
+                            var responses = responders[i].ResponsesToSend;
+                            if (responses.Count > 0)
+                            {
+                                foreach (var response in responses)
+                                {
+                                    commandSystem.SendResponse(response);
+                                }
+
+                                responses.Clear();
+                            }
+                        }
+                    }
+
+                }
+
+                Profiler.EndSample();
             }
         }
 
@@ -45,6 +142,10 @@ namespace Dinopark.Npc
                     ComponentType.ReadWrite<ComponentRemoved<global::Dinopark.Npc.DinoAiData.Component>>(),
                     ComponentType.ReadWrite<global::Dinopark.Npc.DinoAiData.ReceivedUpdates>(),
                     ComponentType.ReadWrite<AuthorityChanges<global::Dinopark.Npc.DinoAiData.Component>>(),
+                    ComponentType.ReadWrite<CommandRequests.Attack>(),
+                    ComponentType.ReadWrite<CommandResponses.Attack>(),
+                    ComponentType.ReadWrite<CommandRequests.Eat>(),
+                    ComponentType.ReadWrite<CommandResponses.Eat>(),
                 },
             };
 
@@ -56,6 +157,12 @@ namespace Dinopark.Npc
                 var componentRemovedType = system.GetArchetypeChunkComponentType<ComponentRemoved<global::Dinopark.Npc.DinoAiData.Component>>();
                 var receivedUpdateType = system.GetArchetypeChunkComponentType<global::Dinopark.Npc.DinoAiData.ReceivedUpdates>();
                 var authorityChangeType = system.GetArchetypeChunkComponentType<AuthorityChanges<global::Dinopark.Npc.DinoAiData.Component>>();
+
+                var attackRequestType = system.GetArchetypeChunkComponentType<CommandRequests.Attack>();
+                var attackResponseType = system.GetArchetypeChunkComponentType<CommandResponses.Attack>();
+
+                var eatRequestType = system.GetArchetypeChunkComponentType<CommandRequests.Eat>();
+                var eatResponseType = system.GetArchetypeChunkComponentType<CommandResponses.Eat>();
 
                 foreach (var chunk in chunkArray)
                 {
@@ -107,6 +214,46 @@ namespace Dinopark.Npc
                         }
                     }
 
+                    // Attack Command
+                    if (chunk.Has(attackRequestType))
+                    {
+                        var attackRequestArray = chunk.GetNativeArray(attackRequestType);
+                        for (int i = 0; i < entities.Length; ++i)
+                        {
+                            buffer.RemoveComponent<CommandRequests.Attack>(entities[i]);
+                            ReferenceTypeProviders.AttackRequestsProvider.Free(attackRequestArray[i].CommandListHandle);
+                        }
+                    }
+
+                    if (chunk.Has(attackResponseType))
+                    {
+                        var attackResponseArray = chunk.GetNativeArray(attackResponseType);
+                        for (int i = 0; i < entities.Length; ++i)
+                        {
+                            buffer.RemoveComponent<CommandResponses.Attack>(entities[i]);
+                            ReferenceTypeProviders.AttackResponsesProvider.Free(attackResponseArray[i].CommandListHandle);
+                        }
+                    }
+                    // Eat Command
+                    if (chunk.Has(eatRequestType))
+                    {
+                        var eatRequestArray = chunk.GetNativeArray(eatRequestType);
+                        for (int i = 0; i < entities.Length; ++i)
+                        {
+                            buffer.RemoveComponent<CommandRequests.Eat>(entities[i]);
+                            ReferenceTypeProviders.EatRequestsProvider.Free(eatRequestArray[i].CommandListHandle);
+                        }
+                    }
+
+                    if (chunk.Has(eatResponseType))
+                    {
+                        var eatResponseArray = chunk.GetNativeArray(eatResponseType);
+                        for (int i = 0; i < entities.Length; ++i)
+                        {
+                            buffer.RemoveComponent<CommandResponses.Eat>(entities[i]);
+                            ReferenceTypeProviders.EatResponsesProvider.Free(eatResponseArray[i].CommandListHandle);
+                        }
+                    }
                 }
             }
         }

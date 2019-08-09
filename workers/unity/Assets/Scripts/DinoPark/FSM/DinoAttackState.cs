@@ -16,7 +16,7 @@ public class DinoAttackState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Sta
     public override void Enter()
     {
         parentBehaviour.navMeshAgent.SetDestination(parentBehaviour.transform.position);
-        deltaTime = 0f;
+        deltaTime = 1f;
     }
 
     public override void Tick()
@@ -36,6 +36,10 @@ public class DinoAttackState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Sta
                 else if (target.Dead())
                 {
                     Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT, Owner.Data.TargetEntityId, target.transform.position);
+                }
+                else
+                {
+                    parentBehaviour.DoAttack(target);
                 }
             }
             else

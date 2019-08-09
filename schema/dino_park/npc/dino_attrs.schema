@@ -6,7 +6,6 @@ component DinoAttrs {
   id = 1872;
   bool is_dead = 1;
   float current_food = 2;
-  float current_toughness = 3;
   float original_scent = 4;
   float original_agression = 5;
   int32 original_dominance = 6;

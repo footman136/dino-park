@@ -35,12 +35,12 @@ namespace Dinopark.Npc
             RUN_AWAY = 3,
             CHASE = 4,
             ATTACK = 5,
-            BE_ATTACK = 6,
             DEAD = 7,
             ROAR = 8,
             BREED = 9,
             LOOK_FOR_FOOD = 10,
             EAT_FOOD = 11,
+            VANISH = 18,
             ON_FIRE = 19,
             NONE = 20,
         }

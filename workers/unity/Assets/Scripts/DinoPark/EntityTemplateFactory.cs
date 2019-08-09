@@ -79,7 +79,7 @@ namespace DinoPark
 		    template.AddComponent(new DinoAiData.Snapshot(), serverAttribute);
 		    template.AddComponent(new DinoAttrs.Snapshot(), serverAttribute);
 		    
-//		    template.AddComponent(new Health.Snapshot(SimulationSettings.LumberjackMaxHealth, SimulationSettings.LumberjackMaxHealth, true), serverAttribute);
+		    template.AddComponent(new Health.Snapshot(), serverAttribute);
 //		    template.AddComponent(new Flammable.Snapshot(false, true, FireEffectType.SMALL), serverAttribute);
 //		    template.AddComponent(new Inventory.Snapshot(0), serverAttribute);
 //		    template.AddComponent(new DinoBrachio.Snapshot(), serverAttribute);
@@ -104,7 +104,7 @@ namespace DinoPark
 		    template.AddComponent(new DinoAiData.Snapshot(), serverAttribute);
 		    template.AddComponent(new DinoAttrs.Snapshot(), serverAttribute);
 		    
-//		    template.AddComponent(new Health.Snapshot(SimulationSettings.LumberjackMaxHealth, SimulationSettings.LumberjackMaxHealth, true), serverAttribute);
+		    template.AddComponent(new Health.Snapshot(), serverAttribute);
 //		    template.AddComponent(new Flammable.Snapshot(false, true, FireEffectType.SMALL), serverAttribute);
 //		    template.AddComponent(new Inventory.Snapshot(0), serverAttribute);
 //		    template.AddComponent(new DinoBrachio.Snapshot(), serverAttribute);

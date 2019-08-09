@@ -141,7 +141,6 @@
     <Compile Include="Assets\Scripts\DinoPark\EntityGameObjectCreator.cs" />
     <Compile Include="Assets\Scripts\DinoPark\EntityTemplateFactory.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoAttackState.cs" />
-    <Compile Include="Assets\Scripts\DinoPark\FSM\DinoBeAttackState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoBreedState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoChaseState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoDeadState.cs" />
@@ -151,6 +150,7 @@
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoLookForFoodState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoRunAwayState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoStateMachine.cs" />
+    <Compile Include="Assets\Scripts\DinoPark\FSM\DinoVanishState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\FSM\DinoWanderState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\LogicDino.cs" />
     <Compile Include="Assets\Scripts\DinoPark\LogicTree.cs" />

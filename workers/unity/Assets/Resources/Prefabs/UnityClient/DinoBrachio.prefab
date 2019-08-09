@@ -1192,6 +1192,7 @@ GameObject:
   - component: {fileID: 195197703218002412}
   - component: {fileID: -6821458483549654432}
   - component: {fileID: -3803966163095868347}
+  - component: {fileID: -7952722730442607360}
   m_Layer: 0
   m_Name: DinoBrachio
   m_TagString: Untagged
@@ -1271,12 +1272,14 @@ MonoBehaviour:
   dinoStates: []
   ScriptableAnimalStats: {fileID: 11400000, guid: fe27361d8b51aac4f9468810843e51aa,
     type: 2}
+  targetPosition: {x: 0, y: 0, z: 0}
+  distance: 0
   _id: 0
   _currentAiState: 0
-  _aniState: 0
+  _aniStateName: 
   _isDead: 0
   _currentFood: 0
-  _currentToughness: 0
+  _currentHealth: 0
 --- !u!114 &-3803966163095868347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1289,6 +1292,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee42c9b510395d44b8c1cefa546e6367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7952722730442607360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582867359527748}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 735bd84262c0e7140975aec3f91c6993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthStr: 
 --- !u!1 &1596340026738218
 GameObject:
   m_ObjectHideFlags: 0

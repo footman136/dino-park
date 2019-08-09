@@ -63,7 +63,7 @@ public class     AnimalStats : ScriptableObject
     public float foodStorage = 100.0f;
     
     [SerializeField, Tooltip("饥饿到什么程度（身上的食物与最大携带量的比例）就要去找吃的了")]
-    public float HungryRate = 0.5f;
+    public float HungryRate = 0.33f;
 
     [SerializeField, Tooltip("活着的消耗，每秒消耗多少的食物")]
     public float liveCost = 1.0f;
@@ -73,4 +73,17 @@ public class     AnimalStats : ScriptableObject
 
     [SerializeField, Tooltip("素食者")]
     public bool vegetarian = true;
+    
+    [SerializeField, Tooltip("食物达到多少比例的情况下，可以下蛋")]
+    public float bornRate = 0.67f;
+    
+    [SerializeField, Tooltip("距离上次下蛋的间隔时间")]
+    public float bornDelay = 30f;
+    
+    [SerializeField, Tooltip("孵蛋的时间")]
+    public float hatchTime = 30f;
+    
+    [SerializeField, Tooltip("长成成人需要的时间")]
+    public float growupTime = 60f;
+
 }

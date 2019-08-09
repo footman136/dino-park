@@ -20,44 +20,45 @@ public class DinoChaseState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Stat
 
     public override void Tick()
     {
-        int arrived = 0;
-        if (parentBehaviour.navMeshAgent.remainingDistance < parentBehaviour.navMeshAgent.stoppingDistance)
-        {
-            arrived = 1;
-        }
-
+        // 时间到，不追了
         float deltaTime = Time.time - Owner._startTime;
         if (deltaTime > parentBehaviour.ScriptableAnimalStats.stamina)
         {
-            arrived = 2;
             if (parentBehaviour.logChanges)
             {
                 Debug.Log("Time's up.");
             }
+            Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
+            return;
         }
-
-        DinoBehaviour target = null;
-        if (DinoBehaviour.AllAnimals.TryGetValue(Owner.Data.TargetEntityId.Id, out target))
+        
+        int arrived = 0;
+        DinoBehaviour prey = null;
+        if (DinoBehaviour.AllAnimals.TryGetValue(Owner.Data.TargetEntityId.Id, out prey))
         {
-            float dist = Vector3.Distance(parentBehaviour.transform.position, target.transform.position);
-            if (dist < parentBehaviour.ScriptableAnimalStats.contingencyDistance)
+            if (prey.Dead())
+            {// 敌人已经死亡
+                Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
+            }
+            else
             {
-                arrived = 3;
+                float dist = Vector3.Distance(parentBehaviour.transform.position, prey.transform.position);
+                if (dist < parentBehaviour.ScriptableAnimalStats.contingencyDistance)
+                {
+                    Owner.TriggerTransition(DinoAiFSMState.StateEnum.ATTACK, Owner.Data.TargetEntityId, prey.transform.position);
+                    // 这里不让对方也进入“攻击状态”，为了保证线程安全，尽量只对自己的实例进行操作，对方挨打后自己设置攻击状态。
+                    // 详见DinoBehaviour.cs里的OnAttack()函数
+                }
+                else if (parentBehaviour.navMeshAgent.remainingDistance < parentBehaviour.navMeshAgent.stoppingDistance)
+                {// 重新寻路，注意，这里直接重新寻路，而不是切换到休闲，然后再寻找猎物，主要是为了让霸王龙更加容易追到猎物
+                    parentBehaviour.navMeshAgent.SetDestination(prey.transform.position);
+                    parentBehaviour.navMeshAgent.speed = parentBehaviour.ScriptableAnimalStats.runSpeed;
+                    parentBehaviour.stateMachine.TriggerTransition(DinoAiFSMState.StateEnum.CHASE, prey._entityId, prey.transform.position);
+                }
             }
         }
-
-        if (arrived == 3 && target != null)
-        {   // 让自己进入“攻击”状态
-            Owner.TriggerTransition(DinoAiFSMState.StateEnum.ATTACK, Owner.Data.TargetEntityId, target.transform.position);
-            // 让对方进入“被攻击”状态
-            if (!target.Dead() && target.stateMachine.CurrentState != DinoAiFSMState.StateEnum.BE_ATTACK)
-            {
-                target.stateMachine.TriggerTransition(DinoAiFSMState.StateEnum.BE_ATTACK, parentBehaviour._entityId,
-                    parentBehaviour.transform.position);
-            }
-        }
-        else if(arrived>0)
-        {
+        else
+        {// 敌人已经消失
             Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
         }
     }

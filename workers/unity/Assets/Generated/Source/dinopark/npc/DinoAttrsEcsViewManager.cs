@@ -118,11 +118,6 @@ namespace Dinopark.Npc
                     data.CurrentFood = update.Update.CurrentFood.Value;
                 }
 
-                if (update.Update.CurrentToughness.HasValue)
-                {
-                    data.CurrentToughness = update.Update.CurrentToughness.Value;
-                }
-
                 if (update.Update.OriginalScent.HasValue)
                 {
                     data.OriginalScent = update.Update.OriginalScent.Value;

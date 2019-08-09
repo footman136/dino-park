@@ -38,7 +38,16 @@ public class DinoLookForFoodState : FsmBaseState<DinoStateMachine, DinoAiFSMStat
 
         if (arrived>0)
         {
-            Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT_FOOD, Owner.Data.TargetEntityId, Owner.Data.TargetPosition.ToUnityVector());
+            if (parentBehaviour.ScriptableAnimalStats.vegetarian)
+            {
+                Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT_FOOD, Owner.Data.TargetEntityId,
+                    Owner.Data.TargetPosition.ToUnityVector());
+            }
+            else
+            {
+                Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT, Owner.Data.TargetEntityId,
+                    Owner.Data.TargetPosition.ToUnityVector());
+            }
         }
     }
 

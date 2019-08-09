@@ -74,25 +74,20 @@ namespace Dinopark.Npc
 
                             if (data.IsDataDirty(2))
                             {
-                                update.CurrentToughness = data.CurrentToughness;
+                                update.OriginalScent = data.OriginalScent;
                             }
 
                             if (data.IsDataDirty(3))
                             {
-                                update.OriginalScent = data.OriginalScent;
+                                update.OriginalAgression = data.OriginalAgression;
                             }
 
                             if (data.IsDataDirty(4))
                             {
-                                update.OriginalAgression = data.OriginalAgression;
-                            }
-
-                            if (data.IsDataDirty(5))
-                            {
                                 update.OriginalDominance = data.OriginalDominance;
                             }
 
-                            if (data.IsDataDirty(6))
+                            if (data.IsDataDirty(5))
                             {
                                 update.OriginPosotion = data.OriginPosotion;
                             }

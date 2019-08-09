@@ -414,37 +414,6 @@ namespace Dinopark.Npc
             }
         }
 
-        private Dictionary<Action<float>, ulong> currentToughnessUpdateCallbackToCallbackKey;
-        public event Action<float> OnCurrentToughnessUpdate
-        {
-            add
-            {
-                if (currentToughnessUpdateCallbackToCallbackKey == null)
-                {
-                    currentToughnessUpdateCallbackToCallbackKey = new Dictionary<Action<float>, ulong>();
-                }
-
-                var key = CallbackSystem.RegisterComponentUpdateCallback<DinoAttrs.Update>(EntityId, update =>
-                {
-                    if (update.CurrentToughness.HasValue)
-                    {
-                        value(update.CurrentToughness.Value);
-                    }
-                });
-                currentToughnessUpdateCallbackToCallbackKey.Add(value, key);
-            }
-            remove
-            {
-                if (!currentToughnessUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
-                {
-                    return;
-                }
-
-                CallbackSystem.UnregisterCallback(key);
-                currentToughnessUpdateCallbackToCallbackKey.Remove(value);
-            }
-        }
-
         private Dictionary<Action<float>, ulong> originalScentUpdateCallbackToCallbackKey;
         public event Action<float> OnOriginalScentUpdate
         {
@@ -625,16 +594,6 @@ namespace Dinopark.Npc
                 currentFoodUpdateCallbackToCallbackKey.Clear();
             }
 
-            if (currentToughnessUpdateCallbackToCallbackKey != null)
-            {
-                foreach (var callbackToKey in currentToughnessUpdateCallbackToCallbackKey)
-                {
-                    CallbackSystem.UnregisterCallback(callbackToKey.Value);
-                }
-
-                currentToughnessUpdateCallbackToCallbackKey.Clear();
-            }
-
             if (originalScentUpdateCallbackToCallbackKey != null)
             {
                 foreach (var callbackToKey in originalScentUpdateCallbackToCallbackKey)
@@ -696,11 +655,6 @@ namespace Dinopark.Npc
             if (update.CurrentFood.HasValue)
             {
                 component.CurrentFood = update.CurrentFood.Value;
-            }
-
-            if (update.CurrentToughness.HasValue)
-            {
-                component.CurrentToughness = update.CurrentToughness.Value;
             }
 
             if (update.OriginalScent.HasValue)

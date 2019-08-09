@@ -43,9 +43,9 @@ namespace Dinopark.Npc
             */
             public bool IsDataDirty(int propertyIndex)
             {
-                if (propertyIndex < 0 || propertyIndex >= 7)
+                if (propertyIndex < 0 || propertyIndex >= 6)
                 {
-                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 6]. " +
+                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 5]. " +
                         "Unless you are using custom component replication code, this is most likely caused by a code generation bug. " +
                         "Please contact SpatialOS support if you encounter this issue.");
                 }
@@ -65,9 +65,9 @@ namespace Dinopark.Npc
             // This method throws an InvalidOperationException in case your component doesn't contain properties.
             public void MarkDataDirty(int propertyIndex)
             {
-                if (propertyIndex < 0 || propertyIndex >= 7)
+                if (propertyIndex < 0 || propertyIndex >= 6)
                 {
-                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 6]. " +
+                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 5]. " +
                         "Unless you are using custom component replication code, this is most likely caused by a code generation bug. " +
                         "Please contact SpatialOS support if you encounter this issue.");
                 }
@@ -123,18 +123,6 @@ namespace Dinopark.Npc
                 }
             }
 
-            private float currentToughness;
-
-            public float CurrentToughness
-            {
-                get => currentToughness;
-                set
-                {
-                    MarkDataDirty(2);
-                    this.currentToughness = value;
-                }
-            }
-
             private float originalScent;
 
             public float OriginalScent
@@ -142,7 +130,7 @@ namespace Dinopark.Npc
                 get => originalScent;
                 set
                 {
-                    MarkDataDirty(3);
+                    MarkDataDirty(2);
                     this.originalScent = value;
                 }
             }
@@ -154,7 +142,7 @@ namespace Dinopark.Npc
                 get => originalAgression;
                 set
                 {
-                    MarkDataDirty(4);
+                    MarkDataDirty(3);
                     this.originalAgression = value;
                 }
             }
@@ -166,7 +154,7 @@ namespace Dinopark.Npc
                 get => originalDominance;
                 set
                 {
-                    MarkDataDirty(5);
+                    MarkDataDirty(4);
                     this.originalDominance = value;
                 }
             }
@@ -178,7 +166,7 @@ namespace Dinopark.Npc
                 get => originPosotion;
                 set
                 {
-                    MarkDataDirty(6);
+                    MarkDataDirty(5);
                     this.originPosotion = value;
                 }
             }
@@ -231,17 +219,15 @@ namespace Dinopark.Npc
 
             public bool IsDead;
             public float CurrentFood;
-            public float CurrentToughness;
             public float OriginalScent;
             public float OriginalAgression;
             public int OriginalDominance;
             public global::Improbable.Vector3f OriginPosotion;
 
-            public Snapshot(bool isDead, float currentFood, float currentToughness, float originalScent, float originalAgression, int originalDominance, global::Improbable.Vector3f originPosotion)
+            public Snapshot(bool isDead, float currentFood, float originalScent, float originalAgression, int originalDominance, global::Improbable.Vector3f originPosotion)
             {
                 IsDead = isDead;
                 CurrentFood = currentFood;
-                CurrentToughness = currentToughness;
                 OriginalScent = originalScent;
                 OriginalAgression = originalAgression;
                 OriginalDominance = originalDominance;
@@ -258,9 +244,6 @@ namespace Dinopark.Npc
                 }
                 {
                     obj.AddFloat(2, component.CurrentFood);
-                }
-                {
-                    obj.AddFloat(3, component.CurrentToughness);
                 }
                 {
                     obj.AddFloat(4, component.OriginalScent);
@@ -296,33 +279,26 @@ namespace Dinopark.Npc
                 {
                     if (component.IsDataDirty(2))
                     {
-                        obj.AddFloat(3, component.CurrentToughness);
+                        obj.AddFloat(4, component.OriginalScent);
                     }
 
                 }
                 {
                     if (component.IsDataDirty(3))
                     {
-                        obj.AddFloat(4, component.OriginalScent);
+                        obj.AddFloat(5, component.OriginalAgression);
                     }
 
                 }
                 {
                     if (component.IsDataDirty(4))
                     {
-                        obj.AddFloat(5, component.OriginalAgression);
-                    }
-
-                }
-                {
-                    if (component.IsDataDirty(5))
-                    {
                         obj.AddInt32(6, component.OriginalDominance);
                     }
 
                 }
                 {
-                    if (component.IsDataDirty(6))
+                    if (component.IsDataDirty(5))
                     {
                         global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosotion, obj.AddObject(7));
                     }
@@ -345,13 +321,6 @@ namespace Dinopark.Npc
                     {
                         var field = update.CurrentFood.Value;
                         obj.AddFloat(2, field);
-                    }
-                }
-                {
-                    if (update.CurrentToughness.HasValue)
-                    {
-                        var field = update.CurrentToughness.Value;
-                        obj.AddFloat(3, field);
                     }
                 }
                 {
@@ -393,9 +362,6 @@ namespace Dinopark.Npc
                     obj.AddFloat(2, snapshot.CurrentFood);
                 }
                 {
-                    obj.AddFloat(3, snapshot.CurrentToughness);
-                }
-                {
                     obj.AddFloat(4, snapshot.OriginalScent);
                 }
                 {
@@ -418,9 +384,6 @@ namespace Dinopark.Npc
                 }
                 {
                     component.CurrentFood = obj.GetFloat(2);
-                }
-                {
-                    component.CurrentToughness = obj.GetFloat(3);
                 }
                 {
                     component.OriginalScent = obj.GetFloat(4);
@@ -455,14 +418,6 @@ namespace Dinopark.Npc
                     {
                         var value = obj.GetFloat(2);
                         update.CurrentFood = new global::Improbable.Gdk.Core.Option<float>(value);
-                    }
-                    
-                }
-                {
-                    if (obj.GetFloatCount(3) == 1)
-                    {
-                        var value = obj.GetFloat(3);
-                        update.CurrentToughness = new global::Improbable.Gdk.Core.Option<float>(value);
                     }
                     
                 }
@@ -517,11 +472,6 @@ namespace Dinopark.Npc
                     
                 }
                 {
-                    var value = obj.GetFloat(3);
-                    update.CurrentToughness = new global::Improbable.Gdk.Core.Option<float>(value);
-                    
-                }
-                {
                     var value = obj.GetFloat(4);
                     update.OriginalScent = new global::Improbable.Gdk.Core.Option<float>(value);
                     
@@ -554,10 +504,6 @@ namespace Dinopark.Npc
 
                 {
                     component.CurrentFood = obj.GetFloat(2);
-                }
-
-                {
-                    component.CurrentToughness = obj.GetFloat(3);
                 }
 
                 {
@@ -596,14 +542,6 @@ namespace Dinopark.Npc
                     {
                         var value = obj.GetFloat(2);
                         component.CurrentFood = value;
-                    }
-                    
-                }
-                {
-                    if (obj.GetFloatCount(3) == 1)
-                    {
-                        var value = obj.GetFloat(3);
-                        component.CurrentToughness = value;
                     }
                     
                 }
@@ -662,14 +600,6 @@ namespace Dinopark.Npc
                     
                 }
                 {
-                    if (obj.GetFloatCount(3) == 1)
-                    {
-                        var value = obj.GetFloat(3);
-                        snapshot.CurrentToughness = value;
-                    }
-                    
-                }
-                {
                     if (obj.GetFloatCount(4) == 1)
                     {
                         var value = obj.GetFloat(4);
@@ -710,7 +640,6 @@ namespace Dinopark.Npc
 
             public Option<bool> IsDead;
             public Option<float> CurrentFood;
-            public Option<float> CurrentToughness;
             public Option<float> OriginalScent;
             public Option<float> OriginalAgression;
             public Option<int> OriginalDominance;
@@ -781,7 +710,6 @@ namespace Dinopark.Npc
                 var update = new Update();
                 update.IsDead = new Option<bool>(snapshot.IsDead);
                 update.CurrentFood = new Option<float>(snapshot.CurrentFood);
-                update.CurrentToughness = new Option<float>(snapshot.CurrentToughness);
                 update.OriginalScent = new Option<float>(snapshot.OriginalScent);
                 update.OriginalAgression = new Option<float>(snapshot.OriginalAgression);
                 update.OriginalDominance = new Option<int>(snapshot.OriginalDominance);

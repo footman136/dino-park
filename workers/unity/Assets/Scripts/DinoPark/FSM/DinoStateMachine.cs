@@ -25,11 +25,11 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
         var runawayState = new DinoRunAwayState(this, behaviour);
         var chaseState = new DinoChaseState(this, behaviour);
         var attackState = new DinoAttackState(this, behaviour);
-        var beAttackState = new DinoBeAttackState(this, behaviour);
         var deadState = new DinoDeadState(this, behaviour);
         var breedState = new DinoBreedState(this, behaviour);
         var lookforfoodState = new DinoLookForFoodState(this, behaviour);
         var eatfoodState = new DinoEatFoodState(this, behaviour);
+        var vanishState = new DinoVanishState(this, behaviour); 
         
         var stateList = new Dictionary<DinoAiFSMState.StateEnum, IFsmState>
         {
@@ -39,11 +39,11 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
             { DinoAiFSMState.StateEnum.RUN_AWAY, runawayState },
             { DinoAiFSMState.StateEnum.CHASE, chaseState },
             { DinoAiFSMState.StateEnum.ATTACK, attackState },
-            { DinoAiFSMState.StateEnum.BE_ATTACK, beAttackState },
             { DinoAiFSMState.StateEnum.DEAD, deadState },
             { DinoAiFSMState.StateEnum.BREED, breedState },
             { DinoAiFSMState.StateEnum.LOOK_FOR_FOOD, lookforfoodState },
             { DinoAiFSMState.StateEnum.EAT_FOOD, eatfoodState },
+            { DinoAiFSMState.StateEnum.VANISH, vanishState },
         };
 
         SetStates(stateList);
@@ -57,7 +57,6 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
             DinoAiFSMState.StateEnum.RUN_AWAY,
             DinoAiFSMState.StateEnum.CHASE,
             DinoAiFSMState.StateEnum.ATTACK,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
             DinoAiFSMState.StateEnum.DEAD,
             DinoAiFSMState.StateEnum.BREED,
             DinoAiFSMState.StateEnum.LOOK_FOR_FOOD,
@@ -67,69 +66,69 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
             DinoAiFSMState.StateEnum.RUN_AWAY,
             DinoAiFSMState.StateEnum.CHASE,
             DinoAiFSMState.StateEnum.LOOK_FOR_FOOD,
+            DinoAiFSMState.StateEnum.ATTACK,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.EAT, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
+            DinoAiFSMState.StateEnum.RUN_AWAY,
+            DinoAiFSMState.StateEnum.ATTACK,
+        });
+        allowedTransitions.Add(DinoAiFSMState.StateEnum.EAT_FOOD, new List<DinoAiFSMState.StateEnum>
+        {
+            DinoAiFSMState.StateEnum.IDLE,
+            DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.RUN_AWAY,
+            DinoAiFSMState.StateEnum.ATTACK,
+        });
+        allowedTransitions.Add(DinoAiFSMState.StateEnum.LOOK_FOR_FOOD, new List<DinoAiFSMState.StateEnum>
+        {
+            DinoAiFSMState.StateEnum.IDLE,
+            DinoAiFSMState.StateEnum.DEAD,
+            DinoAiFSMState.StateEnum.EAT_FOOD,
+            DinoAiFSMState.StateEnum.EAT,
+            DinoAiFSMState.StateEnum.ATTACK,
             DinoAiFSMState.StateEnum.RUN_AWAY,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.RUN_AWAY, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
+            DinoAiFSMState.StateEnum.ATTACK,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.CHASE, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
             DinoAiFSMState.StateEnum.ATTACK,
             DinoAiFSMState.StateEnum.RUN_AWAY,
+            DinoAiFSMState.StateEnum.LOOK_FOR_FOOD,
+            DinoAiFSMState.StateEnum.CHASE, // 唯一一个地方：可以切换为自己当前的状态
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.ATTACK, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
             DinoAiFSMState.StateEnum.EAT,
-        });
-        allowedTransitions.Add(DinoAiFSMState.StateEnum.BE_ATTACK, new List<DinoAiFSMState.StateEnum>
-        {
-            DinoAiFSMState.StateEnum.IDLE,
-            DinoAiFSMState.StateEnum.DEAD,
-        });
-        allowedTransitions.Add(DinoAiFSMState.StateEnum.DEAD, new List<DinoAiFSMState.StateEnum>
-        {
-            DinoAiFSMState.StateEnum.IDLE,
-            DinoAiFSMState.StateEnum.DEAD,
         });
         allowedTransitions.Add(DinoAiFSMState.StateEnum.BREED, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
             DinoAiFSMState.StateEnum.DEAD,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
+            DinoAiFSMState.StateEnum.ATTACK,
         });
-        allowedTransitions.Add(DinoAiFSMState.StateEnum.LOOK_FOR_FOOD, new List<DinoAiFSMState.StateEnum>
+        allowedTransitions.Add(DinoAiFSMState.StateEnum.DEAD, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
-            DinoAiFSMState.StateEnum.DEAD,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
-            DinoAiFSMState.StateEnum.EAT_FOOD,
-            DinoAiFSMState.StateEnum.RUN_AWAY,
+            DinoAiFSMState.StateEnum.VANISH,
         });
-        allowedTransitions.Add(DinoAiFSMState.StateEnum.EAT_FOOD, new List<DinoAiFSMState.StateEnum>
+        allowedTransitions.Add(DinoAiFSMState.StateEnum.VANISH, new List<DinoAiFSMState.StateEnum>
         {
             DinoAiFSMState.StateEnum.IDLE,
-            DinoAiFSMState.StateEnum.DEAD,
-            DinoAiFSMState.StateEnum.BE_ATTACK,
-            DinoAiFSMState.StateEnum.RUN_AWAY,
         });
         SetTransitions(allowedTransitions);
     }
