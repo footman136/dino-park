@@ -35,3 +35,8 @@ MonoBehaviour:
   liveCost: 1
   appetite: 5
   vegetarian: 0
+  hatchRate: 0.67
+  hatchDelay: 30
+  layEggTime: 5
+  growUpTime: 60
+  ageMax: 1200

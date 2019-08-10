@@ -40,13 +40,13 @@ namespace Assets.Gamelogic.Core
         public static float TreeCutDownTimeBuffer = 1f;
         
         // World
-            public static float SpawningWorldEdgeLength = 100; //1000;
+            public static float SpawningWorldEdgeLength = 180; //1000;
         //public static Coordinates WorldRootPosition = new Coordinates(-SpawningWorldEdgeLength / 2d, 0d, -SpawningWorldEdgeLength / 2d);
         public static float SimulationTickInterval = 1f;
         public static Vector3 InvalidPosition = Vector3.one * -9999;
         
         // Entity counts
-            public static int AttemptedTreeCount = 200; //20000;
+            public static int AttemptedTreeCount = 400; //20000;
         public static float TreeJitter = 9.0f;
         
         // Component Updates
@@ -122,8 +122,8 @@ namespace Assets.Gamelogic.Core
 //                public static float PlayerSpawnOffsetFactor = 48.0f;
 //                public static int HQStartingLumberjacksCount = 8; // 20
                 public static int HQStartingWizardsCount = 0;
-        public static int HQStartingBrachioCount = 15; // 20
-        public static int HQStartingTRexCount = 5;
+        public static int HQStartingBrachioCount = 25; // 20
+        public static int HQStartingTRexCount = 8;
         public static int HQStartingEggBrachioCount = 1;
         public static int HQStartingEggTRexCount = 0;
 //                public static float DefaultHQBarracksSpawnRadius = 25f;

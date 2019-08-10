@@ -64,6 +64,7 @@ public class DinoBehaviour : MonoBehaviour
 
     private bool IsHatching => stateMachine.CurrentState == DinoAiFSMState.StateEnum.HATCH;
     private bool IsFighting => stateMachine.CurrentState == DinoAiFSMState.StateEnum.ATTACK;
+    private bool IsChild => age.Data.Age < age.Data.GrowUpAge;
 
 
     [Space(), Header("Debug"), Space(5)]
@@ -75,6 +76,7 @@ public class DinoBehaviour : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.stoppingDistance = ScriptableAnimalStats.contingencyDistance;
+        navMeshAgent.angularSpeed = ScriptableAnimalStats.turnSpeed;
         
     }
     // Start is called before the first frame update
@@ -188,17 +190,6 @@ public class DinoBehaviour : MonoBehaviour
 
     public void Die()
     {
-        var update = new DinoAttrs.Update
-        {
-            IsDead = true,
-            CurrentFood = Random.Range(ScriptableAnimalStats.foodStorage * SimulationSettings.NPCOriginalMinFoodRate, ScriptableAnimalStats.foodStorage),
-            OriginalAgression = ScriptableAnimalStats.agression,
-            OriginalDominance = ScriptableAnimalStats.dominance,
-            OriginalScent = ScriptableAnimalStats.scent,
-            OriginPosition = transform.position.ToVector3f()
-        };
-        attrsWriter.SendUpdate(update);
-        
         var update2 = new Health.Update
         {
             CurrentHealth = 0,
@@ -226,7 +217,7 @@ public class DinoBehaviour : MonoBehaviour
 
     private bool IfWithinMap(Vector3 pos)
     {
-        if (pos.x >= 60 || pos.x <= -60 || pos.z >= 60 || pos.z <= -60)
+        if (pos.x >= 120 || pos.x <= -120 || pos.z >= 120 || pos.z <= -120)
             return false;
         return true;
     }
@@ -304,16 +295,23 @@ public class DinoBehaviour : MonoBehaviour
         if (!IsAlive)
             return true;
         
-        // No.2 消耗粮食
+        // No.2 恢复健康
+        _curHealth = health.Data.CurrentHealth;
+        _maxHealth = health.Data.MaxHealth;
+        if (_curHealth + ScriptableAnimalStats.liveCost < _maxHealth)
+        {// 健康的恢复速度是粮食消耗速度的一半，不能大于或者粮食消耗的速度，否则就不会饿死了
+            _curHealth += ScriptableAnimalStats.liveCost / 2;
+        }
+        
+        // No.3 消耗粮食
         float cost = ScriptableAnimalStats.liveCost * _deltaTime;
         _curFood = attrsWriter.Data.CurrentFood;
-        _curHealth = health.Data.CurrentHealth; 
         if( _curFood >= cost)
             _curFood -= cost;
         else
         {
             _curFood = 0;
-            _curHealth -= cost - _curFood;
+            _curHealth -= cost - _curFood;// 粮食不够，就消耗健康
         }
         var update = new DinoAttrs.Update
         {
@@ -326,7 +324,7 @@ public class DinoBehaviour : MonoBehaviour
         };
         health.SendUpdate(update3);
             
-        // No.3 年龄增加
+        // No.4 年龄增加
         float lastAge = age.Data.Age;
         float nowAge = age.Data.Age + _deltaTime;
         float growupAge = age.Data.GrowUpAge;
@@ -342,7 +340,7 @@ public class DinoBehaviour : MonoBehaviour
             GrowUp();
         }
 
-        // No.3 判断是否该死了
+        // No.5 判断是否该死了
         if (_curHealth <= 0)
         {
             Die();
@@ -417,10 +415,19 @@ public class DinoBehaviour : MonoBehaviour
         foreach(var iter in allAnimals)
         {
             var animal = iter.Value;
-            if (!animal.IsAlive ||animal == this ||
-                (animal.Species == Species && !ScriptableAnimalStats.territorial) ||
+            if (!animal.IsAlive || animal == this ||
                 animal.ScriptableAnimalStats.dominance > ScriptableAnimalStats.dominance ||
                 animal.ScriptableAnimalStats.stealthy)
+            {
+                continue;
+            }
+
+            if (animal.Species == Species && !ScriptableAnimalStats.territorial)
+            {
+                continue;
+            }
+            if (animal.Species == Species && ScriptableAnimalStats.territorial &&
+                 (animal.IsChild || IsChild))
             {
                 continue;
             }
@@ -599,7 +606,7 @@ public class DinoBehaviour : MonoBehaviour
         var request = new AttackRequest()
         {
             Attacker = _entityId,
-            Damage = ScriptableAnimalStats.power
+            Damage = attrsWriter.Data.Power
         };
         
         cmdSender.SendAttackCommand(target._entityId, request, OnDoAttack);   
@@ -629,7 +636,7 @@ public class DinoBehaviour : MonoBehaviour
         // 如果血不够了，立即死亡。不用等到下一个AI周期了。
         if (_curHealth <= 0)
         {
-            if(!Dead)
+            if(IsAlive)
                 Die();
         }
         else
@@ -742,15 +749,12 @@ public class DinoBehaviour : MonoBehaviour
     /// <summary>
     /// 删除一个恐龙
     /// </summary>
-    public void DestroyAnimal()
+    public void DestroyDino()
     {
         allAnimals.Remove(_entityId.Id);
-//        //var linkentity = GetComponent<LinkedEntityComponent>();
-//        var request = new WorldCommands.DeleteEntity.Request(_entityId);
-//        worldCommandSender.SendDeleteEntityCommand(request);
-        
-        // 服务器先不删除entity，因为下次运行还要用到，这里仅仅是隐藏起来
-        gameObject.SetActive(false);
+        var linkentity = GetComponent<LinkedEntityComponent>();
+        var request = new WorldCommands.DeleteEntity.Request(linkentity.EntityId);
+        worldCommandSender.SendDeleteEntityCommand(request);
     }
 
     public void LayEgg()
@@ -767,7 +771,7 @@ public class DinoBehaviour : MonoBehaviour
         var exampleEntity = EntityTemplateFactory.CreateEggTemplate(transform.position.ToCoordinates(), 0, eggType);
         var request1 = new WorldCommands.CreateEntity.Request(exampleEntity);
         worldCommandSender.SendCreateEntityCommand(request1, OnCreateEggResponse);
-        Debug.Log("DinoBehaviour LayEgg! Egg type : "+eggType);
+        //Debug.Log("DinoBehaviour LayEgg! Egg type : "+eggType);
     }
 
     private void OnCreateEggResponse(WorldCommands.CreateEntity.ReceivedResponse response)
@@ -775,9 +779,9 @@ public class DinoBehaviour : MonoBehaviour
         if (response.EntityId.HasValue)
         {
             var entityId = response.EntityId.Value;
-            Debug.Log("Server - new egg created:"+entityId);
+            //Debug.Log("Server - new egg created:"+entityId);
         }
-        // 下蛋成功，要粮食
+        // 下蛋成功，身上的粮食要减半
         _curFood = attrsWriter.Data.CurrentFood;
         var update = new DinoAttrs.Update
         {

@@ -79,7 +79,7 @@ public class EggBehaviour : MonoBehaviour
         {
             var request1 = new WorldCommands.CreateEntity.Request(exampleEntity);
             worldCommandSender.SendCreateEntityCommand(request1, OnCreateDinoResponse);
-            Debug.Log("EggBehaviour HatchOut! Type:"+_eggType);
+            //Debug.Log("EggBehaviour HatchOut! Type:"+_eggType);
         }
     }
     
@@ -88,21 +88,17 @@ public class EggBehaviour : MonoBehaviour
         if (response.EntityId.HasValue)
         {
             var entityId = response.EntityId.Value;
-            Debug.Log("Server - new dinosaur created:"+entityId);
-            DinoBehaviour newBorn = null;
-            if(DinoBehaviour.AllAnimals.TryGetValue(entityId.Id, out newBorn))
-            {
-                newBorn.newBorn();
-                Debug.Log("newBorn baby!");
-            }
+            // 这个函数毁掉的时候，被创建出来的恐龙的GameObject还没有被创建，所以本函数不能有任何访问被创建出来的物体的操作
+            // 只能写一些针对自己的操作
         }
     }
 
     public void DestroyEgg()
     {
-        //var linkentity = GetComponent<LinkedEntityComponent>();
-        var request = new WorldCommands.DeleteEntity.Request(_entityId);
+        allEggs.Remove(_entityId.Id);
+        var linkentity = GetComponent<LinkedEntityComponent>();
+        var request = new WorldCommands.DeleteEntity.Request(linkentity.EntityId);
         worldCommandSender.SendDeleteEntityCommand(request);
-        Debug.Log("Server - destroy an egg:"+_entityId);
+        //Debug.Log("Server - destroy an egg:"+_entityId);
     }
 }

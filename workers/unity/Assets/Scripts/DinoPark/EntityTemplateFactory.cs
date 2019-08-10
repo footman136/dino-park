@@ -73,7 +73,7 @@ namespace DinoPark
 		    template.AddComponent(new Metadata.Snapshot(SimulationSettings.Dino_Brachio_PrefabName), serverAttribute);
 		    template.AddComponent(new Persistence.Snapshot(), serverAttribute);
 		    var spawnRotation = (uint)Mathf.CeilToInt(Random.Range(0, 360));
-		    Debug.Log("DinoBrachio rotation : "+spawnRotation);
+		    //Debug.Log("DinoBrachio rotation : "+spawnRotation);
 		    template.AddComponent(new TransformComponent.Snapshot(spawnRotation), serverAttribute);
 
 		    template.AddComponent(new DinoAiData.Snapshot(), serverAttribute);
@@ -100,7 +100,7 @@ namespace DinoPark
 		    template.AddComponent(new Metadata.Snapshot(SimulationSettings.Dino_TRex_PrefabName), serverAttribute);
 		    template.AddComponent(new Persistence.Snapshot(), serverAttribute);
 		    var spawnRotation = (uint)Mathf.CeilToInt(Random.Range(0, 360));
-		    Debug.Log("DinoTRex rotation : "+spawnRotation);
+		    //Debug.Log("DinoTRex rotation : "+spawnRotation);
 		    template.AddComponent(new TransformComponent.Snapshot(spawnRotation), serverAttribute);
 		    
 		    template.AddComponent(new DinoAiData.Snapshot(), serverAttribute);
@@ -123,7 +123,7 @@ namespace DinoPark
 		    template.AddComponent(new Metadata.Snapshot(SimulationSettings.Egg_PrefabName), serverAttribute);
 		    template.AddComponent(new Persistence.Snapshot(), serverAttribute);
 		    var spawnRotation = (uint)Mathf.CeilToInt(Random.Range(0, 360));
-		    Debug.Log("Egg position : <" + initialPosition + "> rotation : <" + spawnRotation + ">");
+		    //Debug.Log("Egg position : <" + initialPosition + "> rotation : <" + spawnRotation + ">");
 		    template.AddComponent(new TransformComponent.Snapshot(spawnRotation), serverAttribute);
 		    
 		    template.AddComponent(new EggData.Snapshot(eggType, 0, EggStateEnum.GOOD), serverAttribute);

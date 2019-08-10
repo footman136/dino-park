@@ -23,7 +23,7 @@ public class DinoVanishState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Sta
         float deltaTime = Time.time - Owner._startTime;
         if (deltaTime > 30f)
         {
-            parentBehaviour.DestroyAnimal();
+            parentBehaviour.DestroyDino();
         }
     }
 

@@ -29,7 +29,7 @@ public class DinoAttackState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Sta
             if (DinoBehaviour.AllAnimals.TryGetValue(Owner.Data.TargetEntityId.Id, out target))
             {
                 float dist = Vector3.Distance(parentBehaviour.transform.position, target.transform.position);
-                if (dist >= parentBehaviour.ScriptableAnimalStats.contingencyDistance)
+                if (dist >= parentBehaviour.ScriptableAnimalStats.contingencyDistance*2)
                 { // 距离太远，离开战斗状态
                     Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
                 }

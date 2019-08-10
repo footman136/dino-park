@@ -8,6 +8,7 @@ using Improbable.Gdk.Core;
 using Assets.Gamelogic.Utils;
 using DinoPark;
 using Improbable.Gdk.Core.Commands;
+using Improbable.Gdk.Core.Commands;
 
 [WorkerType(WorkerUtils.UnityClient)]
 public class EggVisualizer : MonoBehaviour
@@ -103,7 +104,6 @@ public class EggVisualizer : MonoBehaviour
             transform.position = newpos;
             if (newpos.y <= -5f)
             {
-                gameObject.SetActive(false);
                 DestroyEgg();
                 yield break;
             }
@@ -111,8 +111,14 @@ public class EggVisualizer : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
-    private void DestroyEgg()
+    public void DestroyEgg()
     {
-        Destroy(this);
+//        var linkentity = GetComponent<LinkedEntityComponent>();
+//        var request = new WorldCommands.DeleteEntity.Request(linkentity.EntityId);
+//        worldCommandSender.SendDeleteEntityCommand(request);
+//        //Debug.Log("Server - destroy an egg:"+_entityId);
+        // 客户端貌似不能发送WorldCommand
+        Destroy(this, 30f);
     }
+
 }
