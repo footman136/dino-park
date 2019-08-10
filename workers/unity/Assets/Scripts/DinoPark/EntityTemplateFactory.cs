@@ -65,7 +65,7 @@ namespace DinoPark
 		    return template;
 	    }
 
-	    public static EntityTemplate CreateDinoBrachioTemplate(Coordinates initialPosition, uint teamId)
+	    public static EntityTemplate CreateDinoBrachioTemplate(Coordinates initialPosition, uint teamId, int age)
 	    {
 		    var serverAttribute = UnityGameLogicConnector.WorkerType;
 		    var template = new EntityTemplate();
@@ -80,6 +80,8 @@ namespace DinoPark
 		    template.AddComponent(new DinoAttrs.Snapshot(), serverAttribute);
 		    
 		    template.AddComponent(new Health.Snapshot(), serverAttribute);
+		    template.AddComponent(new Age.Snapshot(age, SimulationSettings.NPCAgeMax, SimulationSettings.NPCAgeGrowUp), serverAttribute);
+		    
 //		    template.AddComponent(new Flammable.Snapshot(false, true, FireEffectType.SMALL), serverAttribute);
 //		    template.AddComponent(new Inventory.Snapshot(0), serverAttribute);
 //		    template.AddComponent(new DinoBrachio.Snapshot(), serverAttribute);
@@ -90,7 +92,7 @@ namespace DinoPark
 		    return template;
 	    }
 
-	    public static EntityTemplate CreateDinoTRexTemplate(Coordinates initialPosition, uint teamId)
+	    public static EntityTemplate CreateDinoTRexTemplate(Coordinates initialPosition, uint teamId, int age)
 	    {
 		    var serverAttribute = UnityGameLogicConnector.WorkerType;
 		    var template = new EntityTemplate();
@@ -105,6 +107,7 @@ namespace DinoPark
 		    template.AddComponent(new DinoAttrs.Snapshot(), serverAttribute);
 		    
 		    template.AddComponent(new Health.Snapshot(), serverAttribute);
+		    template.AddComponent(new Age.Snapshot(age, SimulationSettings.NPCAgeMax, SimulationSettings.NPCAgeGrowUp), serverAttribute);
 		    
 		    template.SetReadAccess(UnityClientConnector.WorkerType, UnityGameLogicConnector.WorkerType, MobileClientWorkerConnector.WorkerType);
 		    template.SetComponentWriteAccess(EntityAcl.ComponentId, serverAttribute);

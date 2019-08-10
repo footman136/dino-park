@@ -1,0 +1,8 @@
+package dinopark.life;
+
+component Age {
+  id = 1301;
+  float age = 1;
+  float max_age = 2;
+  float grow_up_age = 3;
+}

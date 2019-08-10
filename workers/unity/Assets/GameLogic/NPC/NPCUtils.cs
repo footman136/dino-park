@@ -129,11 +129,5 @@ namespace Assets.Gamelogic.NPC
                    targetTreeStateVisualizer.CurrentState.Data.CurrentState == TreeFSMState.HEALTHY &&
                    targetHealthVisualizer.CurrentHealth > 0;
         }
-
-        public static void NavigateToRandomNearbyPosition(TargetNavigationBehaviour navigation, Vector3 currentPosition, float maxDistance, float interactionSqrDistance)
-        {
-            var targetPosition = currentPosition + (UnityEngine.Random.insideUnitSphere * maxDistance).FlattenVector();
-            navigation.StartNavigation(targetPosition, interactionSqrDistance);
-        }
     }
 }

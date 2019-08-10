@@ -7,9 +7,9 @@ using Unity.Entities;
 using Improbable.Worker.CInterop;
 using Improbable.Gdk.Core;
 
-namespace Dinopark.Npc
+namespace Dinopark.Life
 {
-    public partial class DinoAttrs
+    public partial class Age
     {
         public class EcsViewManager : IEcsViewManager
         {
@@ -83,7 +83,7 @@ namespace Dinopark.Npc
             {
                 workerSystem.TryGetEntity(entityId, out var entity);
 
-                var component = new global::Dinopark.Npc.DinoAttrs.Component();
+                var component = new global::Dinopark.Life.Age.Component();
 
                 component.MarkDataClean();
                 entityManager.AddSharedComponentData(entity, ComponentAuthority.NotAuthoritative);
@@ -95,7 +95,7 @@ namespace Dinopark.Npc
                 workerSystem.TryGetEntity(entityId, out var entity);
                 entityManager.RemoveComponent<ComponentAuthority>(entity);
 
-                entityManager.RemoveComponent<global::Dinopark.Npc.DinoAttrs.Component>(entity);
+                entityManager.RemoveComponent<global::Dinopark.Life.Age.Component>(entity);
             }
 
             private void ApplyUpdate(in ComponentUpdateReceived<Update> update, ComponentDataFromEntity<Component> dataFromEntity)
@@ -108,49 +108,19 @@ namespace Dinopark.Npc
 
                 var data = dataFromEntity[entity];
 
-                if (update.Update.IsDead.HasValue)
+                if (update.Update.Age.HasValue)
                 {
-                    data.IsDead = update.Update.IsDead.Value;
+                    data.Age = update.Update.Age.Value;
                 }
 
-                if (update.Update.CurrentFood.HasValue)
+                if (update.Update.MaxAge.HasValue)
                 {
-                    data.CurrentFood = update.Update.CurrentFood.Value;
+                    data.MaxAge = update.Update.MaxAge.Value;
                 }
 
-                if (update.Update.MaxFood.HasValue)
+                if (update.Update.GrowUpAge.HasValue)
                 {
-                    data.MaxFood = update.Update.MaxFood.Value;
-                }
-
-                if (update.Update.OriginalScent.HasValue)
-                {
-                    data.OriginalScent = update.Update.OriginalScent.Value;
-                }
-
-                if (update.Update.OriginalAgression.HasValue)
-                {
-                    data.OriginalAgression = update.Update.OriginalAgression.Value;
-                }
-
-                if (update.Update.OriginalDominance.HasValue)
-                {
-                    data.OriginalDominance = update.Update.OriginalDominance.Value;
-                }
-
-                if (update.Update.OriginPosition.HasValue)
-                {
-                    data.OriginPosition = update.Update.OriginPosition.Value;
-                }
-
-                if (update.Update.LastHatchTime.HasValue)
-                {
-                    data.LastHatchTime = update.Update.LastHatchTime.Value;
-                }
-
-                if (update.Update.Power.HasValue)
-                {
-                    data.Power = update.Update.Power.Value;
+                    data.GrowUpAge = update.Update.GrowUpAge.Value;
                 }
 
                 data.MarkDataClean();

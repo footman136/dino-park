@@ -1,8 +1,0 @@
-package dinopark.npc;
-
-import "dino_park/npc/dino_brachio.schema";
-
-component DinoTRex {
-  id = 1811;
-  data DinoData;
-}

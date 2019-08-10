@@ -33,7 +33,7 @@ public class DinoAttackState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Sta
                 { // 距离太远，离开战斗状态
                     Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
                 }
-                else if (target.Dead())
+                else if (target.Dead)
                 {
                     Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT, Owner.Data.TargetEntityId, target.transform.position);
                 }

@@ -7,9 +7,9 @@ namespace Assets.Gamelogic.Core
     {
         // Entity Prefab Names
 //        public static string PlayerPrefabName = "Player";
-        public static string NPCPrefabName = "NPCLumberjack";
-        public static string Dino_Brachio_PrefabName = "DinoBrachio";
-        public static string Dino_TRex_PrefabName = "DinoTRex";
+//        public static string NPCPrefabName = "NPCLumberjack";
+        public static string Dino_Brachio_PrefabName = "Brachiosaurus";
+        public static string Dino_TRex_PrefabName = "T-Rex";
 //        public static string NPCWizardPrefabName = "NPCWizard";
 //        public static string HQPrefabName = "HQ";
         public static string TreePrefabName = "Tree";
@@ -110,6 +110,8 @@ namespace Assets.Gamelogic.Core
         public static float NPCViewRadius = 30f;
         public static float NPCOriginalMinFoodRate = 0.3f; // 一开始每只恐龙肚里的食物的比例
         public static float NPCChildhoodMinWeekness = 0.3f; // 童年的恐龙各方面参数变弱的最小比例（刚出生时，以后会逐步向成年恐龙靠拢）
+            public static float NPCAgeMax = 1200;
+            public static float NPCAgeGrowUp = 60;
             
                 // Buildings
 //                public static int HQMaxHealth = 20;
@@ -118,7 +120,7 @@ namespace Assets.Gamelogic.Core
 //                public static float WizardSpawningCooldown = 15;
 //                public static float SpawnOffsetFactor = 5f;
 //                public static float PlayerSpawnOffsetFactor = 48.0f;
-                public static int HQStartingLumberjacksCount = 8; // 20
+//                public static int HQStartingLumberjacksCount = 8; // 20
                 public static int HQStartingWizardsCount = 0;
         public static int HQStartingBrachioCount = 15; // 20
         public static int HQStartingTRexCount = 5;

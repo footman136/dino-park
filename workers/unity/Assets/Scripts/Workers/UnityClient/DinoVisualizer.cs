@@ -15,6 +15,7 @@ public class DinoVisualizer : MonoBehaviour
     [Require] private DinoAiDataReader aiDataReader;
     [Require] public  DinoAttrsReader attrsReader;
     [Require] private HealthReader health;
+    [Require] private AgeReader age;
     [Require] private EntityId _entityId;
     
     private Animator animator;
@@ -39,13 +40,18 @@ public class DinoVisualizer : MonoBehaviour
     [SerializeField] private string _aniStateName;// 当前正在播放的动画的名字
     
     [SerializeField] private bool _isDead;
-    [SerializeField] private float _currentFood; // 当前的粮食
-    [SerializeField] private float _currentHealth; // 当前生命值
+    [SerializeField] private float _curFood; // 当前的粮食
+    [SerializeField] private float _maxFood; // 最大的粮食储量
+    [SerializeField] private float _curHealth; // 当前生命值
+    [SerializeField] private float _maxHealth; // 最大生命值
+    [SerializeField] private int _age; // 年龄
 
     private float originalScent = 0f;
     private float originalAgression = 0f;
     private int originalDominance = 0;
     private Vector3 origin;
+
+    private Vector3 _originScale;
     
     
     void Awake()
@@ -64,13 +70,29 @@ public class DinoVisualizer : MonoBehaviour
             dinoStates[i] = new AnimalState {stateName = stateNames[i], animationBool = animationBools[i]};
         }
 
+        _originScale = transform.localScale;
     }
     // Start is called before the first frame update
     void Start()
     {
         allAnimals.Add(_entityId.Id, this);
         _id = _entityId.Id;
-        
+        var update = new DinoAiData.Update
+        {
+            CurrentAiState = aiDataReader.Data.CurrentAiState
+        };
+        OnAiDataChanged(update);
+
+        var update2 = new Age.Update
+        {
+            Age = age.Data.Age
+        };
+        OnAgeChanged(update2);
+
+        var update3 = new DinoAttrs.Update
+        {
+        };
+        OnAttrsChanged(update3);
     }
 
     // Update is called once per frame
@@ -83,19 +105,31 @@ public class DinoVisualizer : MonoBehaviour
     {
         aiDataReader.OnUpdate += OnAiDataChanged;
         attrsReader.OnUpdate += OnAttrsChanged;
+        age.OnUpdate += OnAgeChanged;
     }
 
     void OnDisable()
     {
         aiDataReader.OnUpdate -= OnAiDataChanged;
         attrsReader.OnUpdate -= OnAttrsChanged;
+        age.OnUpdate -= OnAgeChanged;
     }
 
     void OnAiDataChanged(DinoAiData.Update update)
     {
-        _currentAiState = update.CurrentAiState.Value;
+        if (update.CurrentAiState.HasValue)
+        {
+            _currentAiState = update.CurrentAiState.Value;
+        }
+
         targetPosition = transform.position;
-        EntityId targetEntityId = update.TargetEntityId.Value;
+        if (update.TargetPosition.HasValue)
+        {
+            if (update.TargetPosition.Value.ToUnityVector() != DinoStateMachine.InvalidPosition)
+            {
+                targetPosition = update.TargetPosition.Value.ToUnityVector();
+            }
+        }
         
         int aniState = 0;
         switch (_currentAiState)
@@ -110,7 +144,7 @@ public class DinoVisualizer : MonoBehaviour
                 aniState = 0;
                 break;
             case DinoAiFSMState.StateEnum.WANDER:
-                targetPosition = update.TargetPosition.Value.ToUnityVector();
+                targetPosition = targetPosition;
                 navMeshAgent.speed = ScriptableAnimalStats.moveSpeed;
                 aniState = 1;
                 break;
@@ -118,27 +152,27 @@ public class DinoVisualizer : MonoBehaviour
                 aniState = 2;
                 break;
             case DinoAiFSMState.StateEnum.RUN_AWAY:
-                targetPosition = update.TargetPosition.Value.ToUnityVector();
+                targetPosition = targetPosition;
                 navMeshAgent.speed = ScriptableAnimalStats.runSpeed;
                 aniState = 3;
                 break;
             case DinoAiFSMState.StateEnum.CHASE:
-                targetPosition = update.TargetPosition.Value.ToUnityVector();
+                targetPosition = targetPosition;
                 navMeshAgent.speed = ScriptableAnimalStats.runSpeed;
                 aniState = 3;
                 break;
             case DinoAiFSMState.StateEnum.ATTACK:
                 aniState = 4;
-                StartCoroutine(TurnToLookAtTarget(update.TargetPosition.Value.ToUnityVector()));
+                StartCoroutine(TurnToLookAtTarget(targetPosition));
                 break;
             case DinoAiFSMState.StateEnum.DEAD:
                 aniState = 5;
                 break;
-            case DinoAiFSMState.StateEnum.BREED:
-                aniState = 5;
+            case DinoAiFSMState.StateEnum.HATCH:
+                aniState = 4;
                 break;
             case DinoAiFSMState.StateEnum.LOOK_FOR_FOOD:
-                targetPosition = update.TargetPosition.Value.ToUnityVector();
+                targetPosition = targetPosition;
                 navMeshAgent.speed = ScriptableAnimalStats.moveSpeed;
                 aniState = 1;
                 break;
@@ -162,13 +196,34 @@ public class DinoVisualizer : MonoBehaviour
     void OnAttrsChanged(DinoAttrs.Update update)
     {
         _isDead = attrsReader.Data.IsDead;
-        _currentFood = attrsReader.Data.CurrentFood; // 当前的粮食
-        _currentHealth = health.Data.CurrentHealth; // 当前生命值
+        _curFood = attrsReader.Data.CurrentFood; // 当前的粮食
+        _maxFood = attrsReader.Data.MaxFood; // 最大的粮食储量
+        _curHealth = health.Data.CurrentHealth; // 当前生命值
+        _maxHealth = health.Data.MaxHealth; // 最大生命值
     
         originalScent = attrsReader.Data.OriginalScent;
         originalAgression = attrsReader.Data.OriginalAgression;
         originalDominance = attrsReader.Data.OriginalDominance;
         origin = attrsReader.Data.OriginPosition.ToUnityVector();
+    }
+
+    void OnAgeChanged(Age.Update update)
+    {
+        _age = Mathf.FloorToInt(age.Data.Age);
+        if (update.Age.HasValue)
+            _age = Mathf.FloorToInt(update.Age.Value);
+        float growUpAge = age.Data.GrowUpAge;
+        if (update.GrowUpAge.HasValue)
+            growUpAge = update.GrowUpAge.Value;
+        if (_age >= growUpAge)
+        {
+            transform.localScale = _originScale;
+            return;
+        }
+
+        transform.localScale = _originScale * (SimulationSettings.NPCChildhoodMinWeekness +
+                                               (_age / growUpAge) *
+                                               (1 - SimulationSettings.NPCChildhoodMinWeekness));
     }
 
     private void PlayAnimation(int inState)
@@ -210,7 +265,8 @@ public class DinoVisualizer : MonoBehaviour
             transform.position = newpos;
             if (newpos.y <= -3f)
             {
-                //gameObject.SetActive(false);
+                gameObject.SetActive(false);
+                //Destroy(this);
                 yield break;
             }
 

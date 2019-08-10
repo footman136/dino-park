@@ -19,7 +19,7 @@ public class EggGoodState : FsmBaseState<EggStateMachine, EggStateEnum>
 
     public override void Enter()
     {
-        hatchingCoroutine = parentBehaviour.StartCoroutine(TimerUtils.WaitAndPerform(SimulationSettings.TreeStumpRegrowthTimeSecs, HatchOut));
+        hatchingCoroutine = parentBehaviour.StartCoroutine(TimerUtils.WaitAndPerform(parentBehaviour.eggStats.hatchTime, HatchOut));
     }
 
     public override void Tick()

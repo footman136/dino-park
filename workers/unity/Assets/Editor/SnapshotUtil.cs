@@ -72,13 +72,9 @@ namespace Editor
         public static void SpawnNpcsAroundPosition(Snapshot snapshot, Coordinates position, uint team, float edgeLength)
         {
             float totalNpcs = SimulationSettings.HQStartingTRexCount + SimulationSettings.HQStartingBrachioCount;
-            //float radiusFromHQ = SimulationSettings.NPCSpawnDistanceToHQ;
 
             for (int i = 0; i < totalNpcs; i++)
             {
-//                float radians = (i / totalNpcs) * 2 * Mathf.PI;
-//                Vector3 offset = new Vector3(Mathf.Cos(radians), 0, Mathf.Sin(radians));
-//                offset *= radiusFromHQ;
                 Vector3 offset = new Vector3(Random.Range(-edgeLength / 2, edgeLength / 2), 0,
                     Random.Range(-edgeLength / 2, edgeLength / 2));
                 Coordinates coordinates = (position.ToVector3() + offset).ToCoordinates();
@@ -86,13 +82,11 @@ namespace Editor
                 EntityTemplate entity = null;
                 if (i < SimulationSettings.HQStartingBrachioCount)
                 {
-                    //entity = EntityTemplateFactory.CreateNPCLumberjackTemplate(coordinates, team);
-                    entity = EntityTemplateFactory.CreateDinoBrachioTemplate(coordinates, team);
+                    entity = EntityTemplateFactory.CreateDinoBrachioTemplate(coordinates, team, 70); // 成年恐龙
                 }
                 else
                 {
-                    //entity = EntityTemplateFactory.CreateNPCWizardTemplate(coordinates, team);
-                    entity = EntityTemplateFactory.CreateDinoTRexTemplate(coordinates, team);
+                    entity = EntityTemplateFactory.CreateDinoTRexTemplate(coordinates, team, 70); // 成年恐龙
                 }
 
                 if (entity != null)
@@ -115,12 +109,10 @@ namespace Editor
                 EntityTemplate entity = null;
                 if (i < SimulationSettings.HQStartingEggBrachioCount)
                 {
-                    //entity = EntityTemplateFactory.CreateNPCLumberjackTemplate(coordinates, team);
                     entity = EntityTemplateFactory.CreateEggTemplate(coordinates, team, EggTypeEnum.Brachiosaurus);
                 }
                 else
                 {
-                    //entity = EntityTemplateFactory.CreateNPCWizardTemplate(coordinates, team);
                     entity = EntityTemplateFactory.CreateEggTemplate(coordinates, team, EggTypeEnum.TRex);
                 }
 

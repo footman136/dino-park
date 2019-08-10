@@ -40,13 +40,33 @@ public class DinoLookForFoodState : FsmBaseState<DinoStateMachine, DinoAiFSMStat
         {
             if (parentBehaviour.ScriptableAnimalStats.vegetarian)
             {
+                if(Owner.Data.TargetEntityId.Id == 0)
+                    Debug.LogError("Look For Food Error : TargetEntityId is ZERO!");
                 Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT_FOOD, Owner.Data.TargetEntityId,
                     Owner.Data.TargetPosition.ToUnityVector());
             }
             else
             {
-                Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT, Owner.Data.TargetEntityId,
-                    Owner.Data.TargetPosition.ToUnityVector());
+                DinoBehaviour corpse = null;
+                if (DinoBehaviour.AllAnimals.TryGetValue(Owner.Data.TargetEntityId.Id, out corpse))
+                {
+                    if (corpse.Dead && !corpse.IsVanish)
+                    {
+                        if (!corpse.Dead)
+                            Debug.LogError("DinoLookForFoodState - Cannot eat live animals! Id:" + corpse._entityId +
+                                           " state:" + corpse.stateMachine.CurrentState);
+                        Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT, Owner.Data.TargetEntityId,
+                            Owner.Data.TargetPosition.ToUnityVector());
+                    }
+                    else
+                    {
+                        Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
+                    }
+                }
+                else
+                {
+                    Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
+                }
             }
         }
     }

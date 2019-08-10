@@ -30,7 +30,6 @@ namespace DinoPark
             var metadata = entity.GetComponent<Metadata.Component>();
             var isPlayer = metadata.EntityType == "Player";// 玩家
             var isTree = metadata.EntityType == SimulationSettings.TreePrefabName;// 树
-            var isLumberJack = metadata.EntityType == SimulationSettings.NPCPrefabName; // 伐木工
             var isDinoBrachio = metadata.EntityType == SimulationSettings.Dino_Brachio_PrefabName;// Dino Brachiosaurus
             var isDinoTRex = metadata.EntityType == SimulationSettings.Dino_TRex_PrefabName;// Dino T-Rex
             var isEgg = metadata.EntityType == SimulationSettings.Egg_PrefabName;// Dino Eggs
@@ -59,7 +58,7 @@ namespace DinoPark
                 var entityGameObject = UnityEngine.Object.Instantiate(prefab) as GameObject;
                 entityGameObject.name = SimulationSettings.Dino_Brachio_PrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, entityGameObject);
-                Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer Brachiosaurus GameObject created<"+entity.SpatialOSEntityId+">");
+                //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer Brachiosaurus GameObject created<"+entity.SpatialOSEntityId+">");
             }
             else if (isDinoTRex)
             {
@@ -68,7 +67,7 @@ namespace DinoPark
                 var entityGameObject = UnityEngine.Object.Instantiate(prefab) as GameObject;
                 entityGameObject.name = SimulationSettings.Dino_TRex_PrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, entityGameObject);
-                Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer T-Rex GameObject created<"+entity.SpatialOSEntityId+">");
+                //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer T-Rex GameObject created<"+entity.SpatialOSEntityId+">");
             }
             else if (isEgg)
             {

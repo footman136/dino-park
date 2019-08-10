@@ -32,21 +32,24 @@ public class DinoEatState : FsmBaseState<DinoStateMachine, DinoAiFSMState.StateE
                 return;
             }
             
-            DinoBehaviour meat = null;
-            if (DinoBehaviour.AllAnimals.TryGetValue(Owner.Data.TargetEntityId.Id, out meat))
+            DinoBehaviour corpse = null;
+            if (DinoBehaviour.AllAnimals.TryGetValue(Owner.Data.TargetEntityId.Id, out corpse))
             {
-                parentBehaviour.DoEat(meat);
-                if (meat.IsVanish())
+                if (corpse.IsVanish)
                 {
                     Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
                 }
+                else
+                {
+                    if (!corpse.Dead)
+                        Debug.LogError("DinoEatState - Cannot eat live animals! Id:"+corpse._entityId+" state:"+corpse.stateMachine.CurrentState);
+                    parentBehaviour.DoEat(corpse);
+                    }
             }
             else
             {
                 Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
             }
-
-            //Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
         }
     }
 

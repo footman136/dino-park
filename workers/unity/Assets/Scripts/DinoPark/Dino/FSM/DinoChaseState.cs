@@ -35,7 +35,7 @@ public class DinoChaseState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Stat
         DinoBehaviour prey = null;
         if (DinoBehaviour.AllAnimals.TryGetValue(Owner.Data.TargetEntityId.Id, out prey))
         {
-            if (prey.Dead())
+            if (!prey.IsAlive)
             {// 敌人已经死亡
                 Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
             }

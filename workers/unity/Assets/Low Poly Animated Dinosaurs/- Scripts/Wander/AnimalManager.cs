@@ -64,7 +64,7 @@ namespace LowPolyAnimalPack
       {
         animal.SetPeaceTime(enabled);
       }
-      foreach (var animal in LogicDino.AllAnimals)
+      foreach (var animal in DinoBehaviour.AllAnimals)
       {
         animal.Value.SetPeaceTime(enabled);
       }
@@ -76,7 +76,7 @@ namespace LowPolyAnimalPack
       {
         animal.Die();
       }
-      foreach (var animal in LogicDino.AllAnimals)
+      foreach (var animal in DinoBehaviour.AllAnimals)
       {
         animal.Value.Die();
       }

@@ -37,7 +37,7 @@ namespace Dinopark.Npc
             ATTACK = 5,
             DEAD = 7,
             ROAR = 8,
-            BREED = 9,
+            HATCH = 9,
             LOOK_FOR_FOOD = 10,
             EAT_FOOD = 11,
             VANISH = 18,

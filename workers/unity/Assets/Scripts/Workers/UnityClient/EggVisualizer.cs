@@ -20,7 +20,6 @@ public class EggVisualizer : MonoBehaviour
     [SerializeField] private EggTypeEnum _eggType;
     [SerializeField] private float _currentFood;
     [SerializeField] private EggStateEnum _currentState;
-    private EggStateEnum _lastState;
 
     [SerializeField] private GameObject _partGood;
     [SerializeField] private GameObject _partBroken;
@@ -29,7 +28,6 @@ public class EggVisualizer : MonoBehaviour
     void Start()
     {
         _id = _entityId.Id;
-        _lastState = EggStateEnum.NONE;
     }
 
     // Update is called once per frame
@@ -62,7 +60,7 @@ public class EggVisualizer : MonoBehaviour
         {
             _eggType = update.EggType.Value;
             var renderer = gameObject.GetComponent<MeshRenderer>();
-            Color [] color = new Color[3]{Color.white, Color.red, Color.blue};
+            Color [] color = new Color[3]{Color.black, Color.white, Color.green};
             renderer.material.color = color[(int) _eggType];
         }
         if (update.CurrentFood.HasValue)
@@ -73,26 +71,26 @@ public class EggVisualizer : MonoBehaviour
         if (update.CurrentState.HasValue)
         {
             _currentState = update.CurrentState.Value;
-            if (_lastState == _currentState)
-                return;
-            if ( _currentState == EggStateEnum.GOOD)
+            switch (_currentState)
             {
-                _partGood.SetActive(true);
-                _partBroken.SetActive(false);
+                case EggStateEnum.GOOD:
+                    _partGood.SetActive(true);
+                    _partBroken.SetActive(false);
+                    break;
+                case EggStateEnum.BROKEN:
+                    _partGood.SetActive(false);
+                    _partBroken.SetActive(true);
+                    break;
+                case EggStateEnum.EMPTY:
+                    _partGood.SetActive(false);
+                    _partBroken.SetActive(true);
+                    break;
+                case EggStateEnum.VANISH:
+                    _partGood.SetActive(false);
+                    _partBroken.SetActive(true);
+                    StartCoroutine(Vanishing());
+                    break;
             }
-            else if(_currentState == EggStateEnum.BROKEN)
-            {
-                _partGood.SetActive(false);
-                _partBroken.SetActive(true);
-            }
-            else if (_currentState == EggStateEnum.VANISH)
-            {
-                _partGood.SetActive(false);
-                _partBroken.SetActive(true);
-                StartCoroutine(Vanishing());
-            }
-
-            _lastState = _currentState;
         }
         Debug.Log("EggVisualizer data changed!");
     }

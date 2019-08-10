@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using Improbable.Gdk.Core;
 using Improbable.Worker.CInterop;
 
-namespace Dinopark.Npc
+namespace Dinopark.Life
 {
-    public partial class DinoAttrs
+    public partial class Age
     {
-        public class DinoAttrsViewStorage : IViewStorage, IViewComponentStorage<Snapshot>,
+        public class AgeViewStorage : IViewStorage, IViewComponentStorage<Snapshot>,
             IViewComponentUpdater<Update>
         {
             private readonly Dictionary<long, Authority> authorityStates = new Dictionary<long, Authority>();
@@ -96,49 +96,19 @@ namespace Dinopark.Npc
                 }
                 
 
-                if (update.IsDead.HasValue)
+                if (update.Age.HasValue)
                 {
-                    data.IsDead = update.IsDead.Value;
+                    data.Age = update.Age.Value;
                 }
 
-                if (update.CurrentFood.HasValue)
+                if (update.MaxAge.HasValue)
                 {
-                    data.CurrentFood = update.CurrentFood.Value;
+                    data.MaxAge = update.MaxAge.Value;
                 }
 
-                if (update.MaxFood.HasValue)
+                if (update.GrowUpAge.HasValue)
                 {
-                    data.MaxFood = update.MaxFood.Value;
-                }
-
-                if (update.OriginalScent.HasValue)
-                {
-                    data.OriginalScent = update.OriginalScent.Value;
-                }
-
-                if (update.OriginalAgression.HasValue)
-                {
-                    data.OriginalAgression = update.OriginalAgression.Value;
-                }
-
-                if (update.OriginalDominance.HasValue)
-                {
-                    data.OriginalDominance = update.OriginalDominance.Value;
-                }
-
-                if (update.OriginPosition.HasValue)
-                {
-                    data.OriginPosition = update.OriginPosition.Value;
-                }
-
-                if (update.LastHatchTime.HasValue)
-                {
-                    data.LastHatchTime = update.LastHatchTime.Value;
-                }
-
-                if (update.Power.HasValue)
-                {
-                    data.Power = update.Power.Value;
+                    data.GrowUpAge = update.GrowUpAge.Value;
                 }
 
                 componentData[entityId] = data;

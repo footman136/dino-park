@@ -12,20 +12,20 @@ using Unity.Collections;
 using Improbable.Gdk.Core;
 using Improbable.Gdk.Core.CodegenAdapters;
 
-namespace Dinopark.Npc
+namespace Dinopark.Life
 {
-    public partial class DinoAttrs
+    public partial class Age
     {
         internal class ComponentReplicator : IComponentReplicationHandler
         {
-            public uint ComponentId => 1872;
+            public uint ComponentId => 1301;
 
             public EntityQueryDesc ComponentUpdateQuery => new EntityQueryDesc
             {
                 All = new[]
                 {
-                    ComponentType.ReadWrite<global::Dinopark.Npc.DinoAttrs.Component>(),
-                    ComponentType.ReadWrite<global::Dinopark.Npc.DinoAttrs.ComponentAuthority>(),
+                    ComponentType.ReadWrite<global::Dinopark.Life.Age.Component>(),
+                    ComponentType.ReadWrite<global::Dinopark.Life.Age.ComponentAuthority>(),
                     ComponentType.ReadOnly<SpatialEntityId>()
                 },
             };
@@ -36,10 +36,10 @@ namespace Dinopark.Npc
                 EntityManager entityManager,
                 ComponentUpdateSystem componentUpdateSystem)
             {
-                Profiler.BeginSample("DinoAttrs");
+                Profiler.BeginSample("Age");
 
                 var spatialOSEntityType = system.GetArchetypeChunkComponentType<SpatialEntityId>(true);
-                var componentType = system.GetArchetypeChunkComponentType<global::Dinopark.Npc.DinoAttrs.Component>();
+                var componentType = system.GetArchetypeChunkComponentType<global::Dinopark.Life.Age.Component>();
 
                 var authorityType = system.GetArchetypeChunkSharedComponentType<ComponentAuthority>();
 
@@ -64,47 +64,17 @@ namespace Dinopark.Npc
 
                             if (data.IsDataDirty(0))
                             {
-                                update.IsDead = data.IsDead;
+                                update.Age = data.Age;
                             }
 
                             if (data.IsDataDirty(1))
                             {
-                                update.CurrentFood = data.CurrentFood;
+                                update.MaxAge = data.MaxAge;
                             }
 
                             if (data.IsDataDirty(2))
                             {
-                                update.MaxFood = data.MaxFood;
-                            }
-
-                            if (data.IsDataDirty(3))
-                            {
-                                update.OriginalScent = data.OriginalScent;
-                            }
-
-                            if (data.IsDataDirty(4))
-                            {
-                                update.OriginalAgression = data.OriginalAgression;
-                            }
-
-                            if (data.IsDataDirty(5))
-                            {
-                                update.OriginalDominance = data.OriginalDominance;
-                            }
-
-                            if (data.IsDataDirty(6))
-                            {
-                                update.OriginPosition = data.OriginPosition;
-                            }
-
-                            if (data.IsDataDirty(7))
-                            {
-                                update.LastHatchTime = data.LastHatchTime;
-                            }
-
-                            if (data.IsDataDirty(8))
-                            {
-                                update.Power = data.Power;
+                                update.GrowUpAge = data.GrowUpAge;
                             }
 
                             componentUpdateSystem.SendUpdate(in update, entityIdArray[i].EntityId);

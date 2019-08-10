@@ -41,7 +41,9 @@ public class EggBehaviour : MonoBehaviour
     {
         allEggs.Add(_entityId.Id, this);
         _id = _entityId.Id;
-        _currentState = EggStateEnum.GOOD; //stateMachine.CurrentState;
+        _currentState = egg.Data.CurrentState; //stateMachine.CurrentState;
+        _eggType = egg.Data.EggType;
+        _currentFood = egg.Data.CurrentFood;
     }
 
     // Update is called once per frame
@@ -62,19 +64,37 @@ public class EggBehaviour : MonoBehaviour
     
     public void HatchOut()
     {
-        var exampleEntity = EntityTemplateFactory.CreateDinoBrachioTemplate(transform.position.ToCoordinates(), 0);
-        var request1 = new WorldCommands.CreateEntity.Request(exampleEntity);
-        worldCommandSender.SendCreateEntityCommand(request1, OnCreateEntityResponse);
-        Debug.Log("EggBehaviour HatchOut!");
+        EntityTemplate exampleEntity = null;
+        switch (_eggType)
+        {
+            case EggTypeEnum.Brachiosaurus:
+                exampleEntity = EntityTemplateFactory.CreateDinoBrachioTemplate(transform.position.ToCoordinates(), 0, 0); // 0岁小恐龙
+                break;
+            case EggTypeEnum.TRex:
+                exampleEntity = EntityTemplateFactory.CreateDinoTRexTemplate(transform.position.ToCoordinates(), 0, 0); // 0岁小恐龙
+                break;
+        }
+
+        if (exampleEntity != null)
+        {
+            var request1 = new WorldCommands.CreateEntity.Request(exampleEntity);
+            worldCommandSender.SendCreateEntityCommand(request1, OnCreateDinoResponse);
+            Debug.Log("EggBehaviour HatchOut! Type:"+_eggType);
+        }
     }
     
-    private void OnCreateEntityResponse(WorldCommands.CreateEntity.ReceivedResponse response)
+    private void OnCreateDinoResponse(WorldCommands.CreateEntity.ReceivedResponse response)
     {
         if (response.EntityId.HasValue)
         {
             var entityId = response.EntityId.Value;
-            Debug.Log("Server - new entity created:"+entityId);
-            
+            Debug.Log("Server - new dinosaur created:"+entityId);
+            DinoBehaviour newBorn = null;
+            if(DinoBehaviour.AllAnimals.TryGetValue(entityId.Id, out newBorn))
+            {
+                newBorn.newBorn();
+                Debug.Log("newBorn baby!");
+            }
         }
     }
 
@@ -83,5 +103,6 @@ public class EggBehaviour : MonoBehaviour
         //var linkentity = GetComponent<LinkedEntityComponent>();
         var request = new WorldCommands.DeleteEntity.Request(_entityId);
         worldCommandSender.SendDeleteEntityCommand(request);
+        Debug.Log("Server - destroy an egg:"+_entityId);
     }
 }

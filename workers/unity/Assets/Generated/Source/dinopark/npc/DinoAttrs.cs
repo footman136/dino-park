@@ -45,9 +45,9 @@ namespace Dinopark.Npc
             */
             public bool IsDataDirty(int propertyIndex)
             {
-                if (propertyIndex < 0 || propertyIndex >= 8)
+                if (propertyIndex < 0 || propertyIndex >= 9)
                 {
-                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 7]. " +
+                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 8]. " +
                         "Unless you are using custom component replication code, this is most likely caused by a code generation bug. " +
                         "Please contact SpatialOS support if you encounter this issue.");
                 }
@@ -69,9 +69,9 @@ namespace Dinopark.Npc
             // This method throws an InvalidOperationException in case your component doesn't contain properties.
             public void MarkDataDirty(int propertyIndex)
             {
-                if (propertyIndex < 0 || propertyIndex >= 8)
+                if (propertyIndex < 0 || propertyIndex >= 9)
                 {
-                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 7]. " +
+                    throw new ArgumentException("\"propertyIndex\" argument out of range. Valid range is [0, 8]. " +
                         "Unless you are using custom component replication code, this is most likely caused by a code generation bug. " +
                         "Please contact SpatialOS support if you encounter this issue.");
                 }
@@ -131,6 +131,18 @@ namespace Dinopark.Npc
                 }
             }
 
+            private float maxFood;
+
+            public float MaxFood
+            {
+                get => maxFood;
+                set
+                {
+                    MarkDataDirty(2);
+                    this.maxFood = value;
+                }
+            }
+
             private float originalScent;
 
             public float OriginalScent
@@ -138,7 +150,7 @@ namespace Dinopark.Npc
                 get => originalScent;
                 set
                 {
-                    MarkDataDirty(2);
+                    MarkDataDirty(3);
                     this.originalScent = value;
                 }
             }
@@ -150,7 +162,7 @@ namespace Dinopark.Npc
                 get => originalAgression;
                 set
                 {
-                    MarkDataDirty(3);
+                    MarkDataDirty(4);
                     this.originalAgression = value;
                 }
             }
@@ -162,7 +174,7 @@ namespace Dinopark.Npc
                 get => originalDominance;
                 set
                 {
-                    MarkDataDirty(4);
+                    MarkDataDirty(5);
                     this.originalDominance = value;
                 }
             }
@@ -174,20 +186,8 @@ namespace Dinopark.Npc
                 get => originPosition;
                 set
                 {
-                    MarkDataDirty(5);
-                    this.originPosition = value;
-                }
-            }
-
-            private float age;
-
-            public float Age
-            {
-                get => age;
-                set
-                {
                     MarkDataDirty(6);
-                    this.age = value;
+                    this.originPosition = value;
                 }
             }
 
@@ -200,6 +200,18 @@ namespace Dinopark.Npc
                 {
                     MarkDataDirty(7);
                     this.lastHatchTime = value;
+                }
+            }
+
+            private float power;
+
+            public float Power
+            {
+                get => power;
+                set
+                {
+                    MarkDataDirty(8);
+                    this.power = value;
                 }
             }
         }
@@ -251,23 +263,25 @@ namespace Dinopark.Npc
 
             public bool IsDead;
             public float CurrentFood;
+            public float MaxFood;
             public float OriginalScent;
             public float OriginalAgression;
             public int OriginalDominance;
             public global::Improbable.Vector3f OriginPosition;
-            public float Age;
             public float LastHatchTime;
+            public float Power;
 
-            public Snapshot(bool isDead, float currentFood, float originalScent, float originalAgression, int originalDominance, global::Improbable.Vector3f originPosition, float age, float lastHatchTime)
+            public Snapshot(bool isDead, float currentFood, float maxFood, float originalScent, float originalAgression, int originalDominance, global::Improbable.Vector3f originPosition, float lastHatchTime, float power)
             {
                 IsDead = isDead;
                 CurrentFood = currentFood;
+                MaxFood = maxFood;
                 OriginalScent = originalScent;
                 OriginalAgression = originalAgression;
                 OriginalDominance = originalDominance;
                 OriginPosition = originPosition;
-                Age = age;
                 LastHatchTime = lastHatchTime;
+                Power = power;
             }
         }
 
@@ -282,6 +296,9 @@ namespace Dinopark.Npc
                     obj.AddFloat(2, component.CurrentFood);
                 }
                 {
+                    obj.AddFloat(3, component.MaxFood);
+                }
+                {
                     obj.AddFloat(4, component.OriginalScent);
                 }
                 {
@@ -294,10 +311,10 @@ namespace Dinopark.Npc
                     global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosition, obj.AddObject(7));
                 }
                 {
-                    obj.AddFloat(8, component.Age);
+                    obj.AddFloat(9, component.LastHatchTime);
                 }
                 {
-                    obj.AddFloat(9, component.LastHatchTime);
+                    obj.AddFloat(10, component.Power);
                 }
             }
 
@@ -321,35 +338,35 @@ namespace Dinopark.Npc
                 {
                     if (component.IsDataDirty(2))
                     {
-                        obj.AddFloat(4, component.OriginalScent);
+                        obj.AddFloat(3, component.MaxFood);
                     }
 
                 }
                 {
                     if (component.IsDataDirty(3))
                     {
-                        obj.AddFloat(5, component.OriginalAgression);
+                        obj.AddFloat(4, component.OriginalScent);
                     }
 
                 }
                 {
                     if (component.IsDataDirty(4))
                     {
-                        obj.AddInt32(6, component.OriginalDominance);
+                        obj.AddFloat(5, component.OriginalAgression);
                     }
 
                 }
                 {
                     if (component.IsDataDirty(5))
                     {
-                        global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosition, obj.AddObject(7));
+                        obj.AddInt32(6, component.OriginalDominance);
                     }
 
                 }
                 {
                     if (component.IsDataDirty(6))
                     {
-                        obj.AddFloat(8, component.Age);
+                        global::Improbable.Vector3f.Serialization.Serialize(component.OriginPosition, obj.AddObject(7));
                     }
 
                 }
@@ -357,6 +374,13 @@ namespace Dinopark.Npc
                     if (component.IsDataDirty(7))
                     {
                         obj.AddFloat(9, component.LastHatchTime);
+                    }
+
+                }
+                {
+                    if (component.IsDataDirty(8))
+                    {
+                        obj.AddFloat(10, component.Power);
                     }
 
                 }
@@ -377,6 +401,13 @@ namespace Dinopark.Npc
                     {
                         var field = update.CurrentFood.Value;
                         obj.AddFloat(2, field);
+                    }
+                }
+                {
+                    if (update.MaxFood.HasValue)
+                    {
+                        var field = update.MaxFood.Value;
+                        obj.AddFloat(3, field);
                     }
                 }
                 {
@@ -408,17 +439,17 @@ namespace Dinopark.Npc
                     }
                 }
                 {
-                    if (update.Age.HasValue)
-                    {
-                        var field = update.Age.Value;
-                        obj.AddFloat(8, field);
-                    }
-                }
-                {
                     if (update.LastHatchTime.HasValue)
                     {
                         var field = update.LastHatchTime.Value;
                         obj.AddFloat(9, field);
+                    }
+                }
+                {
+                    if (update.Power.HasValue)
+                    {
+                        var field = update.Power.Value;
+                        obj.AddFloat(10, field);
                     }
                 }
             }
@@ -430,6 +461,9 @@ namespace Dinopark.Npc
                 }
                 {
                     obj.AddFloat(2, snapshot.CurrentFood);
+                }
+                {
+                    obj.AddFloat(3, snapshot.MaxFood);
                 }
                 {
                     obj.AddFloat(4, snapshot.OriginalScent);
@@ -444,10 +478,10 @@ namespace Dinopark.Npc
                     global::Improbable.Vector3f.Serialization.Serialize(snapshot.OriginPosition, obj.AddObject(7));
                 }
                 {
-                    obj.AddFloat(8, snapshot.Age);
+                    obj.AddFloat(9, snapshot.LastHatchTime);
                 }
                 {
-                    obj.AddFloat(9, snapshot.LastHatchTime);
+                    obj.AddFloat(10, snapshot.Power);
                 }
             }
 
@@ -462,6 +496,9 @@ namespace Dinopark.Npc
                     component.CurrentFood = obj.GetFloat(2);
                 }
                 {
+                    component.MaxFood = obj.GetFloat(3);
+                }
+                {
                     component.OriginalScent = obj.GetFloat(4);
                 }
                 {
@@ -474,10 +511,10 @@ namespace Dinopark.Npc
                     component.OriginPosition = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(7));
                 }
                 {
-                    component.Age = obj.GetFloat(8);
+                    component.LastHatchTime = obj.GetFloat(9);
                 }
                 {
-                    component.LastHatchTime = obj.GetFloat(9);
+                    component.Power = obj.GetFloat(10);
                 }
                 return component;
             }
@@ -500,6 +537,14 @@ namespace Dinopark.Npc
                     {
                         var value = obj.GetFloat(2);
                         update.CurrentFood = new global::Improbable.Gdk.Core.Option<float>(value);
+                    }
+                    
+                }
+                {
+                    if (obj.GetFloatCount(3) == 1)
+                    {
+                        var value = obj.GetFloat(3);
+                        update.MaxFood = new global::Improbable.Gdk.Core.Option<float>(value);
                     }
                     
                 }
@@ -536,18 +581,18 @@ namespace Dinopark.Npc
                     
                 }
                 {
-                    if (obj.GetFloatCount(8) == 1)
-                    {
-                        var value = obj.GetFloat(8);
-                        update.Age = new global::Improbable.Gdk.Core.Option<float>(value);
-                    }
-                    
-                }
-                {
                     if (obj.GetFloatCount(9) == 1)
                     {
                         var value = obj.GetFloat(9);
                         update.LastHatchTime = new global::Improbable.Gdk.Core.Option<float>(value);
+                    }
+                    
+                }
+                {
+                    if (obj.GetFloatCount(10) == 1)
+                    {
+                        var value = obj.GetFloat(10);
+                        update.Power = new global::Improbable.Gdk.Core.Option<float>(value);
                     }
                     
                 }
@@ -567,6 +612,11 @@ namespace Dinopark.Npc
                 {
                     var value = obj.GetFloat(2);
                     update.CurrentFood = new global::Improbable.Gdk.Core.Option<float>(value);
+                    
+                }
+                {
+                    var value = obj.GetFloat(3);
+                    update.MaxFood = new global::Improbable.Gdk.Core.Option<float>(value);
                     
                 }
                 {
@@ -590,13 +640,13 @@ namespace Dinopark.Npc
                     
                 }
                 {
-                    var value = obj.GetFloat(8);
-                    update.Age = new global::Improbable.Gdk.Core.Option<float>(value);
+                    var value = obj.GetFloat(9);
+                    update.LastHatchTime = new global::Improbable.Gdk.Core.Option<float>(value);
                     
                 }
                 {
-                    var value = obj.GetFloat(9);
-                    update.LastHatchTime = new global::Improbable.Gdk.Core.Option<float>(value);
+                    var value = obj.GetFloat(10);
+                    update.Power = new global::Improbable.Gdk.Core.Option<float>(value);
                     
                 }
                 return update;
@@ -612,6 +662,10 @@ namespace Dinopark.Npc
 
                 {
                     component.CurrentFood = obj.GetFloat(2);
+                }
+
+                {
+                    component.MaxFood = obj.GetFloat(3);
                 }
 
                 {
@@ -631,11 +685,11 @@ namespace Dinopark.Npc
                 }
 
                 {
-                    component.Age = obj.GetFloat(8);
+                    component.LastHatchTime = obj.GetFloat(9);
                 }
 
                 {
-                    component.LastHatchTime = obj.GetFloat(9);
+                    component.Power = obj.GetFloat(10);
                 }
 
                 return component;
@@ -658,6 +712,14 @@ namespace Dinopark.Npc
                     {
                         var value = obj.GetFloat(2);
                         component.CurrentFood = value;
+                    }
+                    
+                }
+                {
+                    if (obj.GetFloatCount(3) == 1)
+                    {
+                        var value = obj.GetFloat(3);
+                        component.MaxFood = value;
                     }
                     
                 }
@@ -694,18 +756,18 @@ namespace Dinopark.Npc
                     
                 }
                 {
-                    if (obj.GetFloatCount(8) == 1)
-                    {
-                        var value = obj.GetFloat(8);
-                        component.Age = value;
-                    }
-                    
-                }
-                {
                     if (obj.GetFloatCount(9) == 1)
                     {
                         var value = obj.GetFloat(9);
                         component.LastHatchTime = value;
+                    }
+                    
+                }
+                {
+                    if (obj.GetFloatCount(10) == 1)
+                    {
+                        var value = obj.GetFloat(10);
+                        component.Power = value;
                     }
                     
                 }
@@ -728,6 +790,14 @@ namespace Dinopark.Npc
                     {
                         var value = obj.GetFloat(2);
                         snapshot.CurrentFood = value;
+                    }
+                    
+                }
+                {
+                    if (obj.GetFloatCount(3) == 1)
+                    {
+                        var value = obj.GetFloat(3);
+                        snapshot.MaxFood = value;
                     }
                     
                 }
@@ -764,18 +834,18 @@ namespace Dinopark.Npc
                     
                 }
                 {
-                    if (obj.GetFloatCount(8) == 1)
-                    {
-                        var value = obj.GetFloat(8);
-                        snapshot.Age = value;
-                    }
-                    
-                }
-                {
                     if (obj.GetFloatCount(9) == 1)
                     {
                         var value = obj.GetFloat(9);
                         snapshot.LastHatchTime = value;
+                    }
+                    
+                }
+                {
+                    if (obj.GetFloatCount(10) == 1)
+                    {
+                        var value = obj.GetFloat(10);
+                        snapshot.Power = value;
                     }
                     
                 }
@@ -788,12 +858,13 @@ namespace Dinopark.Npc
 
             public Option<bool> IsDead;
             public Option<float> CurrentFood;
+            public Option<float> MaxFood;
             public Option<float> OriginalScent;
             public Option<float> OriginalAgression;
             public Option<int> OriginalDominance;
             public Option<global::Improbable.Vector3f> OriginPosition;
-            public Option<float> Age;
             public Option<float> LastHatchTime;
+            public Option<float> Power;
         }
 
 #if !DISABLE_REACTIVE_COMPONENTS
@@ -860,12 +931,13 @@ namespace Dinopark.Npc
                 var update = new Update();
                 update.IsDead = new Option<bool>(snapshot.IsDead);
                 update.CurrentFood = new Option<float>(snapshot.CurrentFood);
+                update.MaxFood = new Option<float>(snapshot.MaxFood);
                 update.OriginalScent = new Option<float>(snapshot.OriginalScent);
                 update.OriginalAgression = new Option<float>(snapshot.OriginalAgression);
                 update.OriginalDominance = new Option<int>(snapshot.OriginalDominance);
                 update.OriginPosition = new Option<global::Improbable.Vector3f>(snapshot.OriginPosition);
-                update.Age = new Option<float>(snapshot.Age);
                 update.LastHatchTime = new Option<float>(snapshot.LastHatchTime);
+                update.Power = new Option<float>(snapshot.Power);
                 return update;
             }
 

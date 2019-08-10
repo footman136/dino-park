@@ -414,6 +414,37 @@ namespace Dinopark.Npc
             }
         }
 
+        private Dictionary<Action<float>, ulong> maxFoodUpdateCallbackToCallbackKey;
+        public event Action<float> OnMaxFoodUpdate
+        {
+            add
+            {
+                if (maxFoodUpdateCallbackToCallbackKey == null)
+                {
+                    maxFoodUpdateCallbackToCallbackKey = new Dictionary<Action<float>, ulong>();
+                }
+
+                var key = CallbackSystem.RegisterComponentUpdateCallback<DinoAttrs.Update>(EntityId, update =>
+                {
+                    if (update.MaxFood.HasValue)
+                    {
+                        value(update.MaxFood.Value);
+                    }
+                });
+                maxFoodUpdateCallbackToCallbackKey.Add(value, key);
+            }
+            remove
+            {
+                if (!maxFoodUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
+                {
+                    return;
+                }
+
+                CallbackSystem.UnregisterCallback(key);
+                maxFoodUpdateCallbackToCallbackKey.Remove(value);
+            }
+        }
+
         private Dictionary<Action<float>, ulong> originalScentUpdateCallbackToCallbackKey;
         public event Action<float> OnOriginalScentUpdate
         {
@@ -538,37 +569,6 @@ namespace Dinopark.Npc
             }
         }
 
-        private Dictionary<Action<float>, ulong> ageUpdateCallbackToCallbackKey;
-        public event Action<float> OnAgeUpdate
-        {
-            add
-            {
-                if (ageUpdateCallbackToCallbackKey == null)
-                {
-                    ageUpdateCallbackToCallbackKey = new Dictionary<Action<float>, ulong>();
-                }
-
-                var key = CallbackSystem.RegisterComponentUpdateCallback<DinoAttrs.Update>(EntityId, update =>
-                {
-                    if (update.Age.HasValue)
-                    {
-                        value(update.Age.Value);
-                    }
-                });
-                ageUpdateCallbackToCallbackKey.Add(value, key);
-            }
-            remove
-            {
-                if (!ageUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
-                {
-                    return;
-                }
-
-                CallbackSystem.UnregisterCallback(key);
-                ageUpdateCallbackToCallbackKey.Remove(value);
-            }
-        }
-
         private Dictionary<Action<float>, ulong> lastHatchTimeUpdateCallbackToCallbackKey;
         public event Action<float> OnLastHatchTimeUpdate
         {
@@ -597,6 +597,37 @@ namespace Dinopark.Npc
 
                 CallbackSystem.UnregisterCallback(key);
                 lastHatchTimeUpdateCallbackToCallbackKey.Remove(value);
+            }
+        }
+
+        private Dictionary<Action<float>, ulong> powerUpdateCallbackToCallbackKey;
+        public event Action<float> OnPowerUpdate
+        {
+            add
+            {
+                if (powerUpdateCallbackToCallbackKey == null)
+                {
+                    powerUpdateCallbackToCallbackKey = new Dictionary<Action<float>, ulong>();
+                }
+
+                var key = CallbackSystem.RegisterComponentUpdateCallback<DinoAttrs.Update>(EntityId, update =>
+                {
+                    if (update.Power.HasValue)
+                    {
+                        value(update.Power.Value);
+                    }
+                });
+                powerUpdateCallbackToCallbackKey.Add(value, key);
+            }
+            remove
+            {
+                if (!powerUpdateCallbackToCallbackKey.TryGetValue(value, out var key))
+                {
+                    return;
+                }
+
+                CallbackSystem.UnregisterCallback(key);
+                powerUpdateCallbackToCallbackKey.Remove(value);
             }
         }
 
@@ -656,6 +687,16 @@ namespace Dinopark.Npc
                 currentFoodUpdateCallbackToCallbackKey.Clear();
             }
 
+            if (maxFoodUpdateCallbackToCallbackKey != null)
+            {
+                foreach (var callbackToKey in maxFoodUpdateCallbackToCallbackKey)
+                {
+                    CallbackSystem.UnregisterCallback(callbackToKey.Value);
+                }
+
+                maxFoodUpdateCallbackToCallbackKey.Clear();
+            }
+
             if (originalScentUpdateCallbackToCallbackKey != null)
             {
                 foreach (var callbackToKey in originalScentUpdateCallbackToCallbackKey)
@@ -696,16 +737,6 @@ namespace Dinopark.Npc
                 originPositionUpdateCallbackToCallbackKey.Clear();
             }
 
-            if (ageUpdateCallbackToCallbackKey != null)
-            {
-                foreach (var callbackToKey in ageUpdateCallbackToCallbackKey)
-                {
-                    CallbackSystem.UnregisterCallback(callbackToKey.Value);
-                }
-
-                ageUpdateCallbackToCallbackKey.Clear();
-            }
-
             if (lastHatchTimeUpdateCallbackToCallbackKey != null)
             {
                 foreach (var callbackToKey in lastHatchTimeUpdateCallbackToCallbackKey)
@@ -714,6 +745,16 @@ namespace Dinopark.Npc
                 }
 
                 lastHatchTimeUpdateCallbackToCallbackKey.Clear();
+            }
+
+            if (powerUpdateCallbackToCallbackKey != null)
+            {
+                foreach (var callbackToKey in powerUpdateCallbackToCallbackKey)
+                {
+                    CallbackSystem.UnregisterCallback(callbackToKey.Value);
+                }
+
+                powerUpdateCallbackToCallbackKey.Clear();
             }
         }
     }
@@ -739,6 +780,11 @@ namespace Dinopark.Npc
                 component.CurrentFood = update.CurrentFood.Value;
             }
 
+            if (update.MaxFood.HasValue)
+            {
+                component.MaxFood = update.MaxFood.Value;
+            }
+
             if (update.OriginalScent.HasValue)
             {
                 component.OriginalScent = update.OriginalScent.Value;
@@ -759,14 +805,14 @@ namespace Dinopark.Npc
                 component.OriginPosition = update.OriginPosition.Value;
             }
 
-            if (update.Age.HasValue)
-            {
-                component.Age = update.Age.Value;
-            }
-
             if (update.LastHatchTime.HasValue)
             {
                 component.LastHatchTime = update.LastHatchTime.Value;
+            }
+
+            if (update.Power.HasValue)
+            {
+                component.Power = update.Power.Value;
             }
 
             EntityManager.SetComponentData(Entity, component);

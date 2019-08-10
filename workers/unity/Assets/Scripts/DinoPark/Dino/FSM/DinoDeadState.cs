@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Gamelogic.FSM;
 using Dinopark.Npc;
+using Improbable.Gdk.Core;
 
 public class DinoDeadState : FsmBaseState<DinoStateMachine, DinoAiFSMState.StateEnum>
 {
@@ -18,6 +19,10 @@ public class DinoDeadState : FsmBaseState<DinoStateMachine, DinoAiFSMState.State
 
     public override void Tick()
     {
+        if (parentBehaviour.attrsWriter.Data.CurrentFood <= 0)
+        {
+            Owner.TriggerTransition(DinoAiFSMState.StateEnum.VANISH, new EntityId(), DinoStateMachine.InvalidPosition);
+        }
     }
 
     public override void Exit(bool disabled)
