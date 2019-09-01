@@ -1,0 +1,22 @@
+package dinopark.player;
+import "improbable/vector3.schema";
+import "dino_park/npc/dino_egg.schema";
+
+type LayEggRequest{
+	dinopark.npc.EggTypeEnum egg_type = 1;
+  improbable.Vector3f egg_position = 2;
+}
+
+type LayEggResponse{
+	bool result = 1;
+  int32 error_code = 2;
+}
+
+component PlayerAttrs {
+	id = 1200;
+	int32 level = 1;
+	int32 exp = 2;
+	int32 energy = 3;
+	
+  command LayEggResponse lay_egg(LayEggRequest);
+}

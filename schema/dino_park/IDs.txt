@@ -1,0 +1,6 @@
+plants£º1600
+npc£º1800
+life£º1300
+fire£º1400
+core£º1000
+player£º1200

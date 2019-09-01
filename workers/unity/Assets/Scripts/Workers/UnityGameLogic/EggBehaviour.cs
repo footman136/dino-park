@@ -68,10 +68,10 @@ public class EggBehaviour : MonoBehaviour
         switch (_eggType)
         {
             case EggTypeEnum.Brachiosaurus:
-                exampleEntity = EntityTemplateFactory.CreateDinoBrachioTemplate(transform.position.ToCoordinates(), 0, 0); // 0岁小恐龙
+                exampleEntity = EntityTemplateFactory.CreateDinoBrachioTemplate(transform.position.ToCoordinates(), egg.Data.OwnEntityId, 0); // 0岁小恐龙
                 break;
             case EggTypeEnum.TRex:
-                exampleEntity = EntityTemplateFactory.CreateDinoTRexTemplate(transform.position.ToCoordinates(), 0, 0); // 0岁小恐龙
+                exampleEntity = EntityTemplateFactory.CreateDinoTRexTemplate(transform.position.ToCoordinates(), egg.Data.OwnEntityId, 0); // 0岁小恐龙
                 break;
         }
 
@@ -88,7 +88,7 @@ public class EggBehaviour : MonoBehaviour
         if (response.EntityId.HasValue)
         {
             var entityId = response.EntityId.Value;
-            // 这个函数毁掉的时候，被创建出来的恐龙的GameObject还没有被创建，所以本函数不能有任何访问被创建出来的物体的操作
+            // 这个函数回调的时候，被创建出来的恐龙的GameObject还没有被创建，所以本函数不能有任何访问被创建出来的物体的操作
             // 只能写一些针对自己的操作
         }
     }

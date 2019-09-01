@@ -6,6 +6,7 @@ using Improbable.Gdk.TransformSynchronization;
 using Improbable.Worker.CInterop;
 using UnityEngine;
 using Improbable.Gdk.GameObjectCreation;
+using Dinopark.Player;
 
 namespace DinoPark
 {
@@ -58,6 +59,8 @@ namespace DinoPark
             template.AddComponent(new Metadata.Snapshot("Player"), serverAttribute);
             template.AddComponent(new Persistence.Snapshot(), serverAttribute);
             template.AddComponent(new PlayerTransform.Snapshot(), clientAttribute);
+            template.AddComponent(new PlayerAttrs.Snapshot(), serverAttribute);
+
             TransformSynchronizationHelper.AddTransformSynchronizationComponents(template, clientAttribute);
             PlayerLifecycleHelper.AddPlayerLifecycleComponents(template, workerId, serverAttribute);
 

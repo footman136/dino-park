@@ -11,16 +11,6 @@ enum EggTypeEnum{
 	NONE = 10;
 }
 
-type HatchRequest{
-	EggTypeEnum egg_type = 1;
-  improbable.Vector3f egg_position = 2;
-}
-
-type HatchResponse{
-	EggTypeEnum hatch_out_type = 1;
-  improbable.Vector3f hatch_out_position = 2;
-}
-
 enum EggStateEnum{
 	GOOD = 1;
 	BROKEN = 2;
@@ -34,5 +24,5 @@ component EggData {
 	EggTypeEnum egg_type = 1;
   float current_food = 2;
 	EggStateEnum current_state = 3;
-  command HatchResponse hatch(HatchRequest);
+	int64 own_entity_id = 4;
 }

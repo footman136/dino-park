@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <CscToolPath>D:\Unity2019.1.6\Editor\Data\Tools\RoslynScripts</CscToolPath>
@@ -163,26 +162,17 @@
     <Compile Include="Assets\Generated\Source\dinopark\npc\EatRequest.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EatResponse.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggData.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataCommandComponents.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataCommandDiffDeserializer.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataCommandDiffStorage.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataCommandMetaDataStorage.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataCommandPayloads.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataCommandSenderReceiver.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataComponentDiffDeserializer.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataComponentDiffStorage.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataComponentReaderWriter.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataEcsViewManager.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataProviders.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataReactiveCommandComponents.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataReactiveComponents.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataReactiveHandlers.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataUpdateSender.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggDataViewStorage.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggStateEnum.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\npc\EggTypeEnum.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\HatchRequest.cs" />
-    <Compile Include="Assets\Generated\Source\dinopark\npc\HatchResponse.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\plants\Harvestable.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\plants\HarvestableCommandComponents.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\plants\HarvestableCommandDiffDeserializer.cs" />
@@ -215,6 +205,25 @@
     <Compile Include="Assets\Generated\Source\dinopark\plants\TreeStateUpdateSender.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\plants\TreeStateViewStorage.cs" />
     <Compile Include="Assets\Generated\Source\dinopark\plants\TreeType.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\LayEggRequest.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\LayEggResponse.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrs.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsCommandComponents.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsCommandDiffDeserializer.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsCommandDiffStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsCommandMetaDataStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsCommandPayloads.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsCommandSenderReceiver.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsComponentDiffDeserializer.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsComponentDiffStorage.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsComponentReaderWriter.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsEcsViewManager.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsProviders.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsReactiveCommandComponents.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsReactiveComponents.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsReactiveHandlers.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsUpdateSender.cs" />
+    <Compile Include="Assets\Generated\Source\dinopark\player\PlayerAttrsViewStorage.cs" />
     <Compile Include="Assets\Generated\Source\improbable\ComponentInterest.cs" />
     <Compile Include="Assets\Generated\Source\improbable\Coordinates.cs" />
     <Compile Include="Assets\Generated\Source\improbable\EdgeLength.cs" />

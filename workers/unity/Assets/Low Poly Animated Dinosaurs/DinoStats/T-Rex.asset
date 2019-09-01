@@ -19,15 +19,15 @@ MonoBehaviour:
   toughness: 50
   agression: 100
   attackSpeed: 2.5
-  territorial: 1
+  territorial: 0
   stealthy: 0
   awareness: 30
   scent: 30
   nonAgressiveTowards: []
   contingencyDistance: 4
   thinkingFrequency: 1
-  moveSpeed: 4
-  runSpeed: 8
+  moveSpeed: 6
+  runSpeed: 10
   turnSpeed: 120
   hardTime: 40
   foodStorage: 50

@@ -6,6 +6,7 @@ using Dinopark.Fire;
 using Dinopark.Life;
 using Dinopark.Npc;
 using Dinopark.Plants;
+using Dinopark.Player;
 using Improbable;
 using Improbable.Gdk.Core;
 using Improbable.Gdk.PlayerLifecycle;
@@ -36,6 +37,7 @@ namespace DinoPark
 		    template.AddComponent(new Persistence.Snapshot(), serverAttribute);
 		    template.AddComponent(new PlayerCreator.Snapshot(), serverAttribute);
 		    template.AddComponent(new TransformComponent.Snapshot(0), serverAttribute);
+		    template.AddComponent(new PlayerAttrs.Snapshot(), serverAttribute);
 
 		    template.SetReadAccess(UnityClientConnector.WorkerType, UnityGameLogicConnector.WorkerType, MobileClientWorkerConnector.WorkerType);
 		    template.SetComponentWriteAccess(EntityAcl.ComponentId, serverAttribute);
@@ -65,7 +67,7 @@ namespace DinoPark
 		    return template;
 	    }
 
-	    public static EntityTemplate CreateDinoBrachioTemplate(Coordinates initialPosition, uint teamId, int age)
+	    public static EntityTemplate CreateDinoBrachioTemplate(Coordinates initialPosition, long ownerId, int age)
 	    {
 		    var serverAttribute = UnityGameLogicConnector.WorkerType;
 		    var template = new EntityTemplate();
@@ -77,7 +79,7 @@ namespace DinoPark
 		    template.AddComponent(new TransformComponent.Snapshot(spawnRotation), serverAttribute);
 
 		    template.AddComponent(new DinoAiData.Snapshot(), serverAttribute);
-		    template.AddComponent(new DinoAttrs.Snapshot(), serverAttribute);
+		    template.AddComponent(new DinoAttrs.Snapshot(false, 0f, 0f, 0f, 0f, 0, initialPosition.ToUnityVector().ToVector3f(), ownerId, 0f, 0f), serverAttribute);
 		    
 		    template.AddComponent(new Health.Snapshot(), serverAttribute);
 		    template.AddComponent(new Age.Snapshot(age, SimulationSettings.NPCAgeMax, SimulationSettings.NPCAgeGrowUp), serverAttribute);
@@ -92,7 +94,7 @@ namespace DinoPark
 		    return template;
 	    }
 
-	    public static EntityTemplate CreateDinoTRexTemplate(Coordinates initialPosition, uint teamId, int age)
+	    public static EntityTemplate CreateDinoTRexTemplate(Coordinates initialPosition, long ownerId, int age)
 	    {
 		    var serverAttribute = UnityGameLogicConnector.WorkerType;
 		    var template = new EntityTemplate();
@@ -104,7 +106,7 @@ namespace DinoPark
 		    template.AddComponent(new TransformComponent.Snapshot(spawnRotation), serverAttribute);
 		    
 		    template.AddComponent(new DinoAiData.Snapshot(), serverAttribute);
-		    template.AddComponent(new DinoAttrs.Snapshot(), serverAttribute);
+		    template.AddComponent(new DinoAttrs.Snapshot(false, 0f, 0f, 0f, 0f, 0, initialPosition.ToUnityVector().ToVector3f(), ownerId, 0f, 0f), serverAttribute);
 		    
 		    template.AddComponent(new Health.Snapshot(), serverAttribute);
 		    template.AddComponent(new Age.Snapshot(age, SimulationSettings.NPCAgeMax, SimulationSettings.NPCAgeGrowUp), serverAttribute);
@@ -115,7 +117,7 @@ namespace DinoPark
 		    return template;
 	    }
 	    
-	    public static EntityTemplate CreateEggTemplate(Coordinates initialPosition, uint teamId, EggTypeEnum eggType)
+	    public static EntityTemplate CreateEggTemplate(Coordinates initialPosition, long ownerId, EggTypeEnum eggType)
 	    {
 		    var serverAttribute = UnityGameLogicConnector.WorkerType;
 		    var template = new EntityTemplate();
@@ -126,7 +128,7 @@ namespace DinoPark
 		    //Debug.Log("Egg position : <" + initialPosition + "> rotation : <" + spawnRotation + ">");
 		    template.AddComponent(new TransformComponent.Snapshot(spawnRotation), serverAttribute);
 		    
-		    template.AddComponent(new EggData.Snapshot(eggType, 0, EggStateEnum.GOOD), serverAttribute);
+		    template.AddComponent(new EggData.Snapshot(eggType, 0, EggStateEnum.GOOD, ownerId), serverAttribute);
 		    
 		    template.SetReadAccess(UnityClientConnector.WorkerType, UnityGameLogicConnector.WorkerType, MobileClientWorkerConnector.WorkerType);
 		    template.SetComponentWriteAccess(EntityAcl.ComponentId, serverAttribute);

@@ -1,0 +1,79 @@
+﻿using Assets.Gamelogic.Utils;
+using Dinopark.Player;
+using UnityEngine;
+using Improbable.Gdk.Subscriptions;
+using Improbable.Gdk.Core;
+
+public class PlayerVisualizer : MonoBehaviour
+{
+    [Require] private PlayerAttrsReader attrs;
+    [Require] private PlayerAttrsCommandSender commandSender;
+    [Require] private EntityId entityId;
+
+    [SerializeField] private int _energy;
+    public int Energy
+    {
+        get { return _energy; }
+    }
+
+    private PlayerVisualizer _inst;
+    public PlayerVisualizer Instance
+    {
+        get { return _inst; }
+    }
+
+    void Awake()
+    {
+        _inst = this;
+    }
+        
+    // Start is called before the first frame update
+    void Start()
+    {
+        GameManager.Instance.Player = this;
+        attrs.OnUpdate += OnUpdateAttrs;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
+
+    private void OnUpdateAttrs(PlayerAttrs.Update update)
+    {
+        _energy = update.Energy;
+        UIManager.CommandMenu.SetEnergy(_energy);
+    }
+    
+    public void LayEgg(Dinopark.Npc.EggTypeEnum eggType, Vector3 pos)
+    {
+        LayEggRequest request = new LayEggRequest()
+        {
+            EggType = eggType,
+            EggPosition = pos.ToVector3f() 
+        };
+        commandSender.SendLayEggCommand(entityId, request, OnLayEggResponse);
+    }
+
+    private void OnLayEggResponse(PlayerAttrs.LayEgg.ReceivedResponse response)
+    {
+        if(!string.IsNullOrEmpty(response.Message))
+        {
+            Debug.LogError("PlayerVisualizer - Lay Egg failed! " + response.Message);
+            UIManager.Instance.SystemTips(response.Message, PanelSystemTips.MessageType.Error);
+            return;
+        }
+        if (response.ResponsePayload.HasValue)
+        {
+            if (response.ResponsePayload.Value.Result)
+            {
+                // Lay egg succeeded.
+            }
+            else
+            {
+                Debug.LogError("PlayerVisualizer - Lay Egg failed! " + response.ResponsePayload.Value.ErrorCode);
+                UIManager.Instance.SystemTips("下了个蛋。。。", PanelSystemTips.MessageType.Success);
+            }
+        }
+    }
+}

@@ -21,12 +21,12 @@ MonoBehaviour:
   attackSpeed: 0.5
   territorial: 0
   stealthy: 0
-  awareness: 30
+  awareness: 25
   scent: 30
   nonAgressiveTowards: []
   contingencyDistance: 5
   thinkingFrequency: 1
-  moveSpeed: 2
+  moveSpeed: 3
   runSpeed: 6
   turnSpeed: 120
   hardTime: 40
@@ -35,3 +35,8 @@ MonoBehaviour:
   liveCost: 1
   appetite: 5
   vegetarian: 1
+  hatchRate: 0.67
+  hatchDelay: 30
+  layEggTime: 5
+  growUpTime: 60
+  ageMax: 1200
