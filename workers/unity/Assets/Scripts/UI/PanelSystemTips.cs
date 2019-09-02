@@ -8,6 +8,7 @@ public class PanelSystemTips : MonoBehaviour
 {
     [SerializeField] private Text _lbMsg;
     [SerializeField] private Animation _ani;
+    [SerializeField] private AnimationClip _clip;
 
     public enum MessageType
     {
@@ -22,7 +23,6 @@ public class PanelSystemTips : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -56,6 +56,7 @@ public class PanelSystemTips : MonoBehaviour
 
         _lbMsg.color = color;
         _ani.Stop();
+        _ani.clip = _clip;
         _ani.Play();
     }
     

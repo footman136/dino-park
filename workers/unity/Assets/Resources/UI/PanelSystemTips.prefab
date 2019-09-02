@@ -91,7 +91,8 @@ GameObject:
   - component: {fileID: 3965849368507919245}
   - component: {fileID: 484261642605731691}
   - component: {fileID: 878910165179886603}
-  - component: {fileID: 5140873313082702199}
+  - component: {fileID: -5063659171380812625}
+  - component: {fileID: 7633451188770309193}
   m_Layer: 5
   m_Name: PanelSystemTips
   m_TagString: Untagged
@@ -169,7 +170,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lbMsg: {fileID: 798964532506477506}
---- !u!111 &5140873313082702199
+  _ani: {fileID: -5063659171380812625}
+  _clip: {fileID: 7400000, guid: b4118a803373a0d47904e1eeff3cda33, type: 2}
+--- !u!111 &-5063659171380812625
 Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,3 +187,22 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!95 &7633451188770309193
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942376404543019137}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2099305d619952240ade145c5e35fb92, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -68,11 +68,14 @@ public class PlayerVisualizer : MonoBehaviour
             if (response.ResponsePayload.Value.Result)
             {
                 // Lay egg succeeded.
+                UIManager.Instance.SystemTips("下了个蛋。。。", PanelSystemTips.MessageType.Success);
             }
             else
             {
-                Debug.LogError("PlayerVisualizer - Lay Egg failed! " + response.ResponsePayload.Value.ErrorCode);
-                UIManager.Instance.SystemTips("下了个蛋。。。", PanelSystemTips.MessageType.Success);
+                string errMsg = "PlayerVisualizer - Lay Egg failed! Error Code:" +
+                                response.ResponsePayload.Value.ErrorCode;
+                Debug.LogError(errMsg);
+                UIManager.Instance.SystemTips(errMsg, PanelSystemTips.MessageType.Error);
             }
         }
     }
