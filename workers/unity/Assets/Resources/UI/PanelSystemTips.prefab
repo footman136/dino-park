@@ -172,6 +172,7 @@ MonoBehaviour:
   _lbMsg: {fileID: 798964532506477506}
   _ani: {fileID: -5063659171380812625}
   _clip: {fileID: 7400000, guid: b4118a803373a0d47904e1eeff3cda33, type: 2}
+  _animator: {fileID: 7633451188770309193}
 --- !u!111 &-5063659171380812625
 Animation:
   m_ObjectHideFlags: 0

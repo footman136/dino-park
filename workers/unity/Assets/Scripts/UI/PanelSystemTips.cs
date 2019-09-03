@@ -9,6 +9,7 @@ public class PanelSystemTips : MonoBehaviour
     [SerializeField] private Text _lbMsg;
     [SerializeField] private Animation _ani;
     [SerializeField] private AnimationClip _clip;
+    [SerializeField] private Animator _animator;
 
     public enum MessageType
     {
@@ -33,7 +34,6 @@ public class PanelSystemTips : MonoBehaviour
 
     public void Show(string msg, MessageType msgType)
     {
-        _lbMsg.text = msg;
         Color color = Color.white;
         switch (msgType)
         {
@@ -55,9 +55,14 @@ public class PanelSystemTips : MonoBehaviour
         }
 
         _lbMsg.color = color;
-        _ani.Stop();
-        _ani.clip = _clip;
-        _ani.Play();
+        _lbMsg.text = msg;
+
+//        _ani.Stop();
+//        _ani.clip = _clip;
+//        _ani.Rewind();
+//        _ani.Play();
+        _animator.Update(0f);
+        _animator.Play("SystemTips");
     }
     
 }

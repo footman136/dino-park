@@ -40,6 +40,9 @@ public class PanelCommandMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 检测如果点击了UI，则直接返回，不进行点击场景的判定
+        if (UIManager.Instance.IsPointerOverGameObject(Input.mousePosition))
+            return;
         if (Input.GetMouseButtonUp(0))
         {
             EggTypeEnum eggType = EggTypeEnum.NONE;

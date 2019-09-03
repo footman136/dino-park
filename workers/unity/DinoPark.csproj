@@ -122,6 +122,7 @@
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\MovementState.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\SurfaceRotation.cs" />
     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\WanderScript.cs" />
+    <Compile Include="Assets\Resources\UI\test.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DinoPark\Dino\FSM\DinoAttackState.cs" />
     <Compile Include="Assets\Scripts\DinoPark\Dino\FSM\DinoChaseState.cs" />
