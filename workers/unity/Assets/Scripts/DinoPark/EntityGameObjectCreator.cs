@@ -39,7 +39,7 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/Authoritative/Player";
                 var prefab = Resources.Load(pathPrefab);
-                var playerGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootPlayers);
+                var playerGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.PLAYER]);
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)playerGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Player GameObject created!");
             }
@@ -47,7 +47,7 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.TreePrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootPlants);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.TREE]);
                 entityGameObject.name = SimulationSettings.TreePrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A tree GameObject created");
@@ -56,7 +56,7 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Dino_Brachio_PrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootDinos);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.BRACHIO]);
                 entityGameObject.name = SimulationSettings.Dino_Brachio_PrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer Brachiosaurus GameObject created<"+entity.SpatialOSEntityId+">");
@@ -65,7 +65,7 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Dino_TRex_PrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootDinos);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.TREX]);
                 entityGameObject.name = SimulationSettings.Dino_TRex_PrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer T-Rex GameObject created<"+entity.SpatialOSEntityId+">");
@@ -74,7 +74,7 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Egg_PrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootEggs);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.EGG]);
                 entityGameObject.name = SimulationSettings.Egg_PrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - An Egg GameObject created");

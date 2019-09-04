@@ -29,17 +29,23 @@ namespace LowPolyAnimalPack
         return instance;
       }
     }
-    
-    private const string ROOT_PLAYER_NAME = "Players"; 
-    private const string ROOT_DINO_NAME = "Dinos"; 
-    private const string ROOT_PLANT_NAME = "Plants"; 
-    private const string ROOT_EGG_NAME = "Eggs"; 
-      
-    public Transform RootPlayers { set; get; }
-    public Transform RootDinos { set; get; }
-    public Transform RootPlants { set; get; }
-    public Transform RootEggs { set; get; }
 
+    public enum ANIMAL_TYPE
+    {
+        PLAYER = 0,
+        EGG = 1,
+        TREE = 2,
+        BRACHIO = 3,
+        TREX = 4,
+        COUNT = 5,
+    };
+    
+    
+    private string [] ROOT_NAMES = {
+      "Players", "Eggs", "Tree", "Brachio", "TRex", 
+    };
+
+    public Transform[] Roots;
     private void Awake()
     {
       if (instance != null && instance != this)
@@ -49,22 +55,15 @@ namespace LowPolyAnimalPack
       }
 
       instance = this;
-      var go = new GameObject();
-      RootPlayers = go.transform;
-      RootPlayers.parent = transform;
-      RootPlayers.name = ROOT_PLAYER_NAME;
-       go = new GameObject();
-      RootDinos = go.transform;
-      RootDinos.parent = transform;
-      RootDinos.name = ROOT_DINO_NAME;
-      go = new GameObject();
-      RootPlants = go.transform;
-      RootPlants.parent = transform;
-      RootPlants.name = ROOT_PLANT_NAME;
-      go = new GameObject();
-      RootEggs = go.transform;
-      RootEggs.parent = transform;
-      RootEggs.name = ROOT_EGG_NAME;
+
+      Roots = new Transform[(int)ANIMAL_TYPE.COUNT];
+      for (int i = 0; i < (int)ANIMAL_TYPE.COUNT; ++i)
+      {
+        var go = new GameObject();
+        Roots[i] = go.transform;
+        Roots[i].parent = transform;
+        Roots[i].name = ROOT_NAMES[i];
+      }
     }
 
     private void Start()
@@ -88,10 +87,10 @@ namespace LowPolyAnimalPack
       _lastTime = 0;
       
       // 刷新个体的数量
-      RootPlayers.name = ROOT_PLAYER_NAME + " (" + RootPlayers.childCount + ")";
-      RootDinos.name = ROOT_DINO_NAME + " (" + RootDinos.childCount + ")";
-      RootPlants.name = ROOT_PLANT_NAME + " (" + RootPlants.childCount + ")";
-      RootEggs.name = ROOT_EGG_NAME + " (" + RootEggs.childCount + ")";
+      for (int i = 0; i < (int) ANIMAL_TYPE.COUNT; ++i)
+      {
+        Roots[i].name = ROOT_NAMES[i] + " (" + Roots[i].childCount + ")";
+      }
     }
 
     public void SwitchPeaceTime(bool enabled)

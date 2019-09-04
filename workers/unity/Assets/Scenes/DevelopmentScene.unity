@@ -1121,6 +1121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   peaceTime: 0
+  Roots: []
 --- !u!4 &912970900
 Transform:
   m_ObjectHideFlags: 0
@@ -12342,11 +12343,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5014395231273572292, guid: 635dc874eb7ac7f45922a46a34d3d4a9,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 635dc874eb7ac7f45922a46a34d3d4a9, type: 3}
