@@ -66,7 +66,7 @@ public class PanelCommandMenu : MonoBehaviour
                 var pos = Input.mousePosition;
                 Ray ray = new Ray(pos, Vector3.down);
                 Ray ray2 = _camera.ScreenPointToRay(Input.mousePosition);
-                Debug.Log("Mouse Positin:"+pos+"  ray:"+ray2);
+                Debug.Log("Mouse Position:"+pos+"  ray:"+ray2);
                 RaycastHit hitInfo;
                 //Physics.Raycast(ray2, out hitInfo, 100, LayerMask.NameToLayer("Ground"));
                 Physics.Raycast(ray2, out hitInfo, 100);
