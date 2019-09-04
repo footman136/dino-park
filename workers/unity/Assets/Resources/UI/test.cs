@@ -22,6 +22,5 @@ public class test : MonoBehaviour
     void SystemTip()
     {
         UIManager.Instance.SystemTips("Hello World!", PanelSystemTips.MessageType.Success);
-        Debug.Log("hello");
     }
 }
