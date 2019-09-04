@@ -5,6 +5,7 @@ using Improbable.Gdk.Core;
 using Improbable.Gdk.GameObjectCreation;
 using Improbable.Gdk.PlayerLifecycle;
 using Improbable.Gdk.Subscriptions;
+using LowPolyAnimalPack;
 using Unity.Entities;
 using UnityEngine;
 
@@ -38,7 +39,7 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/Authoritative/Player";
                 var prefab = Resources.Load(pathPrefab);
-                var playerGameObject = UnityEngine.Object.Instantiate(prefab);
+                var playerGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootPlayers);
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)playerGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Player GameObject created!");
             }
@@ -46,7 +47,7 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.TreePrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootPlants);
                 entityGameObject.name = SimulationSettings.TreePrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A tree GameObject created");
@@ -55,27 +56,27 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Dino_Brachio_PrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab) as GameObject;
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootDinos);
                 entityGameObject.name = SimulationSettings.Dino_Brachio_PrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
-                linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, entityGameObject);
+                linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer Brachiosaurus GameObject created<"+entity.SpatialOSEntityId+">");
             }
             else if (isDinoTRex)
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Dino_TRex_PrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab) as GameObject;
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootDinos);
                 entityGameObject.name = SimulationSettings.Dino_TRex_PrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
-                linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, entityGameObject);
+                linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer T-Rex GameObject created<"+entity.SpatialOSEntityId+">");
             }
             else if (isEgg)
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Egg_PrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab) as GameObject;
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.RootEggs);
                 entityGameObject.name = SimulationSettings.Egg_PrefabName + "(ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
-                linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, entityGameObject);
+                linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - An Egg GameObject created");
             }
             else

@@ -57,12 +57,6 @@ public class PlayerVisualizer : MonoBehaviour
 
     private void OnLayEggResponse(PlayerAttrs.LayEgg.ReceivedResponse response)
     {
-        if(!string.IsNullOrEmpty(response.Message))
-        {
-            Debug.LogError("PlayerVisualizer - Lay Egg failed! " + response.Message);
-            UIManager.Instance.SystemTips(response.Message, PanelSystemTips.MessageType.Error);
-            return;
-        }
         if (response.ResponsePayload.HasValue)
         {
             if (response.ResponsePayload.Value.Result)
@@ -77,6 +71,13 @@ public class PlayerVisualizer : MonoBehaviour
                 Debug.LogError(errMsg);
                 UIManager.Instance.SystemTips(errMsg, PanelSystemTips.MessageType.Error);
             }
+
+            return;
+        }
+        if(!string.IsNullOrEmpty(response.Message))
+        {
+            Debug.LogError("PlayerVisualizer - Lay Egg failed! " + response.Message);
+            UIManager.Instance.SystemTips(response.Message, PanelSystemTips.MessageType.Error);
         }
     }
 }

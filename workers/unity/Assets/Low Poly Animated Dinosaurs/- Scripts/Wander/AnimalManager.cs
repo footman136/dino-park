@@ -29,6 +29,16 @@ namespace LowPolyAnimalPack
         return instance;
       }
     }
+    
+    private const string ROOT_PLAYER_NAME = "Players"; 
+    private const string ROOT_DINO_NAME = "Dinos"; 
+    private const string ROOT_PLANT_NAME = "Plants"; 
+    private const string ROOT_EGG_NAME = "Eggs"; 
+      
+    public Transform RootPlayers { set; get; }
+    public Transform RootDinos { set; get; }
+    public Transform RootPlants { set; get; }
+    public Transform RootEggs { set; get; }
 
     private void Awake()
     {
@@ -39,6 +49,22 @@ namespace LowPolyAnimalPack
       }
 
       instance = this;
+      var go = new GameObject();
+      RootPlayers = go.transform;
+      RootPlayers.parent = transform;
+      RootPlayers.name = ROOT_PLAYER_NAME;
+       go = new GameObject();
+      RootDinos = go.transform;
+      RootDinos.parent = transform;
+      RootDinos.name = ROOT_DINO_NAME;
+      go = new GameObject();
+      RootPlants = go.transform;
+      RootPlants.parent = transform;
+      RootPlants.name = ROOT_PLANT_NAME;
+      go = new GameObject();
+      RootEggs = go.transform;
+      RootEggs.parent = transform;
+      RootEggs.name = ROOT_EGG_NAME;
     }
 
     private void Start()
@@ -48,6 +74,24 @@ namespace LowPolyAnimalPack
         Debug.Log("AnimalManager: Peacetime is enabled, all animals are non-agressive.");
         SwitchPeaceTime(true);
       }
+    }
+
+    private const float TIME_DELAY = 1f; 
+    private float _lastTime = 0;
+    void Update()
+    {
+      _lastTime += Time.deltaTime;
+      if (_lastTime < TIME_DELAY)
+      {
+        return;
+      }
+      _lastTime = 0;
+      
+      // 刷新个体的数量
+      RootPlayers.name = ROOT_PLAYER_NAME + " (" + RootPlayers.childCount + ")";
+      RootDinos.name = ROOT_DINO_NAME + " (" + RootDinos.childCount + ")";
+      RootPlants.name = ROOT_PLANT_NAME + " (" + RootPlants.childCount + ")";
+      RootEggs.name = ROOT_EGG_NAME + " (" + RootEggs.childCount + ")";
     }
 
     public void SwitchPeaceTime(bool enabled)
