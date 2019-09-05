@@ -118,7 +118,7 @@ public class EggVisualizer : MonoBehaviour
 //        worldCommandSender.SendDeleteEntityCommand(request);
 //        //Debug.Log("Server - destroy an egg:"+_entityId);
         // 客户端貌似不能发送WorldCommand
-        Destroy(this, 30f);
+        Destroy(gameObject);
     }
 
 }

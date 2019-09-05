@@ -99,6 +99,8 @@ public class EggBehaviour : MonoBehaviour
         var linkentity = GetComponent<LinkedEntityComponent>();
         var request = new WorldCommands.DeleteEntity.Request(linkentity.EntityId);
         worldCommandSender.SendDeleteEntityCommand(request);
+
+        Destroy(gameObject);
         //Debug.Log("Server - destroy an egg:"+_entityId);
     }
 }

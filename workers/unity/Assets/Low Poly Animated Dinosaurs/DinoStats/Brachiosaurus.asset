@@ -15,7 +15,7 @@ MonoBehaviour:
   species: Brachiosaurus
   dominance: 1
   stamina: 6
-  power: 5
+  power: 4
   toughness: 100
   agression: 0
   attackSpeed: 0.5

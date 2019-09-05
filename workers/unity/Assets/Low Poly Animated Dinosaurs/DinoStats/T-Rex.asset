@@ -22,7 +22,7 @@ MonoBehaviour:
   territorial: 0
   stealthy: 0
   awareness: 30
-  scent: 30
+  scent: 60
   nonAgressiveTowards: []
   contingencyDistance: 4
   thinkingFrequency: 1

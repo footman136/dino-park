@@ -350,6 +350,10 @@ public class DinoBehaviour : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// 寻找天敌
+    /// </summary>
+    /// <returns></returns>
     private bool LookforPredator()
     {
         if (ScriptableAnimalStats.awareness <= 0) // 没有感知能力，不进入此逻辑
@@ -403,6 +407,10 @@ public class DinoBehaviour : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    ///  寻找猎物
+    /// </summary>
+    /// <returns></returns>
     private bool LookforPrey()
     {
         if (ScriptableAnimalStats.dominance <= 0) // 处于食物链的低端，不会寻找猎物
@@ -755,6 +763,7 @@ public class DinoBehaviour : MonoBehaviour
         var linkentity = GetComponent<LinkedEntityComponent>();
         var request = new WorldCommands.DeleteEntity.Request(linkentity.EntityId);
         worldCommandSender.SendDeleteEntityCommand(request);
+        Destroy(gameObject);
     }
 
     public void LayEgg()

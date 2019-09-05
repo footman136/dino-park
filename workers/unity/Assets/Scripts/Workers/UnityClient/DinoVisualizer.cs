@@ -291,6 +291,6 @@ public class DinoVisualizer : MonoBehaviour
 //        var request = new WorldCommands.DeleteEntity.Request(linkentity.EntityId);
 //        worldCommandSender.SendDeleteEntityCommand(request);
 //        //Debug.Log("Server - destroy an egg:"+_entityId);
-        Destroy(this, 30f);
+        Destroy(gameObject);
     }
 }
