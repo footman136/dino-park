@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using Assets.Gamelogic.Core;
-using Dinopark.Player;
+﻿using Dinopark.Player;
 using UnityEngine;
 using Improbable.Gdk.Subscriptions;
 using Improbable.Gdk.Core;
@@ -9,7 +7,6 @@ using Dinopark.Npc;
 using DinoPark;
 using Improbable.Gdk.Core.Commands;
 using Improbable;
-using UnityEditor.PackageManager;
 
 public class PlayerBehaviour : MonoBehaviour
 {

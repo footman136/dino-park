@@ -55,16 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DataDiagram\Editor\DD_Menu.cs" />
-    <Compile Include="Assets\DataDiagram\Example\Sample.cs" />
-    <Compile Include="Assets\DataDiagram\Script\DD_CoordinateAxis.cs" />
-    <Compile Include="Assets\DataDiagram\Script\DD_DataDiagram.cs" />
-    <Compile Include="Assets\DataDiagram\Script\DD_DragBar.cs" />
-    <Compile Include="Assets\DataDiagram\Script\DD_DrawGraphic.cs" />
-    <Compile Include="Assets\DataDiagram\Script\DD_LineButton.cs" />
-    <Compile Include="Assets\DataDiagram\Script\DD_LineButtonsContent.cs" />
-    <Compile Include="Assets\DataDiagram\Script\DD_Lines.cs" />
-    <Compile Include="Assets\DataDiagram\Script\DD_ZoomButton.cs" />
     <Compile Include="Assets\Gamelogic\ComponentExtensions\HealthExtensions.cs" />
     <Compile Include="Assets\Gamelogic\ComponentExtensions\InventoryExtension.cs" />
     <Compile Include="Assets\Gamelogic\Core\CharacterDeathVisualizer.cs" />

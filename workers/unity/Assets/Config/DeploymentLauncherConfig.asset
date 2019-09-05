@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: DeploymentLauncherConfig
   m_EditorClassIdentifier: 
   AssemblyConfig:
-    ProjectName: unity_gdk
-    AssemblyName: blank_assembly
-    ShouldForceUpload: 0
+    ProjectName: beta_maryland_nuts_352
+    AssemblyName: dinopark_assembly
+    ShouldForceUpload: 1
   DeploymentConfigs:
-  - ProjectName: unity_gdk
-    AssemblyName: blank_assembly
+  - ProjectName: beta_maryland_nuts_352
+    AssemblyName: dinopark_assembly
     Deployment:
-      Name: blank_deployment
+      Name: dinopark_deployment
       SnapshotPath: snapshots/default.snapshot
       LaunchJson: cloud_launch.json
       Region: 1
