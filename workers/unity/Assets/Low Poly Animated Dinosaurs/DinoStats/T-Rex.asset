@@ -15,7 +15,7 @@ MonoBehaviour:
   species: T-Rex
   dominance: 6
   stamina: 10
-  power: 35
+  power: 20
   toughness: 50
   agression: 100
   attackSpeed: 2.5

@@ -76,5 +76,19 @@ namespace Assets.Gamelogic.Tree
             //Debug.Log("TreeBehaviour SendHarvestCommand Harvester<"+request.Harvester+"> Tree<"+_entityId.Id+"> Resource Need<"+request.ResourcesNeed+">");
         }
 
+        public static int AliveCount()
+        {
+            int count = 0;
+            foreach(var treePair in TreeBehaviour.AllTrees)
+            {
+                if (treePair.Value.IsAlive())
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        public bool IsAlive() => stateMachine.Data.CurrentState == TreeFSMState.HEALTHY;
     }
 }

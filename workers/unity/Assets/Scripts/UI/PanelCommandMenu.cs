@@ -1,4 +1,5 @@
-﻿using Dinopark.Npc;
+﻿using Assets.Gamelogic.Tree;
+using Dinopark.Npc;
 using UnityEngine;
 using Improbable.Gdk.Core;
 using Improbable.Gdk.Subscriptions;
@@ -92,14 +93,21 @@ public class PanelCommandMenu : MonoBehaviour
         {
             int countOld = _counts[i];
             int countNow = AnimalManager.Instance.Roots[i].childCount;
+            if (i == (int) AnimalManager.ANIMAL_TYPE.TREE)
+            {
+                countNow = TreeBehaviour.AliveCount();
+            }
             string msgCount = countNow.ToString();
+            _lbCounts[i].fontSize = 14;
             if (countNow > countOld)
             {
-                msgCount = "<color=#7FFF00>" + countNow + "</color>";
+                msgCount = "<color=#22BB22>" + countNow + "</color>";
+                _lbCounts[i].fontSize = 18;
             }
             else if (countNow < countOld)
             {
                 msgCount = "<color=red>" + countNow + "</color>";
+                _lbCounts[i].fontSize = 18;
             }
             _counts[i] = countNow;
             _lbCounts[i].text = msgCount.ToString();
