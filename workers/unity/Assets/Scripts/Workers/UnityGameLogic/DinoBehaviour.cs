@@ -88,7 +88,12 @@ public class DinoBehaviour : MonoBehaviour
         bFirst = true;
         gameObject.SetActive(true);
         newBorn();
-        InvokeRepeating("AI_Running", 3, ScriptableAnimalStats.thinkingFrequency);
+        StartCoroutine(Running());
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();        
     }
 
     // Update is called once per frame
@@ -240,6 +245,17 @@ public class DinoBehaviour : MonoBehaviour
 #endregion
     
 #region AI 函数 - 第一层
+
+    IEnumerator Running()
+    {
+        yield return new WaitForSeconds(ScriptableAnimalStats.thinkingFrequency);
+        while (true)
+        {
+            AI_Running();
+            
+            yield return new WaitForSeconds(ScriptableAnimalStats.thinkingFrequency);
+        }
+    }
 
     private bool bFirst = true;
     private float _lastTime = 0f;

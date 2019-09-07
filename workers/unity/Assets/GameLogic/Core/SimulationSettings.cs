@@ -34,7 +34,7 @@ namespace Assets.Gamelogic.Core
         public static int HarvestReturnQuantity = 1;
 //        public static int TreeBurningTimeSecs = 10;
         public static int TreeStumpRegrowthTimeSecs = 30; //300
-        public static int BurntTreeRegrowthTimeSecs = 120; //600
+        public static int BurntTreeRegrowthTimeSecs = 240; //600
         public static float TreeIgnitionTimeBuffer = 0.4f;
         public static float TreeExtinguishTimeBuffer = 1f;
         public static float TreeCutDownTimeBuffer = 1f;
