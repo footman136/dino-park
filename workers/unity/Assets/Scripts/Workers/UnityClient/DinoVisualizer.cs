@@ -214,6 +214,27 @@ public class DinoVisualizer : MonoBehaviour
         originalAgression = attrsReader.Data.OriginalAgression;
         originalDominance = attrsReader.Data.OriginalDominance;
         origin = attrsReader.Data.OriginPosition.ToUnityVector();
+        
+        // 修改模型颜色
+        if (attrsReader.Data.OwnEntityId != 0)
+        {
+            if (attrsReader.Data.OwnEntityId == GameManager.Instance.Player.Id.Id)
+            {
+                var renderer = GetComponentInChildren<Renderer>();
+                if (renderer != null)
+                { // 我方恐龙，蓝色
+                    renderer.material.color = new Color(17/256f, 51/256f, 136/256f, 1f);
+                }
+            }
+            else
+            {
+                var renderer = GetComponentInChildren<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.material.color = new Color(231/256f, 78/256f, 86/256f, 1f);
+                }
+            }
+        }
     }
 
     void OnAgeChanged(Age.Update update)

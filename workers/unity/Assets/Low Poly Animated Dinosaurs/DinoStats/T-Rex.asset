@@ -32,7 +32,7 @@ MonoBehaviour:
   hardTime: 40
   foodStorage: 50
   HungryRate: 0.5
-  liveCost: 1
+  liveCost: 1.5
   appetite: 5
   vegetarian: 0
   hatchRate: 0.67

@@ -37,6 +37,10 @@ public class DinoAttackState : FsmBaseState<DinoStateMachine, DinoAiFSMState.Sta
                 {
                     Owner.TriggerTransition(DinoAiFSMState.StateEnum.EAT, Owner.Data.TargetEntityId, target.transform.position);
                 }
+                else if (target.IsVanish)
+                {
+                    Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
+                }
                 else
                 {
                     parentBehaviour.DoAttack(target);

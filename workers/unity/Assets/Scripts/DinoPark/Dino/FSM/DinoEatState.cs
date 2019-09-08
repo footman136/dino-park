@@ -26,7 +26,7 @@ public class DinoEatState : FsmBaseState<DinoStateMachine, DinoAiFSMState.StateE
         {
             deltaTime = 0;
             if (parentBehaviour.attrsWriter.Data.CurrentFood + parentBehaviour.ScriptableAnimalStats.liveCost >=
-                parentBehaviour.ScriptableAnimalStats.foodStorage)
+                parentBehaviour.attrsWriter.Data.MaxFood)
             { // 吃饱了，不吃了，离开本状态
                 Owner.TriggerTransition(DinoAiFSMState.StateEnum.IDLE, new EntityId(), DinoStateMachine.InvalidPosition);
                 return;

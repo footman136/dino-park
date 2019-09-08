@@ -55,6 +55,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Coordinates coords = request.Payload.EggPosition.ToUnityVector().ToCoordinates();
         EggTypeEnum eggType = request.Payload.EggType;
+        long entityIdId = request.Payload.OwnerEntityId;
         // 得到下蛋的能量消耗
         int costEnergy = 0;
         switch (eggType)
@@ -80,7 +81,7 @@ public class PlayerBehaviour : MonoBehaviour
         };
         attrs.SendUpdate(update);
         // 发送创建实体消息
-        var exampleEntity = EntityTemplateFactory.CreateEggTemplate(coords, 0, eggType);
+        var exampleEntity = EntityTemplateFactory.CreateEggTemplate(coords, request.Payload.OwnerEntityId, eggType);
         var request1 = new WorldCommands.CreateEntity.Request(exampleEntity);
         request1.Context = request.RequestId;
         worldCommandSender.SendCreateEntityCommand(request1, OnCreateEggResponse);

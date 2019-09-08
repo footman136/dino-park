@@ -14,11 +14,13 @@ namespace Dinopark.Player
     {
         public global::Dinopark.Npc.EggTypeEnum EggType;
         public global::Improbable.Vector3f EggPosition;
+        public long OwnerEntityId;
     
-        public LayEggRequest(global::Dinopark.Npc.EggTypeEnum eggType, global::Improbable.Vector3f eggPosition)
+        public LayEggRequest(global::Dinopark.Npc.EggTypeEnum eggType, global::Improbable.Vector3f eggPosition, long ownerEntityId)
         {
             EggType = eggType;
             EggPosition = eggPosition;
+            OwnerEntityId = ownerEntityId;
         }
         public static class Serialization
         {
@@ -30,6 +32,9 @@ namespace Dinopark.Player
                 {
                     global::Improbable.Vector3f.Serialization.Serialize(instance.EggPosition, obj.AddObject(2));
                 }
+                {
+                    obj.AddInt64(3, instance.OwnerEntityId);
+                }
             }
     
             public static LayEggRequest Deserialize(global::Improbable.Worker.CInterop.SchemaObject obj)
@@ -40,6 +45,9 @@ namespace Dinopark.Player
                 }
                 {
                     instance.EggPosition = global::Improbable.Vector3f.Serialization.Deserialize(obj.GetObject(2));
+                }
+                {
+                    instance.OwnerEntityId = obj.GetInt64(3);
                 }
                 return instance;
             }

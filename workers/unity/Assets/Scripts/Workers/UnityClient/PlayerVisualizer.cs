@@ -21,6 +21,9 @@ public class PlayerVisualizer : MonoBehaviour
     {
         get { return _inst; }
     }
+    public EntityId Id{
+        get { return entityId; }
+    } 
 
     void Awake()
     {
@@ -50,7 +53,8 @@ public class PlayerVisualizer : MonoBehaviour
         LayEggRequest request = new LayEggRequest()
         {
             EggType = eggType,
-            EggPosition = pos.ToVector3f() 
+            EggPosition = pos.ToVector3f(),
+            OwnerEntityId = entityId.Id
         };
         commandSender.SendLayEggCommand(entityId, request, OnLayEggResponse);
     }

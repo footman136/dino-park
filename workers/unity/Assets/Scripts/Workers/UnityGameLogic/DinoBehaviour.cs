@@ -53,7 +53,8 @@ public class DinoBehaviour : MonoBehaviour
     [SerializeField] private float _lastHatchTime; // 距离上次孵蛋的时间
     public string Species { private set; get; }
 
-    public bool Dead => stateMachine.CurrentState == DinoAiFSMState.StateEnum.DEAD;
+    public bool Dead => stateMachine.CurrentState == DinoAiFSMState.StateEnum.DEAD ||
+                        stateMachine.CurrentState == DinoAiFSMState.StateEnum.DEAD;
 
     public bool IsVanish => stateMachine.CurrentState == DinoAiFSMState.StateEnum.VANISH;
 
@@ -312,6 +313,9 @@ public class DinoBehaviour : MonoBehaviour
             return true;
         
         // No.2 恢复健康
+        // BUG：如果服务器算不过来，而导致[UnityGameLogic] Worker disconnected
+        // 这时候health,age等变量会被置空，从而抛出异常。这是正常现象。
+        // 应该去查找为什么会与服务器断开链接，往往是因为计算量太大了，算不过来了而导致的本问题。Sep.7.2019, Liu Gang.
         _curHealth = health.Data.CurrentHealth;
         _maxHealth = health.Data.MaxHealth;
         if (_curHealth + ScriptableAnimalStats.liveCost < _maxHealth)
@@ -651,11 +655,24 @@ public class DinoBehaviour : MonoBehaviour
             Debug.Log(string.Format("{0}: Taking Damage {1} HP {2}!", gameObject.name, payload.Damage, _curHealth));
         }
         
+        // 生命减少
         var update = new Health.Update
         {
             CurrentHealth = _curHealth
         };
         health.SendUpdate(update);
+        // 把生命减少的一半变成粮食储存起来，便于死后给食肉恐龙提供食物，否则如果食肉恐龙杀死一只饥饿（Food为零）的食草恐龙以后，什么都没得吃
+        _curFood = attrsWriter.Data.CurrentFood;
+        float addFood = payload.Damage / 2;
+        if (addFood + _curFood > attrsWriter.Data.MaxFood)
+        {
+            addFood = attrsWriter.Data.MaxFood - _curFood;
+        }
+        var update2 = new DinoAttrs.Update
+        {
+            CurrentFood = _curFood + addFood
+        };
+        attrsWriter.SendUpdate(update2);
 
         // 如果血不够了，立即死亡。不用等到下一个AI周期了。
         if (_curHealth <= 0)
@@ -678,7 +695,7 @@ public class DinoBehaviour : MonoBehaviour
 
     public void DoEat(DinoBehaviour corpse)
     {
-        var hungry = ScriptableAnimalStats.foodStorage - attrsWriter.Data.CurrentFood;
+        var hungry = attrsWriter.Data.MaxFood - attrsWriter.Data.CurrentFood;
         var resNeed = ScriptableAnimalStats.appetite;
         if (hungry < ScriptableAnimalStats.appetite)
             resNeed = hungry;
@@ -742,8 +759,8 @@ public class DinoBehaviour : MonoBehaviour
 
     public void HarvestFood(TreeBehaviour aTree)
     {
-        // resNeed：每次想吃appetite数量的粮食，如果快饱了，则仅吃饱为止，不多吃
-        var hungry = ScriptableAnimalStats.foodStorage - attrsWriter.Data.CurrentFood;
+        // resNeed：每次想吃appetite数量的粮食live，如果快饱了，则仅吃饱为止，不多吃
+        var hungry = attrsWriter.Data.MaxFood - attrsWriter.Data.CurrentFood;
         var resNeed = ScriptableAnimalStats.appetite;
         if (hungry < ScriptableAnimalStats.appetite)
             resNeed = hungry;
