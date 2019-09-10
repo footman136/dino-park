@@ -14,4 +14,5 @@ component DinoAttrs {
   int64 own_entity_id = 8;
   float last_hatch_time = 9;
   float power = 10;
+  float live_cost = 11;
 }

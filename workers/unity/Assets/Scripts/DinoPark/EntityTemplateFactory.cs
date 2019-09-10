@@ -79,7 +79,7 @@ namespace DinoPark
 		    template.AddComponent(new TransformComponent.Snapshot(spawnRotation), serverAttribute);
 
 		    template.AddComponent(new DinoAiData.Snapshot(), serverAttribute);
-		    template.AddComponent(new DinoAttrs.Snapshot(false, 0f, 0f, 0f, 0f, 0, initialPosition.ToUnityVector().ToVector3f(), ownerId, 0f, 0f), serverAttribute);
+		    template.AddComponent(new DinoAttrs.Snapshot(false, 0f, 0f, 0f, 0f, 0, initialPosition.ToUnityVector().ToVector3f(), ownerId, 0f, 0f, 0f), serverAttribute);
 		    
 		    template.AddComponent(new Health.Snapshot(), serverAttribute);
 		    template.AddComponent(new Age.Snapshot(age, SimulationSettings.NPCAgeMax, SimulationSettings.NPCAgeGrowUp), serverAttribute);
@@ -106,7 +106,7 @@ namespace DinoPark
 		    template.AddComponent(new TransformComponent.Snapshot(spawnRotation), serverAttribute);
 		    
 		    template.AddComponent(new DinoAiData.Snapshot(), serverAttribute);
-		    template.AddComponent(new DinoAttrs.Snapshot(false, 0f, 0f, 0f, 0f, 0, initialPosition.ToUnityVector().ToVector3f(), ownerId, 0f, 0f), serverAttribute);
+		    template.AddComponent(new DinoAttrs.Snapshot(false, 0f, 0f, 0f, 0f, 0, initialPosition.ToUnityVector().ToVector3f(), ownerId, 0f, 0f, 0f), serverAttribute);
 		    
 		    template.AddComponent(new Health.Snapshot(), serverAttribute);
 		    template.AddComponent(new Age.Snapshot(age, SimulationSettings.NPCAgeMax, SimulationSettings.NPCAgeGrowUp), serverAttribute);

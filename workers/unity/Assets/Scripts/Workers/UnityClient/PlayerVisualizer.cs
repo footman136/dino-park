@@ -45,7 +45,7 @@ public class PlayerVisualizer : MonoBehaviour
     private void OnUpdateAttrs(PlayerAttrs.Update update)
     {
         _energy = update.Energy;
-        UIManager.CommandMenu.SetEnergy(_energy);
+        UIManager.Instance.CommandMenu.SetEnergy(_energy);
     }
     
     public void LayEgg(Dinopark.Npc.EggTypeEnum eggType, Vector3 pos)

@@ -48,6 +48,7 @@ public class DinoBehaviour : MonoBehaviour
     [SerializeField] private int _age; // 年龄，仅用于显示
     [SerializeField] private float _curFood; // 当前的粮食，仅用于显示
     [SerializeField] private float _maxFood; // 最大的粮食储量，仅用于显示
+    [SerializeField] private float _liveCost; // 能量消耗，仅用于显示
     [SerializeField] private float _curHealth; // 当前生命值，仅用于显示
     [SerializeField] private float _maxHealth; // 最大生命值，仅用于显示
     [SerializeField] private float _lastHatchTime; // 距离上次孵蛋的时间
@@ -105,6 +106,7 @@ public class DinoBehaviour : MonoBehaviour
         _currentAiState = stateMachine.CurrentState;
         _curFood = attrsWriter.Data.CurrentFood;
         _maxFood = attrsWriter.Data.MaxFood;
+        _liveCost = attrsWriter.Data.LiveCost;
         _curHealth = health.Data.CurrentHealth;
         _maxHealth = health.Data.MaxHealth;
         _age = Mathf.FloorToInt(age.Data.Age);
@@ -152,6 +154,7 @@ public class DinoBehaviour : MonoBehaviour
             OriginPosition = transform.position.ToVector3f(),
             LastHatchTime = 0,
             Power = ScriptableAnimalStats.power * ratioChild, // 儿童
+            LiveCost = ScriptableAnimalStats.liveCost * ratioChild, // 儿童
         };
         attrsWriter.SendUpdate(update);
         

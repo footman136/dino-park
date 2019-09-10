@@ -24,10 +24,10 @@ public class PanelCommandMenu : MonoBehaviour
 
     private CommandType _commandType;
     private Camera _camera;
-
+#region 系统函数
     void Awake()
     {
-        UIManager.CommandMenu = this;
+        UIManager.Instance.CommandMenu = this;
         _counts = new int[(int) AnimalManager.ANIMAL_TYPE.COUNT];
     }
 
@@ -77,7 +77,9 @@ public class PanelCommandMenu : MonoBehaviour
             }
         }
     }
+#endregion
 
+#region 内部函数
     private const float TIME_DELAY = 1f; 
     private float _lastTime = 0;
     private void UpdateCounts()
@@ -113,7 +115,9 @@ public class PanelCommandMenu : MonoBehaviour
             _lbCounts[i].text = msgCount.ToString();
         }
     }
+#endregion
 
+#region 命令响应    
     public void OnEggBrachioClicked(GameObject go)
     {
         _commandType = CommandType.CMD_BRACHIO_EGG;
@@ -123,9 +127,17 @@ public class PanelCommandMenu : MonoBehaviour
     {
         _commandType = CommandType.CMD_TREX_EGG;
     }
-
+#endregion
+    
+#region 操作
     public void SetEnergy(int energy)
     {
         _lbEnergy.text = energy.ToString();
     }
+
+    public void Show(bool show)
+    {
+        gameObject.SetActive(show);
+    }
+#endregion
 }

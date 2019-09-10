@@ -5,6 +5,7 @@ import "dino_park/npc/dino_egg.schema";
 type LayEggRequest{
 	dinopark.npc.EggTypeEnum egg_type = 1;
   improbable.Vector3f egg_position = 2;
+  int64 owner_entity_id = 3;
 }
 
 type LayEggResponse{

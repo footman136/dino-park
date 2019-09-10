@@ -1,11 +1,17 @@
 ﻿using System.Collections.Generic;
+using UnityEditor.iOS;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private Transform _rootLobby;
+    [SerializeField] private Transform _rootInGame;
+    
     private static UIManager _inst;
     public static UIManager Instance => _inst;
+    
+    
 
     void Awake()
     {
@@ -22,7 +28,7 @@ public class UIManager : MonoBehaviour
     {
         
     }
-    
+#region 杂项    
     public bool IsPointerOverGameObject(Vector2 screenPosition)
     {
         //实例化点击事件
@@ -40,18 +46,19 @@ public class UIManager : MonoBehaviour
 //    版权声明：本文为CSDN博主「PassionY」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
 //    原文链接：https://blog.csdn.net/yupu56/article/details/54561553    
 
-    public static PanelCommandMenu CommandMenu { get; set; }
-
     private PanelSystemTips _systemTips;
     public void SystemTips(string msg, PanelSystemTips.MessageType msgType)
     {
         if (_systemTips == null)
         {
-            var go = Resources.Load("UI/PanelSystemTips") as Object;
+            var go = Resources.Load("UI/PanelSystemTips");
             if (go!=null)
             {
                 var go2 = Instantiate(go, transform) as GameObject;
-                _systemTips = go2.GetComponent<PanelSystemTips>();
+                if (go2 != null)
+                {
+                    _systemTips = go2.GetComponent<PanelSystemTips>();
+                }
             }
             else
             {
@@ -63,4 +70,38 @@ public class UIManager : MonoBehaviour
             _systemTips.Show(msg, msgType);
         }
     }
+#endregion
+
+#region 游戏内界面
+    public PanelCommandMenu CommandMenu { get; set; }
+
+    public void ShowCommandMenu( bool show)
+    {
+        if (CommandMenu == null)
+        {
+            var go = Resources.Load("UI/InGame/PanelCommandMenu");
+            if (go != null)
+            {
+                var go2 = Instantiate(go, _rootInGame) as GameObject;
+                if (go2 != null)
+                {
+                    CommandMenu = go2.GetComponent<PanelCommandMenu>();
+                }
+            }
+        }
+
+        if (CommandMenu != null)
+        {
+            CommandMenu.Show(show);
+        }
+    }
+#endregion
+    
+#region 大厅界面
+
+    public void ShowLobbyMenu(bool show)
+    {
+        
+    }
+#endregion
 }
