@@ -14,7 +14,7 @@ public class ConnectionStateMachine : FiniteStateMachine<ConnectionFSMStateEnum.
     public float _startTime; // 本状态开始的时间
     [SerializeField] private bool logChanges = false;
     
-    ConnectionStateMachine(GameManager game)
+    public ConnectionStateMachine(GameManager game)
     {
         _game = game;
             

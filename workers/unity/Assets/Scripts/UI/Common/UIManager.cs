@@ -8,10 +8,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform _rootLobby;
     [SerializeField] private Transform _rootInGame;
     
+    public Transform RootLobby
+    {
+        get { return _rootLobby; }
+    }
+
+    public Transform RootInGame
+    {
+        get { return _rootInGame; }
+    }
+    
     private static UIManager _inst;
     public static UIManager Instance => _inst;
-    
-    
 
     void Awake()
     {
@@ -51,7 +59,7 @@ public class UIManager : MonoBehaviour
     {
         if (_systemTips == null)
         {
-            var go = Resources.Load("UI/PanelSystemTips");
+            var go = Resources.Load("UI/Common/PanelSystemTips");
             if (go!=null)
             {
                 var go2 = Instantiate(go, transform) as GameObject;
@@ -68,6 +76,35 @@ public class UIManager : MonoBehaviour
         if (_systemTips != null)
         {
             _systemTips.Show(msg, msgType);
+        }
+    }
+
+    /// <summary>
+    /// 创建一个UI
+    /// </summary>
+    /// <param name="anchor">锚点，放在哪个节点下</param>
+    /// <param name="packageName">资源包名</param>
+    /// <param name="prefabName">预制件名</param>
+    /// <returns>创建出来的UI</returns>
+    public static GameObject CreatePanel(Transform anchor, string packageName, string prefabName)
+    {
+        var go = Resources.Load(prefabName);
+        if (go != null)
+        {
+            var go2 = Instantiate(go, anchor) as GameObject;
+            return go2;
+        }
+
+        Debug.LogError("UIManager - CreatePanel() Failed - <" + packageName + "> <" + prefabName + ">");
+        return null;
+    }
+
+    public static void DestroyPanel(ref GameObject go)
+    {
+        if (go != null)
+        {
+            Destroy(go);
+            go = null;
         }
     }
 #endregion

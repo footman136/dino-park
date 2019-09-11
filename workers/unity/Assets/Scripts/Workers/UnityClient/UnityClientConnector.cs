@@ -11,6 +11,7 @@ namespace DinoPark
     public class UnityClientConnector : WorkerConnector
     {
         public const string WorkerType = "UnityClient";
+        private long _accountId;
 
         private async void Start()
         {
@@ -50,12 +51,27 @@ namespace DinoPark
         {
             PlayerLifecycleHelper.AddClientSystems(Worker.World);
             
+            // 改变状态
+            GameManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.CONNECTED);
+            
             // 创建实体的预制件
             var fallbackCreator = new GameObjectCreatorFromMetadata(Worker.WorkerType, Worker.Origin, Worker.LogDispatcher);
             var customCreator = new EntityGameObjectCreator(fallbackCreator, Worker.World, Worker.WorkerType);
             Debug.Log("HandleWorkerConnectionEstablished!");
             
             GameObjectCreationHelper.EnableStandardGameObjectCreation(Worker.World, customCreator);
+        }
+        
+        protected override void HandleWorkerConnectionFailure(string errorMessage)
+        {
+            // 改变状态
+            UIManager.Instance.SystemTips(errorMessage, PanelSystemTips.MessageType.Error);
+            GameManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.LOGIN);
+        }
+
+        public void SetAccountID(long accountId)
+        {
+            _accountId = accountId;
         }
     }
 }
