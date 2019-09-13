@@ -5,9 +5,9 @@ using Assets.Gamelogic.FSM;
 
 public class GameDisconnectedState : FsmBaseState<ConnectionStateMachine, ConnectionFSMStateEnum.StateEnum>
 {
-    private readonly GameManager _game;
+    private readonly ClientManager _game;
 
-    public GameDisconnectedState(ConnectionStateMachine owner, GameManager game) : base(owner)
+    public GameDisconnectedState(ConnectionStateMachine owner, ClientManager game) : base(owner)
     {
         _game = game;
     }

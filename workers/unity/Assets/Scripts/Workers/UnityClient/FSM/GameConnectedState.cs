@@ -5,9 +5,9 @@ using Assets.Gamelogic.FSM;
 
 public class GameConnectedState : FsmBaseState<ConnectionStateMachine, ConnectionFSMStateEnum.StateEnum>
 {
-    private readonly GameManager _game;
+    private readonly ClientManager _game;
 
-    public GameConnectedState(ConnectionStateMachine owner, GameManager game) : base(owner)
+    public GameConnectedState(ConnectionStateMachine owner, ClientManager game) : base(owner)
     {
         _game = game;
     }
@@ -32,7 +32,7 @@ public class GameConnectedState : FsmBaseState<ConnectionStateMachine, Connectio
     {
         if (_bFirst)
         { // 只运行一帧，就切换到下个状态了
-            GameManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.PLAYING);
+            ClientManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.PLAYING);
             _bFirst = false;
         }
     }

@@ -52,7 +52,7 @@ namespace DinoPark
             PlayerLifecycleHelper.AddClientSystems(Worker.World);
             
             // 改变状态
-            GameManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.CONNECTED);
+            ClientManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.CONNECTED);
             
             // 创建实体的预制件
             var fallbackCreator = new GameObjectCreatorFromMetadata(Worker.WorkerType, Worker.Origin, Worker.LogDispatcher);
@@ -66,7 +66,7 @@ namespace DinoPark
         {
             // 改变状态
             UIManager.Instance.SystemTips(errorMessage, PanelSystemTips.MessageType.Error);
-            GameManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.LOGIN);
+            ClientManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.START);
         }
 
         public void SetAccountID(long accountId)

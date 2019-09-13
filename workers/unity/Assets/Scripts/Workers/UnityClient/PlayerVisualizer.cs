@@ -33,7 +33,7 @@ public class PlayerVisualizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Instance.Player = this;
+        ClientManager.Instance.Player = this;
         attrs.OnUpdate += OnUpdateAttrs;
     }
 

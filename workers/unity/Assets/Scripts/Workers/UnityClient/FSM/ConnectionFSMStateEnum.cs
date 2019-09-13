@@ -8,12 +8,14 @@ public class ConnectionFSMStateEnum
     public enum StateEnum : uint
     {
         NONE = 0,
-        LOGIN = 1,
-        CONNECTING = 2,
-        CONNECTED = 3,
-        PLAYING = 4,
-        RESULT = 5,
-        DISCONNECTED= 6,
-        COUNT = 7,
+        START = 1,
+        PLAYFAB_LOGIN = 2,
+        PLAYFAB_REGISTER = 3,
+        CONNECTING = 4,
+        CONNECTED = 5,
+        PLAYING = 6,
+        RESULT = 7,
+        DISCONNECTED= 8,
+        COUNT = 9,
     }
 }

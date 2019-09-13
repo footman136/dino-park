@@ -72,8 +72,8 @@ public class PanelCommandMenu : MonoBehaviour
                 //Physics.Raycast(ray2, out hitInfo, 100, LayerMask.NameToLayer("Ground"));
                 Physics.Raycast(ray2, out hitInfo, 100);
                 Debug.Log("Hit:" + hitInfo.point);
-                if(GameManager.Instance.Player)
-                    GameManager.Instance.Player.LayEgg(eggType, hitInfo.point);
+                if(ClientManager.Instance.Player)
+                    ClientManager.Instance.Player.LayEgg(eggType, hitInfo.point);
             }
         }
     }

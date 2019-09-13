@@ -5,12 +5,12 @@ using Assets.Gamelogic.FSM;
 
 public class GameConnectingState : FsmBaseState<ConnectionStateMachine, ConnectionFSMStateEnum.StateEnum>
 {
-    private readonly GameManager _game;
+    private readonly ClientManager _game;
 
     private GameObject _clientWorker;
     private GameObject _panelConnecting;
     
-    public GameConnectingState(ConnectionStateMachine owner, GameManager game) : base(owner)
+    public GameConnectingState(ConnectionStateMachine owner, ClientManager game) : base(owner)
     {
         _game = game;
     }
@@ -18,8 +18,10 @@ public class GameConnectingState : FsmBaseState<ConnectionStateMachine, Connecti
     public override void Enter()
     {
         _panelConnecting = UIManager.CreatePanel(UIManager.Instance.RootLobby, "", "UI/Lobby/PanelConnecting");
+        
+        // 使用PlayFab链接后台数据库
         // clientWorker一启动，就会连接服务器
-        _clientWorker = GameManager.Instance.ClientConnector.gameObject;
+        _clientWorker = ClientManager.Instance.ClientConnector.gameObject;
         _clientWorker.SetActive(true);
     }
 

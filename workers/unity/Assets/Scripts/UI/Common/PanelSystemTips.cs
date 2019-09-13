@@ -74,6 +74,10 @@ public class PanelSystemTips : MonoBehaviour
             float alphaNow = Mathf.Lerp(_group.alpha, _alphaEnd, Time.deltaTime * ratio);
             _group.alpha = alphaNow;
         }
+        var back = GetComponent<Image>();
+        var txtHeight = _lbMsg.rectTransform.rect.height;
+        float y = txtHeight + 22;
+        back.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, y);
     }
 
     public void Show(string msg, MessageType msgType)
@@ -101,6 +105,11 @@ public class PanelSystemTips : MonoBehaviour
         }
 
         _lbMsg.text = msgWithColor;
+
+        var back = GetComponent<Image>();
+        var txtHeight = _lbMsg.rectTransform.rect.height;
+        float y = txtHeight + 22;
+        back.rectTransform.sizeDelta = new Vector2(back.rectTransform.sizeDelta.x, y);
         
         StopAllCoroutines(); // 新消息顶掉旧消息
         StartCoroutine(PlayAnimation());

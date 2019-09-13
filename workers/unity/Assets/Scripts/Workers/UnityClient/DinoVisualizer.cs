@@ -218,7 +218,7 @@ public class DinoVisualizer : MonoBehaviour
         // 修改模型颜色
         if (attrsReader.Data.OwnEntityId != 0)
         {
-            if (attrsReader.Data.OwnEntityId == GameManager.Instance.Player.Id.Id)
+            if (attrsReader.Data.OwnEntityId == ClientManager.Instance.Player.Id.Id)
             {
                 var renderer = GetComponentInChildren<Renderer>();
                 if (renderer != null)

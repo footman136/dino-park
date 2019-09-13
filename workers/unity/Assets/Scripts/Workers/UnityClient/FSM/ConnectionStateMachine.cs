@@ -9,16 +9,18 @@ using Improbable.Gdk.Core;
 /// </summary>
 public class ConnectionStateMachine : FiniteStateMachine<ConnectionFSMStateEnum.StateEnum>
 {
-    private GameManager _game;
+    private ClientManager _game;
     public ConnectionFSMStateEnum.StateEnum CurrentState { private set; get; }
     public float _startTime; // 本状态开始的时间
     [SerializeField] private bool logChanges = false;
     
-    public ConnectionStateMachine(GameManager game)
+    public ConnectionStateMachine(ClientManager game)
     {
         _game = game;
             
-        var loginState = new GameLoginState(this, _game);
+        var startState = new GameStartState(this, _game);
+        var playFabLoginState = new GamePlayFabLoginState(this, _game);
+        var playFabRegisterState = new GamePlayFabRegisterState(this, _game);
         var connectingState = new GameConnectingState(this, _game);
         var connectedState = new GameConnectedState(this, _game);
         var disconnectedState = new GameDisconnectedState(this, _game);
@@ -27,7 +29,9 @@ public class ConnectionStateMachine : FiniteStateMachine<ConnectionFSMStateEnum.
 
         var stateList = new Dictionary<ConnectionFSMStateEnum.StateEnum, IFsmState>
         {
-            {ConnectionFSMStateEnum.StateEnum.LOGIN, loginState},
+            {ConnectionFSMStateEnum.StateEnum.START, startState},
+            {ConnectionFSMStateEnum.StateEnum.PLAYFAB_LOGIN, playFabLoginState},
+            {ConnectionFSMStateEnum.StateEnum.PLAYFAB_REGISTER, playFabRegisterState},
             {ConnectionFSMStateEnum.StateEnum.CONNECTING, connectingState},
             {ConnectionFSMStateEnum.StateEnum.CONNECTED, connectedState},
             {ConnectionFSMStateEnum.StateEnum.DISCONNECTED, disconnectedState},
@@ -38,32 +42,41 @@ public class ConnectionStateMachine : FiniteStateMachine<ConnectionFSMStateEnum.
         
         var allowedTransitions = new Dictionary<ConnectionFSMStateEnum.StateEnum, IList<ConnectionFSMStateEnum.StateEnum>>();
 
-        allowedTransitions.Add(ConnectionFSMStateEnum.StateEnum.LOGIN, new List<ConnectionFSMStateEnum.StateEnum>
+        allowedTransitions.Add(ConnectionFSMStateEnum.StateEnum.START, new List<ConnectionFSMStateEnum.StateEnum>
         {
+            ConnectionFSMStateEnum.StateEnum.PLAYFAB_LOGIN,
+            ConnectionFSMStateEnum.StateEnum.PLAYFAB_REGISTER,
+        });
+        allowedTransitions.Add(ConnectionFSMStateEnum.StateEnum.PLAYFAB_LOGIN, new List<ConnectionFSMStateEnum.StateEnum>
+        {
+            ConnectionFSMStateEnum.StateEnum.START,
+            ConnectionFSMStateEnum.StateEnum.CONNECTING,
+        });
+        allowedTransitions.Add(ConnectionFSMStateEnum.StateEnum.PLAYFAB_REGISTER, new List<ConnectionFSMStateEnum.StateEnum>
+        {
+            ConnectionFSMStateEnum.StateEnum.START,
             ConnectionFSMStateEnum.StateEnum.CONNECTING,
         });
         allowedTransitions.Add(ConnectionFSMStateEnum.StateEnum.CONNECTING, new List<ConnectionFSMStateEnum.StateEnum>
         {
             ConnectionFSMStateEnum.StateEnum.CONNECTED,
             ConnectionFSMStateEnum.StateEnum.DISCONNECTED,
-            ConnectionFSMStateEnum.StateEnum.LOGIN,
         });
         allowedTransitions.Add(ConnectionFSMStateEnum.StateEnum.CONNECTED, new List<ConnectionFSMStateEnum.StateEnum>
         {
             ConnectionFSMStateEnum.StateEnum.PLAYING,
-            ConnectionFSMStateEnum.StateEnum.LOGIN,
         });
         allowedTransitions.Add(ConnectionFSMStateEnum.StateEnum.DISCONNECTED, new List<ConnectionFSMStateEnum.StateEnum>
         {
-            ConnectionFSMStateEnum.StateEnum.LOGIN,
+            ConnectionFSMStateEnum.StateEnum.START,
         });
         allowedTransitions.Add(ConnectionFSMStateEnum.StateEnum.RESULT, new List<ConnectionFSMStateEnum.StateEnum>
         {
-            ConnectionFSMStateEnum.StateEnum.LOGIN,
+            ConnectionFSMStateEnum.StateEnum.START,
         });
         allowedTransitions.Add(ConnectionFSMStateEnum.StateEnum.PLAYING, new List<ConnectionFSMStateEnum.StateEnum>
         {
-            ConnectionFSMStateEnum.StateEnum.LOGIN,
+            ConnectionFSMStateEnum.StateEnum.START,
         });
         SetTransitions(allowedTransitions);
     }

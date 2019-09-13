@@ -1,19 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PanelLogin : MonoBehaviour
 {
-    [SerializeField] private Text _lbAccount;
+    [SerializeField] private InputField _lbAccount;
 
-    [SerializeField] private Text _lbPassword;
+    [SerializeField] private InputField _lbPassword;
 
+    private GameObject _panelRegister;
+    
+#region 系统函数
     // Start is called before the first frame update
     void Start()
     {
         _lbAccount.text = PlayerPrefs.GetString(GameSettings.KEY_ACCOUNT);
         _lbPassword.text = PlayerPrefs.GetString(GameSettings.KEY_PASSWORD);
+        Show(true);
+    }
+
+    private void OnDestroy()
+    {
+        if(_panelRegister!=null)
+            UIManager.DestroyPanel(ref _panelRegister);
     }
 
     // Update is called once per frame
@@ -21,15 +33,85 @@ public class PanelLogin : MonoBehaviour
     {
         
     }
+#endregion
+    
+#region 操作    
+    public void Show(bool show)
+    {
+        gameObject.SetActive(show);
+    }
 
-    public void OnClickLogin()
+    public void ShowRegister(bool show)
+    {
+        if (_panelRegister == null)
+            return;
+        var panelRegister = _panelRegister.GetComponent<PanelRegister>();
+        if (panelRegister != null)
+        {
+            panelRegister.Show(show);
+        }
+    }
+
+    public void SetData(string account, string password)
+    {
+        _lbAccount.text = account;
+        _lbPassword.text = password;
+    }
+
+    public void SaveData()
     {
         //???寫不進去，不知道爲什麽
         PlayerPrefs.SetString(GameSettings.KEY_ACCOUNT, _lbAccount.text);
         PlayerPrefs.SetString(GameSettings.KEY_PASSWORD, _lbPassword.text);
-        PlayerPrefs.SetInt("key_myint", 12345);
-        PlayerPrefs.Save();
-        long accountId = Crc32.GetCRC32(_lbAccount.text);
-        GameManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.CONNECTING);
     }
+#endregion
+    
+#region 消息处理
+    public void OnClickLogin()
+    {
+        string strAccount = _lbAccount.text;
+        string strPassword = _lbPassword.text;
+        if (strAccount == "")
+        {
+            UIManager.Instance.SystemTips("账号不能为空", PanelSystemTips.MessageType.Error);
+            return;
+        }
+
+        if (strPassword.Length < 6)
+        {
+            UIManager.Instance.SystemTips("密码至少为6个字符", PanelSystemTips.MessageType.Error);
+            return;
+        }
+
+        SaveData();
+        Show(false);
+        // 修改状态
+        ClientManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.PLAYFAB_LOGIN);
+        // 登录PlayFab
+        ClientManager.Instance.PlayFab.Login(strAccount, strPassword);
+    }
+
+    public void OnClickRegister()
+    {
+        if (_panelRegister == null)
+        {
+            _panelRegister = UIManager.CreatePanel(UIManager.Instance.RootLobby, "", "UI/Lobby/PanelRegister");
+        }
+
+        if (_panelRegister!=null)
+        {
+            var panelRegister = _panelRegister.GetComponent<PanelRegister>();
+            if (panelRegister != null)
+            {
+                SaveData();
+                Show(false);
+                string strAccount = _lbAccount.text;
+                string strPassword = _lbPassword.text;
+                panelRegister.SetData(strAccount, strPassword);
+                panelRegister.SetLoginPanel(GetComponent<PanelLogin>());
+                panelRegister.Show(true);
+            }
+        }
+    }
+#endregion
 }
