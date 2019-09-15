@@ -79,7 +79,7 @@ namespace Assets.Gamelogic.Tree
         public static int AliveCount()
         {
             int count = 0;
-            foreach(var treePair in TreeBehaviour.AllTrees)
+            foreach(var treePair in AllTrees)
             {
                 if (treePair.Value.IsAlive())
                 {

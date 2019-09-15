@@ -21,9 +21,6 @@ public class PlayerVisualizer : MonoBehaviour
     {
         get { return _inst; }
     }
-    public EntityId Id{
-        get { return entityId; }
-    } 
 
     void Awake()
     {
@@ -48,13 +45,13 @@ public class PlayerVisualizer : MonoBehaviour
         UIManager.Instance.CommandMenu.SetEnergy(_energy);
     }
     
-    public void LayEgg(Dinopark.Npc.EggTypeEnum eggType, Vector3 pos)
+    public void LayEgg(Dinopark.Npc.EggTypeEnum eggType, Vector3 pos, long tokenId)
     {
         LayEggRequest request = new LayEggRequest()
         {
             EggType = eggType,
             EggPosition = pos.ToVector3f(),
-            OwnerEntityId = entityId.Id
+            OwnerTokenId = tokenId
         };
         commandSender.SendLayEggCommand(entityId, request, OnLayEggResponse);
     }

@@ -68,6 +68,8 @@ public class DinoBehaviour : MonoBehaviour
     private bool IsFighting => stateMachine.CurrentState == DinoAiFSMState.StateEnum.ATTACK;
     private bool IsChild => age.Data.Age < age.Data.GrowUpAge;
 
+    private long OwnerTokenId => attrsWriter.Data.OwnerTokenId;
+
 
     [Space(), Header("Debug"), Space(5)]
     [SerializeField, Tooltip("If true, AI changes to this animal will be logged in the console.")]
@@ -146,13 +148,13 @@ public class DinoBehaviour : MonoBehaviour
         var update = new DinoAttrs.Update
         {
             IsDead = false,
-            CurrentFood = Random.Range(ScriptableAnimalStats.foodStorage * SimulationSettings.NPCOriginalMinFoodRate * ratioChild, ScriptableAnimalStats.foodStorage * ratioChild),  // 儿童
-            MaxFood = ScriptableAnimalStats.foodStorage * ratioChild, // 儿童
             OriginalAgression = ScriptableAnimalStats.agression,
             OriginalDominance = ScriptableAnimalStats.dominance,
             OriginalScent = ScriptableAnimalStats.scent,
             OriginPosition = transform.position.ToVector3f(),
             LastHatchTime = 0,
+            CurrentFood = Random.Range(ScriptableAnimalStats.foodStorage * SimulationSettings.NPCOriginalMinFoodRate * ratioChild, ScriptableAnimalStats.foodStorage * ratioChild),  // 儿童
+            MaxFood = ScriptableAnimalStats.foodStorage * ratioChild, // 儿童
             Power = ScriptableAnimalStats.power * ratioChild, // 儿童
             LiveCost = ScriptableAnimalStats.liveCost * ratioChild, // 儿童
         };
@@ -174,14 +176,15 @@ public class DinoBehaviour : MonoBehaviour
             return;
         float ratioChild = 1.0f;
         
-        // 恢复小恐龙的粮食，攻击力等属性，变成成人的
+        // 恢复小恐龙的粮食，攻击力，生命消耗等属性，变成成人的
         float curFood = attrsWriter.Data.CurrentFood;
         float maxFood = attrsWriter.Data.MaxFood;
         var update = new DinoAttrs.Update
         {
             CurrentFood = ScriptableAnimalStats.foodStorage * curFood / maxFood, // 当前的粮食按照比例提升
-            MaxFood = ScriptableAnimalStats.foodStorage, // 如果是儿童则需要适当减小
-            Power = ScriptableAnimalStats.power, // 儿童
+            MaxFood = ScriptableAnimalStats.foodStorage, // 恢复成人数值
+            Power = ScriptableAnimalStats.power, // 恢复成人数值
+            LiveCost = ScriptableAnimalStats.liveCost,// 恢复成人数值
         };
         attrsWriter.SendUpdate(update);
         
@@ -454,12 +457,18 @@ public class DinoBehaviour : MonoBehaviour
             }
 
             if (animal.Species == Species && !ScriptableAnimalStats.territorial)
-            {
+            { // 不可以攻击同类
                 continue;
             }
             if (animal.Species == Species && ScriptableAnimalStats.territorial &&
                  (animal.IsChild || IsChild))
-            {
+            { // 不可以攻击同类的孩子
+                continue;
+            }
+
+            if (animal.Species == Species && ScriptableAnimalStats.territorial &&
+                (animal.OwnerTokenId == OwnerTokenId))
+            { // 不可以攻击归属同一个玩家的恐龙
                 continue;
             }
 
@@ -480,6 +489,15 @@ public class DinoBehaviour : MonoBehaviour
                 continue;
             }
 
+            // 为了防止恐龙扎堆寻找食物，如果猎物距离很近，就有四分之一的概率机找
+            if (dist < ScriptableAnimalStats.scent / 2)
+            {
+                if (Random.Range(1, 4) == 1)
+                {
+                    prey = animal;
+                    break;
+                }
+            }
             if (dist < distMin)
             {
                 distMin = dist;
@@ -813,7 +831,8 @@ public class DinoBehaviour : MonoBehaviour
         {
             eggType = EggTypeEnum.TRex;
         }
-        var exampleEntity = EntityTemplateFactory.CreateEggTemplate(transform.position.ToCoordinates(), 0, eggType);
+        // 恐龙自己下蛋
+        var exampleEntity = EntityTemplateFactory.CreateEggTemplate(transform.position.ToCoordinates(), attrsWriter.Data.OwnerTokenId, eggType);
         var request1 = new WorldCommands.CreateEntity.Request(exampleEntity);
         worldCommandSender.SendCreateEntityCommand(request1, OnCreateEggResponse);
         //Debug.Log("DinoBehaviour LayEgg! Egg type : "+eggType);

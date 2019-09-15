@@ -121,12 +121,12 @@ namespace Assets.Gamelogic.NPC
 
         public static bool IsTargetAHealthyTree(GameObject reference, GameObject target)
         {
-            var targetTreeStateVisualizer = target.GetComponent<TreeStateVisualizer>();
+            var targetTreeModelVisualizer = target.GetComponent<TreeModelVisualizer>();
             var targetHealthVisualizer = target.GetComponent<HealthVisualizer>();
-            return targetTreeStateVisualizer != null && 
+            return targetTreeModelVisualizer != null && 
                    targetHealthVisualizer != null &&
-                   targetTreeStateVisualizer.CurrentState != null &&
-                   targetTreeStateVisualizer.CurrentState.Data.CurrentState == TreeFSMState.HEALTHY &&
+                   targetTreeModelVisualizer.CurrentState != null &&
+                   targetTreeModelVisualizer.CurrentState.Data.CurrentState == TreeFSMState.HEALTHY &&
                    targetHealthVisualizer.CurrentHealth > 0;
         }
     }

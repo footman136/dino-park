@@ -20,6 +20,9 @@ public class ClientManager : MonoBehaviour
     
     // 玩家
     public PlayerVisualizer Player { set; get; }
+    
+    // 当前本玩家的tokenId
+    public long TokenId { get; set; }
 
     public static ClientManager Instance { private set; get; }
 

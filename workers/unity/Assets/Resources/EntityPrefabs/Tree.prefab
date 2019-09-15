@@ -361,6 +361,7 @@ MonoBehaviour:
   meshes:
   - {fileID: 4300000, guid: d8527ae4981eec643a63bbd24202aa1c, type: 3}
   - {fileID: 4300000, guid: 284d70b3542447e4594c226bae825b56, type: 3}
+  _state: 0
 --- !u!114 &114000010037877532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +407,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000013016623192}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db63ca3e47328374eac67219d7f1f415, type: 3}
   m_Name: 

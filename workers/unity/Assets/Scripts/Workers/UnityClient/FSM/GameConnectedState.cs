@@ -19,6 +19,7 @@ public class GameConnectedState : FsmBaseState<ConnectionStateMachine, Connectio
         if (go != null)
         {
             UIManager.Instance.CommandMenu = go.GetComponent<PanelCommandMenu>();
+            UIManager.Instance.CommandMenu.enabled = true; // 不知道是谁总是禁止它，所以不得不每次手动打开
             if (UIManager.Instance.CommandMenu == null)
             {
                 Debug.LogError("GameConnectedState Enter() - In Game Command Menu creation is failed!!!");

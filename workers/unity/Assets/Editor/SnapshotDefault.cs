@@ -16,7 +16,7 @@ namespace Editor
             //SnapshotUtil.AddHQs(snapshot, SimulationSettings.TeamHQLocations);
             SnapshotUtil.AddTrees(snapshot, texture, 0.35f, SimulationSettings.AttemptedTreeCount, SimulationSettings.SpawningWorldEdgeLength, SimulationSettings.TreeJitter);
             SnapshotUtil.AddNPCsAroundHQs(snapshot, SimulationSettings.TeamHQLocations, SimulationSettings.SpawningWorldEdgeLength);
-            SnapshotUtil.AddEggs(snapshot, SimulationSettings.TeamHQLocations[0], 0, SimulationSettings.SpawningWorldEdgeLength);
+            SnapshotUtil.AddEggs(snapshot, SimulationSettings.TeamHQLocations[0], SimulationSettings.SpawningWorldEdgeLength);
 			SnapshotUtil.AddPlayerSpawner(snapshot);
         }
     }

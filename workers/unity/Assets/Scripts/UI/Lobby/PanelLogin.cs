@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +15,9 @@ public class PanelLogin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Windows10保存在下面类似的地方：
+        //计算机\HKEY_CURRENT_USER\Software\Unity\UnityEditor\Wistone\Dino Park
+        //计算机\HKEY_USERS\S-1-5-21-4028632277-793711192-2424791590-1001\Software\Unity\UnityEditor\Wistone\Dino Park
         _lbAccount.text = PlayerPrefs.GetString(GameSettings.KEY_ACCOUNT);
         _lbPassword.text = PlayerPrefs.GetString(GameSettings.KEY_PASSWORD);
         Show(true);

@@ -97,7 +97,7 @@ namespace Editor
             Debug.Log("Snapshot Dinosaurs generated ! count<"+totalNpcs+">");
         }
 
-        public static void AddEggs(Snapshot snapshot, Coordinates position, uint team, float edgeLength)
+        public static void AddEggs(Snapshot snapshot, Coordinates position, float edgeLength)
         {
             float totalEggs = SimulationSettings.HQStartingEggTRexCount + SimulationSettings.HQStartingEggBrachioCount;
             for (int i = 0; i < totalEggs; i++)
@@ -109,11 +109,11 @@ namespace Editor
                 EntityTemplate entity = null;
                 if (i < SimulationSettings.HQStartingEggBrachioCount)
                 {
-                    entity = EntityTemplateFactory.CreateEggTemplate(coordinates, team, EggTypeEnum.Brachiosaurus);
+                    entity = EntityTemplateFactory.CreateEggTemplate(coordinates, 0, EggTypeEnum.Brachiosaurus);
                 }
                 else
                 {
-                    entity = EntityTemplateFactory.CreateEggTemplate(coordinates, team, EggTypeEnum.TRex);
+                    entity = EntityTemplateFactory.CreateEggTemplate(coordinates, 0, EggTypeEnum.TRex);
                 }
 
                 if (entity != null)

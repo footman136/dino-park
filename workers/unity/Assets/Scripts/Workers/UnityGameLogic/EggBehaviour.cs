@@ -68,10 +68,10 @@ public class EggBehaviour : MonoBehaviour
         switch (_eggType)
         {
             case EggTypeEnum.Brachiosaurus:
-                exampleEntity = EntityTemplateFactory.CreateDinoBrachioTemplate(transform.position.ToCoordinates(), egg.Data.OwnEntityId, 0); // 0岁小恐龙
+                exampleEntity = EntityTemplateFactory.CreateDinoBrachioTemplate(transform.position.ToCoordinates(), egg.Data.OwnerTokenId, 0); // 0岁小恐龙
                 break;
             case EggTypeEnum.TRex:
-                exampleEntity = EntityTemplateFactory.CreateDinoTRexTemplate(transform.position.ToCoordinates(), egg.Data.OwnEntityId, 0); // 0岁小恐龙
+                exampleEntity = EntityTemplateFactory.CreateDinoTRexTemplate(transform.position.ToCoordinates(), egg.Data.OwnerTokenId, 0); // 0岁小恐龙
                 break;
         }
 

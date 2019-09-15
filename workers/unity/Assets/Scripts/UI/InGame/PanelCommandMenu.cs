@@ -1,5 +1,6 @@
 ﻿using Assets.Gamelogic.Tree;
 using Dinopark.Npc;
+using Dinopark.Plants;
 using UnityEngine;
 using Improbable.Gdk.Core;
 using Improbable.Gdk.Subscriptions;
@@ -65,15 +66,20 @@ public class PanelCommandMenu : MonoBehaviour
             if (eggType != EggTypeEnum.NONE)
             {
                 var pos = Input.mousePosition;
-                Ray ray = new Ray(pos, Vector3.down);
-                Ray ray2 = _camera.ScreenPointToRay(Input.mousePosition);
-                Debug.Log("Mouse Position:"+pos+"  ray:"+ray2);
+                Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+                Debug.Log("Mouse Position:"+pos+"  ray:"+ray);
                 RaycastHit hitInfo;
-                //Physics.Raycast(ray2, out hitInfo, 100, LayerMask.NameToLayer("Ground"));
-                Physics.Raycast(ray2, out hitInfo, 100);
-                Debug.Log("Hit:" + hitInfo.point);
-                if(ClientManager.Instance.Player)
-                    ClientManager.Instance.Player.LayEgg(eggType, hitInfo.point);
+                bool ret = Physics.Raycast(ray, out hitInfo, 200);
+                if (!ret)
+                {
+                    UIManager.Instance.SystemTips("鼠标检测地面失败！", PanelSystemTips.MessageType.Error);                    
+                }
+                else
+                {
+                    Debug.Log("Hit:" + hitInfo.point);
+                    if(ClientManager.Instance.Player)
+                        ClientManager.Instance.Player.LayEgg(eggType, hitInfo.point, ClientManager.Instance.TokenId);
+                }
             }
         }
     }
@@ -95,24 +101,76 @@ public class PanelCommandMenu : MonoBehaviour
         {
             int countOld = _counts[i];
             int countNow = AnimalManager.Instance.Roots[i].childCount;
+            string msgCount = "";
             if (i == (int) AnimalManager.ANIMAL_TYPE.TREE)
             {
-                countNow = TreeBehaviour.AliveCount();
+                countNow = CalcTreeAliveCount(AnimalManager.Instance.Roots[i]);
+                msgCount = countNow.ToString();
             }
-            string msgCount = countNow.ToString();
+            else if (i == (int) AnimalManager.ANIMAL_TYPE.TREX || i == (int) AnimalManager.ANIMAL_TYPE.BRACHIO)
+            {
+                int myCount = 0;
+                int enemyCount = 0;
+                CalcDinoTeamCount(AnimalManager.Instance.Roots[i], out myCount, out enemyCount);
+                msgCount = $"{countNow}({myCount}:{enemyCount})";
+            }
+            else
+            {
+                msgCount = countNow.ToString();                
+            }
             _lbCounts[i].fontSize = 14;
             if (countNow > countOld)
             {
-                msgCount = "<color=#22BB22>" + countNow + "</color>";
+                msgCount = "<color=#22BB22>" + msgCount + "</color>";
                 _lbCounts[i].fontSize = 18;
             }
             else if (countNow < countOld)
             {
-                msgCount = "<color=red>" + countNow + "</color>";
+                msgCount = "<color=red>" + msgCount + "</color>";
                 _lbCounts[i].fontSize = 18;
             }
             _counts[i] = countNow;
             _lbCounts[i].text = msgCount.ToString();
+        }
+    }
+
+    private int CalcTreeAliveCount(Transform root)
+    {
+        int countAlive = 0;
+        for (int i = 0; i < root.childCount; ++i)
+        {
+            TreeModelVisualizer tsv = root.GetChild(i).GetComponent<TreeModelVisualizer>();
+            if (tsv != null && tsv.CurrentState.Data.CurrentState == TreeFSMState.HEALTHY)
+            {
+                countAlive++;
+            }
+        }
+
+        return countAlive;
+    }
+
+    private void CalcDinoTeamCount(Transform root, out int myCount, out int enemyCount)
+    {
+        myCount = 0;
+        enemyCount = 0;
+        for (int i = 0; i < root.childCount; ++i)
+        {
+            DinoVisualizer dv = root.GetChild(i).GetComponent<DinoVisualizer>();
+            if (dv != null)
+            {
+                long tokenId = dv.attrsReader.Data.OwnerTokenId;
+                if (tokenId != 0)
+                {
+                    if (tokenId == ClientManager.Instance.TokenId)
+                    {
+                        myCount++;
+                    }
+                    else
+                    {
+                        enemyCount++;
+                    }
+                }
+            }
         }
     }
 #endregion
@@ -132,7 +190,7 @@ public class PanelCommandMenu : MonoBehaviour
 #region 操作
     public void SetEnergy(int energy)
     {
-        _lbEnergy.text = energy.ToString();
+        _lbEnergy.text = "Energy:" + energy.ToString();
     }
 
     public void Show(bool show)

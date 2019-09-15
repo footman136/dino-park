@@ -30,7 +30,7 @@ MonoBehaviour:
   runSpeed: 6
   turnSpeed: 120
   hardTime: 40
-  foodStorage: 100
+  foodStorage: 150
   HungryRate: 0.5
   liveCost: 1
   appetite: 5

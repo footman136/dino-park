@@ -42,23 +42,31 @@ public class PlayFabLogin : MonoBehaviour
 
     private void OnRegisterFailure(PlayFabError error)
     {
-        UIManager.Instance.SystemTips("PlayFab 注册失败！ "+error.GenerateErrorReport(), PanelSystemTips.MessageType.Error);
+        string strError = "PlayFab 注册失败！ " + error.GenerateErrorReport();
+        //strError += "\nHttpCode <" + error.HttpCode + "> " + error.HttpStatus;
+        
+        UIManager.Instance.SystemTips(strError, PanelSystemTips.MessageType.Error);
         Debug.LogError("PlayFab Register failed! " + error.GenerateErrorReport());
         ClientManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.START); 
     }
 
     private void OnLoginSuccess(LoginResult result)
     {
+        // 用来识别本玩家的tokenId
         string idStr = result.EntityToken.Entity.Id;
-        long id = long.Parse(idStr,NumberStyles.HexNumber);
-        UIManager.Instance.SystemTips("PlayFab 登录成功！ <" + idStr +"> <" + id + ">", PanelSystemTips.MessageType.Success);
+        long tokenId = long.Parse(idStr,NumberStyles.HexNumber);
+        ClientManager.Instance.TokenId = tokenId;
+        UIManager.Instance.SystemTips("PlayFab 登录成功！ <" + idStr +"> <" + tokenId + ">", PanelSystemTips.MessageType.Success);
         ClientManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.CONNECTING); 
     }
 
     private void OnLoginFailure(PlayFabError error)
     {
-        UIManager.Instance.SystemTips("PlayFab 登录失败！ "+error.GenerateErrorReport(), PanelSystemTips.MessageType.Error);
-        Debug.LogError("PlayFab : login failed:" + error.GenerateErrorReport());
+        string strError = "PlayFab 登录失败！ (" + error.HttpCode + ") " + error.GenerateErrorReport();
+        //strError += "\nHttpCode <" + error.HttpCode + "> " + error.HttpStatus;
+        
+        UIManager.Instance.SystemTips(strError, PanelSystemTips.MessageType.Error);
+        Debug.LogError("PlayFab : login failed:" + error.GenerateErrorReport()+"  <"+error.ErrorDetails+">");
         ClientManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.START); 
     }
 }

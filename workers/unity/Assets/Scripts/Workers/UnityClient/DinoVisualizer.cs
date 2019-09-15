@@ -216,9 +216,9 @@ public class DinoVisualizer : MonoBehaviour
         origin = attrsReader.Data.OriginPosition.ToUnityVector();
         
         // 修改模型颜色
-        if (attrsReader.Data.OwnEntityId != 0)
+        if (attrsReader.Data.OwnerTokenId != 0)
         {
-            if (attrsReader.Data.OwnEntityId == ClientManager.Instance.Player.Id.Id)
+            if (attrsReader.Data.OwnerTokenId == ClientManager.Instance.TokenId)
             {
                 var renderer = GetComponentInChildren<Renderer>();
                 if (renderer != null)

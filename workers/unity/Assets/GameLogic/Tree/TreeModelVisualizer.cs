@@ -23,6 +23,7 @@ namespace Assets.Gamelogic.Tree
         [SerializeField] private Mesh[] meshes;
 
         [SerializeField] private TreeFSMState _state;
+        public TreeStateReader CurrentState { get { return treeState; } }
 
         private void OnEnable()
         {
