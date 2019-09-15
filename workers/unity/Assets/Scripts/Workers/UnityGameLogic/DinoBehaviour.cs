@@ -478,8 +478,16 @@ public class DinoBehaviour : MonoBehaviour
                 continue;
             }
 
+            // 如果太饿了，嗅觉会增加一倍的距离
+            float scent = ScriptableAnimalStats.scent;
+            _curFood = attrsWriter.Data.CurrentFood;
+            if (_curFood / attrsWriter.Data.MaxFood < ScriptableAnimalStats.HungryRate)
+            {
+                scent *= 2;
+            }
+
             float dist = Vector3.Distance(transform.position, animal.transform.position);
-            if (dist > ScriptableAnimalStats.scent)
+            if (dist > scent)
             {
                 continue;
             }
@@ -490,7 +498,7 @@ public class DinoBehaviour : MonoBehaviour
             }
 
             // 为了防止恐龙扎堆寻找食物，如果猎物距离很近，就有四分之一的概率机找
-            if (dist < ScriptableAnimalStats.scent / 2)
+            if (dist < scent / 2)
             {
                 if (Random.Range(1, 4) == 1)
                 {
@@ -523,7 +531,7 @@ public class DinoBehaviour : MonoBehaviour
         if (stateMachine.CurrentState == DinoAiFSMState.StateEnum.LOOK_FOR_FOOD)
             return true;
         _curFood = attrsWriter.Data.CurrentFood;
-        if (_curFood / ScriptableAnimalStats.foodStorage >= ScriptableAnimalStats.HungryRate)
+        if (_curFood / attrsWriter.Data.MaxFood >= ScriptableAnimalStats.HungryRate)
         { // 不饿
             return false;
         }
@@ -612,7 +620,7 @@ public class DinoBehaviour : MonoBehaviour
             return false;
         }
         _curFood = attrsWriter.Data.CurrentFood;
-        if (_curFood / ScriptableAnimalStats.foodStorage < ScriptableAnimalStats.hatchRate)
+        if (_curFood / attrsWriter.Data.MaxFood < ScriptableAnimalStats.hatchRate)
         { // 粮食储备不够，不能下蛋
             return false;
         }
