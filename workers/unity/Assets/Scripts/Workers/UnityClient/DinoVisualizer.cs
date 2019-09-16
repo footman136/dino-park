@@ -33,7 +33,7 @@ public class DinoVisualizer : MonoBehaviour
     [Space(), Header("AI"), Space(5)]
     [SerializeField, Tooltip("This specific dino stats asset, create a new one from the asset menu under (LowPolyAnimals/NewAnimalStats)")]
     AnimalStats ScriptableAnimalStats;
-    [SerializeField] private Vector3 targetPosition;
+    [SerializeField] private Vector3 _targetPosition;
     [SerializeField] private float distance;
 
     [Space(), Header("Attributes"), Space(5)]
@@ -54,6 +54,7 @@ public class DinoVisualizer : MonoBehaviour
     private Vector3 origin;
 
     private Vector3 _originScale;
+    private Coroutine lookAtCoroutine;
     
     
     void Awake()
@@ -101,7 +102,7 @@ public class DinoVisualizer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distance = Vector3.Distance(transform.position, targetPosition);
+        distance = Vector3.Distance(transform.position, _targetPosition);
     }
 
     void OnEnable()
@@ -120,22 +121,38 @@ public class DinoVisualizer : MonoBehaviour
 
     void OnAiDataChanged(DinoAiData.Update update)
     {
+        DinoAiFSMState.StateEnum newAiState = _currentAiState;
         if (update.CurrentAiState.HasValue)
         {
-            _currentAiState = update.CurrentAiState.Value;
+            newAiState = update.CurrentAiState.Value;
         }
 
+        Vector3 newPosition = _targetPosition;
         if (update.TargetPosition.HasValue && update.TargetPosition.Value.ToUnityVector() != DinoStateMachine.InvalidPosition)
         {
-            targetPosition = update.TargetPosition.Value.ToUnityVector();
+            newPosition = update.TargetPosition.Value.ToUnityVector();
         }
         else
         {
-            targetPosition = transform.position;
+            newPosition = transform.position;
         }
+
+        // 状态重复，不执行
+        if (newAiState == _currentAiState && newPosition == _targetPosition)
+        {
+            Debug.LogWarning("DinoVisualizer - duplicate AI state : " + newAiState);
+            return;
+        }
+
         navMeshAgent.speed = 0;
-        StopCoroutine("TurnToLookAtTarget");
-        
+        if (lookAtCoroutine != null && newAiState != _currentAiState)
+        { // 状态不同的时候才需要停止携程，防止同一个状态下，动画发生抖动（不停地进行【转向】/【停止转向】）
+            StopCoroutine(lookAtCoroutine);
+        }
+
+        _currentAiState = newAiState;
+        _targetPosition = newPosition;
+
         int aniState = 0;
         switch (_currentAiState)
         {
@@ -149,12 +166,11 @@ public class DinoVisualizer : MonoBehaviour
                 aniState = 0;
                 break;
             case DinoAiFSMState.StateEnum.WANDER:
-                targetPosition = targetPosition;
                 navMeshAgent.speed = ScriptableAnimalStats.moveSpeed;
                 aniState = 1;
                 break;
             case DinoAiFSMState.StateEnum.EAT:
-                //StartCoroutine(TurnToLookAtTarget(targetPosition));
+                lookAtCoroutine = StartCoroutine(TurnToLookAtTarget(_targetPosition));
                 aniState = 2;
                 break;
             case DinoAiFSMState.StateEnum.RUN_AWAY:
@@ -167,7 +183,7 @@ public class DinoVisualizer : MonoBehaviour
                 break;
             case DinoAiFSMState.StateEnum.ATTACK:
                 aniState = 4;
-                //StartCoroutine(TurnToLookAtTarget(targetPosition));
+                lookAtCoroutine = StartCoroutine(TurnToLookAtTarget(_targetPosition));
                 break;
             case DinoAiFSMState.StateEnum.DEAD:
                 aniState = 5;
@@ -187,14 +203,8 @@ public class DinoVisualizer : MonoBehaviour
                 break;
         }
 
-        navMeshAgent.SetDestination(targetPosition);
+        navMeshAgent.SetDestination(_targetPosition);
         PlayAnimation(aniState);
-
-//        StopCoroutine("TurnToLookAtTarget");
-//        if (targetPosition != transform.position)
-//        {
-//            StartCoroutine(TurnToLookAtTarget(targetPosition));
-//        }
 
         if (_currentAiState == DinoAiFSMState.StateEnum.VANISH)
         {
@@ -267,14 +277,14 @@ public class DinoVisualizer : MonoBehaviour
         animator.SetBool(dinoStates[inState].animationBool, true);
     }
 
-    private IEnumerator TurnToLookAtTarget(Vector3 targetPosition)
+    private IEnumerator TurnToLookAtTarget(Vector3 tPosition)
     {
-        float dist = Vector3.Distance(transform.position, targetPosition);
+        float dist = Vector3.Distance(transform.position, tPosition);
         if (dist < 0.1f)
             yield break;
         while (true)
         {
-            Vector3 direction = targetPosition - transform.position;
+            Vector3 direction = tPosition - transform.position;
 
             if (Vector3.Angle(direction, transform.forward) < 1f)
             {
@@ -308,10 +318,7 @@ public class DinoVisualizer : MonoBehaviour
     
     public void DestroyDino()
     {
-//        var linkentity = GetComponent<LinkedEntityComponent>();
-//        var request = new WorldCommands.DeleteEntity.Request(linkentity.EntityId);
-//        worldCommandSender.SendDeleteEntityCommand(request);
-//        //Debug.Log("Server - destroy an egg:"+_entityId);
+        // 客户端貌似不能发送WorldCommand
         Destroy(gameObject);
     }
 }

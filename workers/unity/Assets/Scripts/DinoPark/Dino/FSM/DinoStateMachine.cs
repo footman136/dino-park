@@ -142,7 +142,7 @@ public class DinoStateMachine : FiniteStateMachine<DinoAiFSMState.StateEnum>
     {
         if (IsValidTransition(newState))
         {
-            var oldState = Data.CurrentAiState; 
+            var oldState = Data.CurrentAiState;
             Data.CurrentAiState = newState;
             Data.TargetEntityId = targetEntityId;
             Data.TargetPosition = targetPosition.ToVector3f();

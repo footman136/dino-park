@@ -56,8 +56,9 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Dino_Brachio_PrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.BRACHIO]);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.BRACHIO]) as GameObject;
                 entityGameObject.name = SimulationSettings.Dino_Brachio_PrefabName + "Client (ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
+                entityGameObject.transform.position = new Vector3(0, -100, 0);
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer Brachiosaurus GameObject created<"+entity.SpatialOSEntityId+">");
             }
@@ -65,8 +66,9 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Dino_TRex_PrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.TREX]);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.TREX]) as GameObject;
                 entityGameObject.name = SimulationSettings.Dino_TRex_PrefabName + "Client (ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
+                entityGameObject.transform.position = new Vector3(0, -100, 0);
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - A Dinosauer T-Rex GameObject created<"+entity.SpatialOSEntityId+">");
             }
@@ -74,8 +76,9 @@ namespace DinoPark
             {
                 var pathPrefab = $"Prefabs/{_WorkerType}/" + SimulationSettings.Egg_PrefabName;
                 var prefab = Resources.Load(pathPrefab);
-                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.EGG]);
+                var entityGameObject = UnityEngine.Object.Instantiate(prefab, AnimalManager.Instance.Roots[(int)AnimalManager.ANIMAL_TYPE.EGG]) as GameObject;
                 entityGameObject.name = SimulationSettings.Egg_PrefabName + "Client (ID:" + entity.SpatialOSEntityId + ", Worker: " + _WorkerType + ")";
+                entityGameObject.transform.position = new Vector3(0, -100, 0);
                 linker.LinkGameObjectToSpatialOSEntity(entity.SpatialOSEntityId, (GameObject)entityGameObject);
                 //Debug.Log("EntityGameObjectCreator OnEntityCreated - An Egg GameObject created");
             }

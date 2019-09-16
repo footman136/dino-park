@@ -101,8 +101,18 @@ public class DinoBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
+    private float TIME_DELAY = 0.03f;
+    private float timeNow = 0;
     void Update()
     {
+        timeNow += Time.deltaTime;
+        if (timeNow < TIME_DELAY)
+        {
+            return;
+        }
+
+        timeNow = 0;
+        
         stateMachine.Tick();
         
         _currentAiState = stateMachine.CurrentState;
@@ -444,8 +454,7 @@ public class DinoBehaviour : MonoBehaviour
         if (stateMachine.CurrentState == DinoAiFSMState.StateEnum.CHASE) // 已经处于本状态，继续
             return true;
         
-        float distMin = float.MaxValue;
-        DinoBehaviour prey = null;
+        List<DinoBehaviour> preyList = new List<DinoBehaviour>();
         foreach(var iter in allAnimals)
         {
             var animal = iter.Value;
@@ -497,20 +506,15 @@ public class DinoBehaviour : MonoBehaviour
                 continue;
             }
 
-            // 为了防止恐龙扎堆寻找食物，如果猎物距离很近，就有四分之一的概率机找
-            if (dist < scent / 2)
-            {
-                if (Random.Range(1, 4) == 1)
-                {
-                    prey = animal;
-                    break;
-                }
-            }
-            if (dist < distMin)
-            {
-                distMin = dist;
-                prey = animal;
-            }
+            preyList.Add(animal);
+        }
+
+        // 收集范围内的所有目标，随机找一个作为最终目标
+        DinoBehaviour prey = null;
+        if (preyList.Count > 0)
+        {
+            int rand = Random.Range(0, preyList.Count);
+            prey = preyList[rand];
         }
 
         if (prey != null)
@@ -538,8 +542,7 @@ public class DinoBehaviour : MonoBehaviour
 
         if (ScriptableAnimalStats.vegetarian) // 素食主义者，吃树
         {
-            float distMin = float.MaxValue;
-            TreeBehaviour aTree = null;
+            List<TreeBehaviour> treeList = new List<TreeBehaviour>();
             foreach (var iter in TreeBehaviour.AllTrees)
             {
                 var tree = iter.Value;
@@ -553,14 +556,17 @@ public class DinoBehaviour : MonoBehaviour
                 {
                     continue;
                 }
-
-                if (dist < distMin)
-                {
-                    distMin = dist;
-                    aTree = tree;
-                }
+                treeList.Add(tree);
             }
 
+            // 收集范围内的所有目标，随机找一个作为最终目标
+            TreeBehaviour aTree = null;
+            if (treeList.Count > 0)
+            {
+                int rand = Random.Range(0, treeList.Count);
+                aTree = treeList[rand];
+            }
+            
             if (aTree != null)
             {
                 var targetPosition = aTree.transform.position;
@@ -573,8 +579,7 @@ public class DinoBehaviour : MonoBehaviour
         }
         else // 肉食主义者，吃尸体
         {
-            float distMin = float.MaxValue;
-            DinoBehaviour corpse = null;
+            List<DinoBehaviour> corpseList = new List<DinoBehaviour>();
             foreach (var iter in allAnimals)
             {
                 var animal = iter.Value;
@@ -587,14 +592,17 @@ public class DinoBehaviour : MonoBehaviour
                 {
                     continue;
                 }
-
-                if (dist < distMin)
-                {
-                    distMin = dist;
-                    corpse = animal;
-                }
+                corpseList.Add(animal);
             }
 
+            // 收集范围内的所有目标，随机找一个作为最终目标
+            DinoBehaviour corpse = null;
+            if (corpseList.Count > 0)
+            {
+                int rand = Random.Range(0, corpseList.Count);
+                corpse = corpseList[rand];
+            }
+            
             if (corpse != null)
             {
                 var targetPosition = corpse.transform.position;
@@ -822,6 +830,7 @@ public class DinoBehaviour : MonoBehaviour
     public void DestroyDino()
     {
         allAnimals.Remove(_entityId.Id);
+        transform.parent = null;
         var linkentity = GetComponent<LinkedEntityComponent>();
         var request = new WorldCommands.DeleteEntity.Request(linkentity.EntityId);
         worldCommandSender.SendDeleteEntityCommand(request);

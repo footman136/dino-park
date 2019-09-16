@@ -50,7 +50,7 @@ namespace Assets.Gamelogic.Core
         public static float TreeJitter = 9.0f;
         
         // Component Updates
-        public static int TransformUpdatesToSkipBetweenSends = 5;
+        public static int TransformUpdatesToSkipBetweenSends = 120;
         public static float AngleQuantisationFactor = 2f;
         
         // Fire

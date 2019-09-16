@@ -6,7 +6,7 @@ using Improbable.Gdk.Subscriptions; // Require, WorkerType
 
 namespace Assets.Gamelogic.Core
 {
-    public class DirectTransformVisualizer : MonoBehaviour
+    public class TransformVisualizer : MonoBehaviour
     {
         [Require] private PositionReader positionComponent;
         [Require] private TransformComponentReader transformComponent;

@@ -15,38 +15,21 @@ namespace Assets.Gamelogic.Core
         [Require] private TransformComponentWriter transformComponent;
 
         private int fixedFramesSinceLastUpdate = 0;
+        private float _distanceEpsilon = 20.0f;
+        private float _rotateEpsilon = 10.0f;
 
-//        // 传送门
-//        public void TriggerTeleport(Vector3 position, uint rotation)
-//        {
-//            transform.position = position;
-//            var update = new Position.Update()
-//            {
-//                Coords = position.ToCoordinates()
-//            };
-//            positionComponent.SendUpdate(update);
-//
-//            transform.rotation = Quaternion.Euler(0, rotation, 0); // 沿Y轴旋转
-//            var update2 = new TransformComponent.Update()
-//            {
-//                Rotation = rotation
-//            };
-//            transformComponent.SendUpdate(update2);
-//            
-//            var tevent = new TeleportEvent {TargetPosition = position.ToCoordinates()}; // 事件用此方法传递
-//            transformComponent.SendTeleportEventEvent(tevent);
-//        }
-
-        private void OnEnable()
-        {
-//            var newPosition = positionComponent.Data.Coords.ToVector3();
-//            var newRotation = transformComponent.Data.Rotation; // 沿Y轴旋转
-//            transform.position = newPosition;
-//            transform.rotation = Quaternion.EulerAngles(0, newRotation, 0);
-        }
-
+        private float TIME_DELAY = 0.03f;
+        private float timeNow = 0;
         private void FixedUpdate()
         {
+            timeNow += Time.deltaTime;
+            if (timeNow < TIME_DELAY)
+            {
+                return;
+            }
+
+            timeNow = 0;
+            
             var newPosition = transform.position.ToCoordinates();
             var newRotation = QuantizationUtils.QuantizeAngle(transform.rotation.eulerAngles.y); // 沿Y轴旋转
             fixedFramesSinceLastUpdate++;
@@ -68,12 +51,12 @@ namespace Assets.Gamelogic.Core
 
         private bool PositionNeedsUpdate(Coordinates newPosition)
         {
-            return !MathUtils.CompareEqualityEpsilon(newPosition.ToVector3(), positionComponent.Data.Coords.ToVector3());
+            return MathUtils.SqrDistance(newPosition.ToVector3(), positionComponent.Data.Coords.ToVector3()) > _distanceEpsilon;
         }
 
         private bool RotationNeedsUpdate(float newRotation)
         {
-            return !MathUtils.CompareEqualityEpsilon(newRotation, transformComponent.Data.Rotation);
+            return (newRotation - transformComponent.Data.Rotation) > _rotateEpsilon;
         }
     }
 }

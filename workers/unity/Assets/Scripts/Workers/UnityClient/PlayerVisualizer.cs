@@ -77,8 +77,8 @@ public class PlayerVisualizer : MonoBehaviour
         }
         if(!string.IsNullOrEmpty(response.Message))
         {
-            Debug.LogError("PlayerVisualizer - Lay Egg failed! " + response.Message);
-            UIManager.Instance.SystemTips(response.Message, PanelSystemTips.MessageType.Error);
+            Debug.LogWarning("PlayerVisualizer - Lay Egg failed! " + response.Message);
+            UIManager.Instance.SystemTips(response.Message, PanelSystemTips.MessageType.Warning);
         }
     }
 }

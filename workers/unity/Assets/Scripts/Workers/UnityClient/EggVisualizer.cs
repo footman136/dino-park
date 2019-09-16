@@ -93,16 +93,15 @@ public class EggVisualizer : MonoBehaviour
                     break;
             }
         }
-        Debug.Log("EggVisualizer data changed!");
     }
     private IEnumerator Vanishing()
     {
         while (true)
         {
-            Vector3 newpos = transform.position;
-            newpos.y -= 0.1f;
-            transform.position = newpos;
-            if (newpos.y <= -5f)
+            Vector3 newPos = transform.position;
+            newPos.y -= 0.1f;
+            transform.position = newPos;
+            if (newPos.y <= -5f)
             {
                 DestroyEgg();
                 yield break;
@@ -113,10 +112,6 @@ public class EggVisualizer : MonoBehaviour
     }
     public void DestroyEgg()
     {
-//        var linkentity = GetComponent<LinkedEntityComponent>();
-//        var request = new WorldCommands.DeleteEntity.Request(linkentity.EntityId);
-//        worldCommandSender.SendDeleteEntityCommand(request);
-//        //Debug.Log("Server - destroy an egg:"+_entityId);
         // 客户端貌似不能发送WorldCommand
         Destroy(gameObject);
     }

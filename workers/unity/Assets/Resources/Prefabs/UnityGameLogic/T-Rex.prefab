@@ -2678,9 +2678,10 @@ GameObject:
   - component: {fileID: 95553055873237688}
   - component: {fileID: 195688642582221476}
   - component: {fileID: 3936095597779742152}
-  - component: {fileID: -8892105542426237442}
+  - component: {fileID: 7240096204989105370}
+  - component: {fileID: -8424485476827224776}
   m_Layer: 0
-  m_Name: DinoTRex
+  m_Name: T-Rex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2764,13 +2765,27 @@ MonoBehaviour:
   _id: 0
   _stateCount: 0
   _deltaTime: 0
-  _isDead: 0
-  _currentFood: 0
-  _currentHealth: 0
-  _life: 0
+  _age: 0
+  _curFood: 0
+  _maxFood: 0
+  _liveCost: 0
+  _curHealth: 0
+  _maxHealth: 0
   _lastHatchTime: 0
   logChanges: 0
---- !u!114 &-8892105542426237442
+--- !u!114 &7240096204989105370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962935449849492}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2269cf7f1aa7f04dbd3e0d637ec0185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8424485476827224776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
