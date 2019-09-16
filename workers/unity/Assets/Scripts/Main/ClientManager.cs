@@ -23,6 +23,8 @@ public class ClientManager : MonoBehaviour
     
     // 当前本玩家的tokenId
     public long TokenId { get; set; }
+    // 当前本玩家的账号名（显示用）
+    public string Account { get; set; }
 
     public static ClientManager Instance { private set; get; }
 

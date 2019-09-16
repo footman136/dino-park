@@ -102,7 +102,11 @@ public class PanelCommandMenu : MonoBehaviour
             int countOld = _counts[i];
             int countNow = AnimalManager.Instance.Roots[i].childCount;
             string msgCount = "";
-            if (i == (int) AnimalManager.ANIMAL_TYPE.TREE)
+            if (i == (int) AnimalManager.ANIMAL_TYPE.PLAYER)
+            {
+                msgCount = $"【{ClientManager.Instance.Account}】";
+            }
+            else if (i == (int) AnimalManager.ANIMAL_TYPE.TREE)
             {
                 countNow = CalcTreeAliveCount(AnimalManager.Instance.Roots[i]);
                 msgCount = countNow.ToString();

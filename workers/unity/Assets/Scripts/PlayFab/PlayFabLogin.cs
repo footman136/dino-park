@@ -8,6 +8,7 @@ using PlayFab.ClientModels;
 
 public class PlayFabLogin : MonoBehaviour
 {
+    private string _account;
     public void Start()
     {
         //Note: Setting title Id here can be skipped if you have set the value in Editor Extensions already.
@@ -28,6 +29,7 @@ public class PlayFabLogin : MonoBehaviour
     public void Login(string account, string password)
     {
         //var request = new LoginWithCustomIDRequest { CustomId = "GettingStartedGuide", CreateAccount = true};
+        _account = account;
         var request = new LoginWithPlayFabRequest { Username = account, Password = password};
         PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSuccess, OnLoginFailure);
         Debug.Log("PlayFab : Login... <" + account + "," + password + ">");
@@ -56,6 +58,7 @@ public class PlayFabLogin : MonoBehaviour
         string idStr = result.EntityToken.Entity.Id;
         long tokenId = long.Parse(idStr,NumberStyles.HexNumber);
         ClientManager.Instance.TokenId = tokenId;
+        ClientManager.Instance.Account = _account;
         UIManager.Instance.SystemTips("PlayFab 登录成功！ <" + idStr +"> <" + tokenId + ">", PanelSystemTips.MessageType.Success);
         ClientManager.Instance.StateMachine.TriggerTransition(ConnectionFSMStateEnum.StateEnum.CONNECTING); 
     }
