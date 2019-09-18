@@ -322,15 +322,6 @@
     <Compile Include="Assets\Standard Assets\Utility\TimedObjectDestructor.cs" />
     <Compile Include="Assets\Standard Assets\Utility\WaypointCircuit.cs" />
     <Compile Include="Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
-    <Compile Include="Assets\XCharts\Demo\Editor\ChartModuleDrawer.cs" />
-    <Compile Include="Assets\XCharts\Demo\Editor\DemoEditor.cs" />
-    <Compile Include="Assets\XCharts\Demo\Scripts\Demo.cs" />
-    <Compile Include="Assets\XCharts\Demo\Scripts\Demo_Dynamic.cs" />
-    <Compile Include="Assets\XCharts\Demo\Scripts\Demo_LargeData.cs" />
-    <Compile Include="Assets\XCharts\Demo\Scripts\Demo_PieChart.cs" />
-    <Compile Include="Assets\XCharts\Demo\Scripts\Demo10_LineSimple.cs" />
-    <Compile Include="Assets\XCharts\Demo\Scripts\Demo11_AddSinCurve.cs" />
-    <Compile Include="Assets\XCharts\Demo\Scripts\Demo50_Scatter.cs" />
     <Compile Include="Assets\XCharts\Scripts\UI\BarChart.cs" />
     <Compile Include="Assets\XCharts\Scripts\UI\Component\Axis.cs" />
     <Compile Include="Assets\XCharts\Scripts\UI\Component\DataZoom.cs" />

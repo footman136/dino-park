@@ -101,19 +101,19 @@ public class DinoBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    private float TIME_DELAY = 0.03f;
-    private float timeNow = 0;
+//    private float TIME_DELAY = 0.03f;
+//    private float timeNow = 0;
     void Update()
     {
-        timeNow += Time.deltaTime;
-        if (timeNow < TIME_DELAY)
-        {
-            return;
-        }
-
-        timeNow = 0;
-        
         stateMachine.Tick();
+//        timeNow += Time.deltaTime;
+//        if (timeNow < TIME_DELAY)
+//        {
+//            return;
+//        }
+//
+//        timeNow = 0;
+        
         
         _currentAiState = stateMachine.CurrentState;
         _curFood = attrsWriter.Data.CurrentFood;

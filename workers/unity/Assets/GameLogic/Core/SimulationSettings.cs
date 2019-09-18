@@ -123,7 +123,7 @@ namespace Assets.Gamelogic.Core
 //                public static int HQStartingLumberjacksCount = 8; // 20
                 public static int HQStartingWizardsCount = 0;
         public static int HQStartingBrachioCount = 25; // 20
-        public static int HQStartingTRexCount = 8;
+        public static int HQStartingTRexCount = 0;
         public static int HQStartingEggBrachioCount = 1;
         public static int HQStartingEggTRexCount = 0;
 //                public static float DefaultHQBarracksSpawnRadius = 25f;
